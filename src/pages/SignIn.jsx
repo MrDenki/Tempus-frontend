@@ -1,5 +1,16 @@
-import RegistrationForm from "../components/Forms/SignUpForm";
+import SignInForm from "../components/Forms/SignInForm";
 
-const SignUp = () => <RegistrationForm />;
+const SignIn = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
 
-export default SignUp;
+    console.log({
+      email: data.get("email"),
+      password: data.get("password"),
+    });
+  };
+  return <SignInForm onSubmit={handleSubmit} />;
+};
+
+export default SignIn;
