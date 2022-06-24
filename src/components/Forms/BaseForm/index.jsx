@@ -8,7 +8,7 @@ import "./style.scss";
 const BaseForm = ({ title, children, onSubmit }) => {
   return (
     <Container maxWidth="xs" className="form">
-      <Card className="form__card" elevation={3}>
+      <Card className="form__card" elevation={5}>
         <CardContent>
           <Title className="form__title" variant="h5">
             {title}
