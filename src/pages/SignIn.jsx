@@ -1,7 +1,5 @@
-import RegistrationForm from '../components/Forms/SignUpForm';
+import RegistrationForm from "../components/Forms/SignUpForm";
 
-const SignUp = () => (
-  <RegistrationForm />
-)
+const SignUp = () => <RegistrationForm />;
 
-export default SignUp
+export default SignUp;

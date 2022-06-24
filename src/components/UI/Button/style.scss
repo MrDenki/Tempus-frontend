@@ -1,21 +1,21 @@
 @import "../../../assets/variables.scss";
 
-.button {
-  color: $text-color !important;
+// .button {
+//   color: $text-color !important;
 
-  border-color: $darken-secondary-color !important;
-  border-width: 2px !important;
+//   border-color: $darken-secondary-color !important;
+//   border-width: 2px !important;
 
-  &_rounded {
-    border-radius: 20px !important;
-  }
+//   &_rounded {
+//     border-radius: 20px !important;
+//   }
 
-  &_text {
-    border: none !important;
-  }
-}
+//   &_text {
+//     border: none !important;
+//   }
+// }
 
-.button:hover {
-  color: $darken-text-color !important;
-  background: $darken-secondary-color !important;
-}
+// .button:hover {
+//   color: $darken-text-color !important;
+//   background: $darken-secondary-color !important;
+// }

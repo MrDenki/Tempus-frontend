@@ -1,10 +1,23 @@
+@import './variables.scss';
 
-html, body {
+html,
+body {
   height: 99%;
+  font-family: $font-family
 }
 
 #root {
   height: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: $secondary-color;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: $darken-secondary-color;
 }
 
 .wrapper {
@@ -22,3 +35,12 @@ html, body {
   display: flex;
   align-items: center;
 }
+
+// .MuiOutlinedInput-root fieldset  {
+//   border-color: $secondary-color !important;
+// }
+
+// .MuiOutlinedInput-root.Mui-focused fieldset  {
+//   border-color: $darken-secondary-color !important;
+// }
+
