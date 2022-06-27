@@ -1,91 +1,115 @@
-import * as React from "react";
-import Avatar from "@mui/material/Avatar";
-import TextField from "@mui/material/TextField";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Link } from "react-router-dom";
+import Grid from "@mui/material/Grid";
 import Button from "@/components/UI/Button";
-import { Title } from "../Typography";
-import Checkbox from "@mui/material/Checkbox";
-import BaseForm from "./BaseForm";
+import TextField from "@/components/UI/TextField";
+import BaseForm from "@/components/Forms/BaseForm";
+import { useForm, useError } from "@/hooks";
+import {
+  required,
+  validEmail,
+  minLength,
+  maxLength,
+  validPassword,
+} from "@/common/rules";
 
-// import './style.scss'
+const SignInForm = ({ onSubmit, isLoading }) => {
+  const form = useForm({
+    email: {
+      validators: {
+        required,
+        validEmail,
+      },
+    },
+    password: {
+      validators: {
+        required,
+        validPassword,
+        minLength: minLength(3),
+        maxLength: maxLength(15),
+      },
+    },
+  });
 
-// const SignInForm = () => {
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     const data = new FormData(event.currentTarget);
-//     // eslint-disable-next-line no-console
-//     console.log({
-//       email: data.get("email"),
-//       password: data.get("password"),
-//     });
-//   };
+  const [emailError, emailErrorMessage] = useError(form.email);
+  const [passwordError, passwordErrorMessage] = useError(form.password);
 
-const SignInForm = ({ onSubmit }) => {
-  const validation = () => {};
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (!form.valid()) {
+      form.touchFields();
+      return;
+    }
+
+    const data = new FormData(event.currentTarget);
+
+    const credentials = {
+      email: data.get("email"),
+      password: data.get("password"),
+    };
+
+    onSubmit(credentials);
+  };
 
   return (
-    <BaseForm onSubmit={onSubmit}>
-      <Grid container>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
-          <Avatar className="form__avatar" sx={{ mb: 1 }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Grid item xs={12} sx={{ mb: 1 }}>
-            <Title className="form__title" variant="h5">
-              Sign In
-            </Title>
-          </Grid>
+    <BaseForm title="Sign In" onSubmit={handleSubmit}>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            className="form__input"
+            label="Email Address"
+            name="email"
+            disabled={isLoading}
+            error={emailError}
+            helperText={emailErrorMessage}
+            value={form.email.value}
+            onChange={(e) => form.email.onChange(e.target.value)}
+            onBlur={form.email.blur}
+          />
+        </Grid>
 
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <TextField
-                className="form__input"
-                required
-                fullWidth
-                label="Email Address"
-                name="email"
-              />
-            </Grid>
+        <Grid item xs={12}>
+          <TextField
+            className="form__input"
+            label="Password"
+            name="password"
+            disabled={isLoading}
+            error={passwordError}
+            type="password"
+            helperText={passwordErrorMessage}
+            value={form.password.value}
+            onChange={(e) => form.password.onChange(e.target.value)}
+            onBlur={form.password.blur}
+          />
+        </Grid>
 
-            <Grid item xs={12}>
-              <TextField
-                className="form__input"
-                required
-                fullWidth
-                type="password"
-                label="Password"
-                name="password"
-              />
-            </Grid>
-          </Grid>
-          <Grid justifyContent="left" sx={{ mt: 1 }}>
-            <Checkbox className="form__checkbox" type="checkbox"></Checkbox>
-            Remember me
-          </Grid>
+        {/* <Grid item xs={12}>
+          <div className="form__checkbox">
+            <Checkbox
+              id="rememberMe"
+              name="rememberMe"
+              type="checkbox"
+            ></Checkbox>
+            <label htmlFor="rememberMe">Remember me</label>
+          </div>
+        </Grid> */}
+
+        <Grid item xs={12}>
           <Button
             className="form__button"
             type="submit"
+            disabled={isLoading}
             fullWidth
-            sx={{ p: 1 }}
           >
             Sign In
           </Button>
+        </Grid>
 
-          <Grid item xs={12} sx={{ mt: 1 }}>
-            <Link to="/sign-up" className="form__link">
-              <div>Don't have an account? Sign up</div>
-            </Link>
-          </Grid>
-        </Box>
+        <Grid item xs={12}>
+          <Link to="/sign-up" className="form__link">
+            <div>Don't have an account? Sign up</div>
+          </Link>
+        </Grid>
       </Grid>
     </BaseForm>
   );

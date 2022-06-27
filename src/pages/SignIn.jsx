@@ -1,16 +1,44 @@
-import SignInForm from "../components/Forms/SignInForm";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { signIn, clearSignInError } from "@/store/slices/authSlice";
+import Alert from "@/components/UI/Alert";
+import SignInForm from "@/components/Forms/SignInForm";
 
 const SignIn = () => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const data = new FormData(event.currentTarget);
+  const dispatch = useDispatch();
+  const router = useNavigate();
+  const [openAlert, setOpenAlert] = useState(false);
+  const { isLoading, isAuth, signInError } = useSelector((state) => state.auth);
 
-    console.log({
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+  useEffect(() => {
+    if (signInError) setOpenAlert(true);
+    else setOpenAlert(false);
+  }, [signInError]);
+
+  useEffect(() => {
+    if (isAuth) router("/");
+  }, [isAuth]);
+
+  const handleSubmit = (credentials) => {
+    dispatch(signIn(credentials));
   };
-  return <SignInForm onSubmit={handleSubmit} />;
+
+  const closeAlert = () => {
+    dispatch(clearSignInError());
+  };
+
+  return (
+    <>
+      <SignInForm onSubmit={handleSubmit} isLoading={isLoading} />
+      <Alert
+        title="Sign in error"
+        message={signInError}
+        open={openAlert}
+        onClose={closeAlert}
+      />
+    </>
+  );
 };
 
 export default SignIn;

@@ -1,15 +1,23 @@
-import { instance } from "./instance";
+import instance from "./instance";
 
 export default class authService {
-  static async login(credentials) {
-    return instance.post("/login", credentials);
+  static async signIn(credentials) {
+    return instance.post("/auth/signIn", credentials);
   }
 
-  static async registration(credentials) {
-    return instance.post("/registration", credentials);
+  static async signUp(credentials) {
+    return instance.post("/auth/signUp", credentials);
   }
 
-  static async logout() {
-    return instance.post("/logout");
+  static async signOut() {
+    return instance.post("/auth/signOut");
+  }
+
+  static async refresh() {
+    return instance.get("/auth/refresh");
+  }
+
+  static async getCurrentUser() {
+    return instance.get("/user/currentUser")
   }
 }

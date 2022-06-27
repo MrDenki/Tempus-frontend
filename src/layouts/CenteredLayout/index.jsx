@@ -1,21 +1,14 @@
-import { Grid } from "@mui/material";
 import { Outlet } from "react-router-dom";
+import { Suspense } from "react";
+import Spiner from "@/components/Spiner";
 
 const CenteredLayout = () => (
-  // <Grid
-  //   component="main"
-  //   container
-  //   justifyContent="center"
-  //   alignContent="center"
-  // >
-  //   <Grid item xs={12}>
-  //     <Outlet />
-  //   </Grid>
-  // </Grid>
   <div className="wrapper">
     <div className="container">
       <div className="center-container">
-        <Outlet />
+        <Suspense fallback={<Spiner />}>
+          <Outlet />
+        </Suspense>
       </div>
     </div>
   </div>
