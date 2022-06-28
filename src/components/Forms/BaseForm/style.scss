@@ -1,0 +1,41 @@
+@import "@/assets/variables.scss";
+
+.form {
+  &__card {
+    padding: 15px;
+    border-radius: 15px !important;
+  }
+
+  &__title {
+    text-align: center;
+    font-weight: 400 !important;
+    // color: $secondary-color;
+    margin-bottom: 30px;
+  }
+
+  &__input {
+    margin-top: -7px;
+  }
+
+  &__button {
+    padding: 10px !important;
+    margin-top: -10px !important;
+  }
+
+  &__link {
+    text-align: center;
+  }
+
+  &__checkbox {
+    margin-top: -25px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__checkbox label:hover {
+    cursor: pointer;
+    user-select: none;
+  }
+}

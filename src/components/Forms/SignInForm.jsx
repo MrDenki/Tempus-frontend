@@ -13,22 +13,8 @@ import {
 } from "@/common/rules";
 import { length } from "@/common/constants";
 
-const SignUpForm = ({ onSubmit, isLoading }) => {
+const SignInForm = ({ onSubmit, isLoading }) => {
   const form = useForm({
-    firstName: {
-      validators: {
-        required,
-        minLength: minLength(length.firstNameMinLength),
-        maxLength: maxLength(length.firstNameMaxLength),
-      },
-    },
-    lastName: {
-      validators: {
-        required,
-        minLength: minLength(length.lastNameMinLength),
-        maxLength: maxLength(length.lastNameMaxLength),
-      },
-    },
     email: {
       validators: {
         required,
@@ -45,8 +31,6 @@ const SignUpForm = ({ onSubmit, isLoading }) => {
     },
   });
 
-  const [firstNameError, firstNameErrorMessage] = useError(form.firstName);
-  const [lastNameError, lastNameErrorMessage] = useError(form.lastName);
   const [emailError, emailErrorMessage] = useError(form.email);
   const [passwordError, passwordErrorMessage] = useError(form.password);
 
@@ -61,8 +45,6 @@ const SignUpForm = ({ onSubmit, isLoading }) => {
     const data = new FormData(event.currentTarget);
 
     const credentials = {
-      firstName: data.get("firstName"),
-      lastName: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
     };
@@ -71,38 +53,8 @@ const SignUpForm = ({ onSubmit, isLoading }) => {
   };
 
   return (
-    <BaseForm title="Sign Up" onSubmit={handleSubmit}>
+    <BaseForm title="Sign In" onSubmit={handleSubmit}>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            className="form__input"
-            fullWidth
-            label="First Name"
-            name="firstName"
-            disabled={isLoading}
-            error={firstNameError}
-            helperText={firstNameErrorMessage}
-            value={form.firstName.value}
-            onChange={(e) => form.firstName.onChange(e.target.value)}
-            onBlur={form.firstName.blur}
-          />
-        </Grid>
-
-        <Grid item xs={12} sm={6}>
-          <TextField
-            className="form__input"
-            fullWidth
-            label="Last Name"
-            name="lastName"
-            disabled={isLoading}
-            error={lastNameError}
-            helperText={lastNameErrorMessage}
-            value={form.lastName.value}
-            onChange={(e) => form.lastName.onChange(e.target.value)}
-            onBlur={form.lastName.blur}
-          />
-        </Grid>
-
         <Grid item xs={12}>
           <TextField
             className="form__input"
@@ -132,20 +84,31 @@ const SignUpForm = ({ onSubmit, isLoading }) => {
           />
         </Grid>
 
-        <Grid item xs={12} flex>
+        {/* <Grid item xs={12}>
+          <div className="form__checkbox">
+            <Checkbox
+              id="rememberMe"
+              name="rememberMe"
+              type="checkbox"
+            ></Checkbox>
+            <label htmlFor="rememberMe">Remember me</label>
+          </div>
+        </Grid> */}
+
+        <Grid item xs={12}>
           <Button
             className="form__button"
             type="submit"
             disabled={isLoading}
             fullWidth
           >
-            Sign Up
+            Sign In
           </Button>
         </Grid>
 
         <Grid item xs={12}>
-          <Link to="/sign-in" className="form__link">
-            <div>Already have an account? Sign in</div>
+          <Link to="/sign-up" className="form__link">
+            <div>Don't have an account? Sign up</div>
           </Link>
         </Grid>
       </Grid>
@@ -153,4 +116,4 @@ const SignUpForm = ({ onSubmit, isLoading }) => {
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

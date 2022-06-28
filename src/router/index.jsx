@@ -1,53 +1,49 @@
-import { Routes, Route, Navigate, Outlet } from "react-router-dom";
-
+import { lazy } from "react";
+import { Navigate, Outlet } from "react-router-dom";
 import DefayultLayout from "@/layouts/DefayultLayout";
 import CenteredLayout from "@/layouts/CenteredLayout";
 
-import SignUp from "@/pages/SignUp";
-import SignIn from "@/pages/SignIn";
-import NoMatch from "@/pages/NoMatch";
+const Main = lazy(() => import("@/pages/Main"));
+const SignUp = lazy(() => import("@/pages/SignUp"));
+const SignIn = lazy(() => import("@/pages/SignIn"));
+const NoMatch = lazy(() => import("@/pages/NoMatch"));
+const UserList = lazy(() => import("@/pages/UserList"));
 
-function PrivateRoute() {
-  // const {user_id, session_key}=store.getState().logReducer;
-  // store.dispatch(login_check({user_id: user_id, session_key: session_key}))
-  // const {logged_in}=store.getState().logReducer;
-  // if (!logged_in) {
-  //     browserHistory.push('#/login');
-  //     hashHistory.push('/login');
-  // }
-
-  const auth = true;
-  return auth ? <Outlet /> : <Navigate to="/sign-in" />;
-}
-
-// const PrivateRoute = ({ ...rest }) => <Route {...rest} render={requireLogin} />;
-
-const AppRouter = () => {
-  const isAuth = false;
-
-  return (
-    <Routes>
-      <Route path="/" element={<DefayultLayout />}>
-        <Route element={<CenteredLayout />}>
-          {/* <Route index element={<Main />} /> */}
-          <Route path="sign-in" element={<SignIn />} />
-          <Route path="/" element={<PrivateRoute />}>
-          <Route path="sign-up" element={<SignUp />} />
-            {/* <Route path="dashboard" element={<Dashboard />} /> */}
-          </Route>
-          <Route path="*" element={<NoMatch />} />
-        </Route>
-      </Route>
-    </Routes>
-  );
+const PrivateRoute = () => {
+  const { isAuth } = useSelector((state) => state.auth);
+  return isAuth ? <Outlet /> : <Navigate to="/" />;
 };
 
-export default AppRouter;
+const CheckAuht = () => {
+  const { isAuth } = useSelector((state) => state.auth);
+  return !isAuth ? <Outlet /> : <Navigate to="/" />;
+};
 
-// export const publicRoutes = [
-//   { path: "/sign-up", exact: true, component: <SignUp /> },
-// ];
+const routes = [
+  {
+    path: "/",
+    element: <DefayultLayout />,
+    children: [
+      {
+        element: <CenteredLayout />,
+        children: [
+          { index: true, element: <Main /> },
+          {
+            element: <CheckAuht />,
+            children: [
+              { path: "sign-in", element: <SignIn /> },
+              { path: "sign-up", element: <SignUp /> },
+            ],
+          },
+          { path: "*", element: <NoMatch /> },
+        ],
+      },
+    ],
+  },
+  {
+    element: <PrivateRoute />,
+    children: [{ path: "users", element: <UserList /> }],
+  },
+];
 
-// export const privateRoutes = [
-//   { path: "/sign-in", exact: true, component: <SignIn /> },
-// ];
+export default routes;

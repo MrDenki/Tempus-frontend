@@ -1,14 +1,19 @@
-import {useState} from 'react'
-import AppRouter from "./router";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { useRoutes } from "react-router-dom";
+import routes from "@/router";
+import { getCurrentUser } from "@/store/slices/authSlice";
 
-function App() {
-    const [count, setCount] = useState(0)
+const App = () => {
+  const dispatch = useDispatch();
 
-    return (
-        <>
-            <AppRouter />
-        </>
-    )
-}
+  useEffect(() => {
+    dispatch(getCurrentUser());
+  }, []);
 
-export default App
+  let elementRoute = useRoutes(routes);
+
+  return <>{elementRoute}</>;
+};
+
+export default App;

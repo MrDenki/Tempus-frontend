@@ -1,7 +1,6 @@
-import { FC } from 'react';
 import './style.scss'
 
-const TitleSection: FC = ({ children }) => (
+const TitleSection = ({ children }) => (
   <span className='title_section'>
     {children}
   </span>

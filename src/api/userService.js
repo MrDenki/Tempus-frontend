@@ -1,8 +1,5 @@
-import {instance} from "./instance";
-
+import instance from "./instance";
 
 export default class userService {
-    static async getUsers() {
-        return instance.get('/users');
-    }
+  static getUsers = () => instance.get("/user");
 }
