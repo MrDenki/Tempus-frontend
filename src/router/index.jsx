@@ -20,7 +20,7 @@ const PrivateRoute = () => {
 };
 
 const CheckAuht = () => {
-  const { isAuth } = useSelector((state) => state.auth);
+  const { isAuth } = useSelector((state) => state.auth)
   return !isAuth ? <Outlet /> : <Navigate to="/" />;
 };
 

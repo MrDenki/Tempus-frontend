@@ -37,6 +37,11 @@ a:hover {
   justify-content: center;
 }
 
+.MuiFormHelperText-root {
+  margin: 0 !important;
+  // height: 50px;
+}
+
 // .MuiOutlinedInput-root fieldset  {
 //   border-color: $secondary-color !important;
 // }

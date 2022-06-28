@@ -10,6 +10,8 @@ const Main = () => {
   const dispatch = useDispatch();
   const router = useNavigate();
 
+  const { isAuth } = useSelector((state) => state.auth);
+
   const handleClick = async () => {
     await dispatch(signOut());
     router("/sign-in");
@@ -24,27 +26,35 @@ const Main = () => {
 
         <Subtitle>This is the main page</Subtitle>
 
-        <Grid container style={{ marginTop: 20 }} justifyContent="center">
-          <Link to="/users">
-            <Button>Users list</Button>
-          </Link>
-        </Grid>
+        {isAuth && (
+          <Grid container style={{ marginTop: 20 }} justifyContent="center">
+            <Link to="/users">
+              <Button>Users list</Button>
+            </Link>
+          </Grid>
+        )}
 
-        <Grid container style={{ marginTop: 20 }} justifyContent="center">
-          <Link to="/sign-in">
-            <Button>Sign in</Button>
-          </Link>
-        </Grid>
+        {!isAuth && (
+          <Grid container style={{ marginTop: 20 }} justifyContent="center">
+            <Link to="/sign-in">
+              <Button>Sign in</Button>
+            </Link>
+          </Grid>
+        )}
 
-        <Grid container style={{ marginTop: 20 }} justifyContent="center">
-          <Link to="/sign-up">
-            <Button>Sign up</Button>
-          </Link>
-        </Grid>
+        {!isAuth && (
+          <Grid container style={{ marginTop: 20 }} justifyContent="center">
+            <Link to="/sign-up">
+              <Button>Sign up</Button>
+            </Link>
+          </Grid>
+        )}
 
-        <Grid container style={{ marginTop: 20 }} justifyContent="center">
-          <Button onClick={handleClick}>Sign out</Button>
-        </Grid>
+        {isAuth && (
+          <Grid container style={{ marginTop: 20 }} justifyContent="center">
+            <Button onClick={handleClick}>Sign out</Button>
+          </Grid>
+        )}
       </Grid>
     </Grid>
   );

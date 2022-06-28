@@ -33,7 +33,15 @@ const useField = (field, fieldName) => {
     setTouched(true);
   };
 
-  return { fieldName, value, onChange, valid, errors, touched, blur: onBlur };
+  return {
+    name: fieldName,
+    value,
+    onChange,
+    valid,
+    errors,
+    touched,
+    blur: onBlur,
+  };
 };
 
 export default useField;

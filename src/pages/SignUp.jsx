@@ -22,7 +22,7 @@ const SignUp = () => {
 
   const handleSubmit = async (credentials) => {
     await dispatch(signUp(credentials));
-    router("/");
+    if (isAuth) router("/");
   };
 
   const closeAlert = () => {
