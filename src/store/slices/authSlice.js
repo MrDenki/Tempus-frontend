@@ -45,6 +45,7 @@ export const signOut = createAsyncThunk(
   "auth/signOut",
   async (_, { rejectWithValue }) => {
     try {
+      localStorage.removeItem('isAuth')
       await authService.signOut();
     } catch (error) {
       const message = error.response.data.message;

@@ -1,10 +1,4 @@
-import {
-  emailRegex,
-  passwordRegex,
-  phoneRegex,
-  minPasswordLength,
-  maxPasswordLength,
-} from "./constants";
+import { emailRegex, passwordRegex, phoneRegex } from "./constants";
 
 export const required = (val) => !!val;
 export const minLength = (num) => (val) => val.length >= num;

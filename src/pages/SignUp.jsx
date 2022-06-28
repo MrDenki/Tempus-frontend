@@ -11,9 +11,9 @@ const SignUp = () => {
   const [openAlert, setOpenAlert] = useState(false);
   const { isLoading, isAuth, signUpError } = useSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (isAuth) router("/");
-  }, [isAuth]);
+  // useEffect(() => {
+  //   if (isAuth) router("/");
+  // }, [isAuth]);
 
   useEffect(() => {
     if (signUpError) setOpenAlert(true);
@@ -21,7 +21,8 @@ const SignUp = () => {
   }, [signUpError]);
 
   const handleSubmit = async (credentials) => {
-    dispatch(signUp(credentials));
+    await dispatch(signUp(credentials));
+    router("/");
   };
 
   const closeAlert = () => {

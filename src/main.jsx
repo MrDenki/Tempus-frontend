@@ -1,6 +1,6 @@
-import React from 'react'
+import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from 'react-redux'
+import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 import store from "@/store";
 import App from "./App";
@@ -10,17 +10,21 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
   palette: {
+    type: "light",
     primary: {
-      light: "#757ce8",
-      main: "#ad24fd",
-      dark: "#002884",
-      contrastText: "#fff",
+      main: "rgba(13,59,201,0.87)",
     },
     secondary: {
-      light: "#ff7961",
-      main: "#f44336",
-      dark: "#ba000d",
-      contrastText: "#000",
+      main: "#F64C72",
+    },
+    error: {
+      main: "#d50102",
+    },
+    warning: {
+      main: "#d50102",
+    },
+    success: {
+      main: "#99738E",
     },
   },
 });

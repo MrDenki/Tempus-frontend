@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { length } from "../common/constants";
 
 const useError = (field) => {
   const [error, setError] = useState(false);
@@ -17,12 +18,14 @@ const useError = (field) => {
       }
 
       if (field.errors.minLength) {
-        setErrorMessage("Field is less than 3");
+        let minLength = length[field.name + "MinLength"];
+        setErrorMessage(`Field cannot be less than ${minLength}`);
         return;
       }
 
       if (field.errors.maxLength) {
-        setErrorMessage("Field is greater than 15");
+        let maxLength = length[field.name + "MaxLength"];
+        setErrorMessage(`Field cannot be more than ${maxLength}`);
         return;
       }
 

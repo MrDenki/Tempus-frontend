@@ -1,7 +1,7 @@
 @import "../../../assets/variables.scss";
 
 .subtitle {
-  background-image: linear-gradient(10deg, white, $secondary-color, white);
+  background-image: linear-gradient(10deg, white, $primary-color, white);
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
 }

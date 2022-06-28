@@ -4,7 +4,7 @@ const useForm = (fields) => {
   const form = {};
 
   for (const [key, value] of Object.entries(fields)) {
-    form[key] = useField(value);
+    form[key] = useField(value, key);
   }
 
   const withoutValidAndTouchFields = (k) =>

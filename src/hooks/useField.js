@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useField = (field) => {
+const useField = (field, fieldName) => {
   const [valid, setValid] = useState(false);
   const [touched, setTouched] = useState(false);
   const [errors, setErrors] = useState({});
@@ -8,8 +8,10 @@ const useField = (field) => {
 
   const onChange = (val) => {
     val = val.replace(/\s/g, "");
+
     setValue(val);
     setValid(true);
+
     const validators = field.validators ?? {};
 
     Object.keys(validators).map((name) => {
@@ -31,7 +33,7 @@ const useField = (field) => {
     setTouched(true);
   };
 
-  return { value, onChange, valid, errors, touched, blur: onBlur };
+  return { fieldName, value, onChange, valid, errors, touched, blur: onBlur };
 };
 
 export default useField;

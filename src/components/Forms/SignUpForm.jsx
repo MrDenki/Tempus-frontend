@@ -11,21 +11,22 @@ import {
   maxLength,
   validPassword,
 } from "@/common/rules";
+import { length } from "@/common/constants";
 
 const SignUpForm = ({ onSubmit, isLoading }) => {
   const form = useForm({
     firstName: {
       validators: {
         required,
-        minLength: minLength(3),
-        maxLength: maxLength(15),
+        minLength: minLength(length.firstNameMinLength),
+        maxLength: maxLength(length.firstNameMaxLength),
       },
     },
     lastName: {
       validators: {
         required,
-        minLength: minLength(3),
-        maxLength: maxLength(15),
+        minLength: minLength(length.lastNameMinLength),
+        maxLength: maxLength(length.lastNameMaxLength),
       },
     },
     email: {
@@ -38,8 +39,8 @@ const SignUpForm = ({ onSubmit, isLoading }) => {
       validators: {
         required,
         validPassword,
-        minLength: minLength(3),
-        maxLength: maxLength(15),
+        minLength: minLength(length.passwordMinLength),
+        maxLength: maxLength(length.passwordMaxLength),
       },
     },
   });

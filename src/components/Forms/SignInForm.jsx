@@ -11,6 +11,7 @@ import {
   maxLength,
   validPassword,
 } from "@/common/rules";
+import { length } from "@/common/constants";
 
 const SignInForm = ({ onSubmit, isLoading }) => {
   const form = useForm({
@@ -24,8 +25,8 @@ const SignInForm = ({ onSubmit, isLoading }) => {
       validators: {
         required,
         validPassword,
-        minLength: minLength(3),
-        maxLength: maxLength(15),
+        minLength: minLength(length.passwordMinLength),
+        maxLength: maxLength(length.passwordMaxLength),
       },
     },
   });

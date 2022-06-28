@@ -15,14 +15,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "@/store/slices/authSlice";
 
 const PrivateRoute = () => {
-  // const { isAuth } = useSelector((state) => state.auth);
-  const isAuth = localStorage.getItem('isAuth')
+  const { isAuth } = useSelector((state) => state.auth);
   return isAuth ? <Outlet /> : <Navigate to="/" />;
+};
+
+const CheckAuht = () => {
+  const { isAuth } = useSelector((state) => state.auth);
+  return !isAuth ? <Outlet /> : <Navigate to="/" />;
 };
 
 const AppRouter = () => {
   const dispatch = useDispatch();
-  const { isAuth } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getCurrentUser());
@@ -33,10 +36,15 @@ const AppRouter = () => {
       <Route path="/" element={<DefayultLayout />}>
         <Route element={<CenteredLayout />}>
           <Route index element={<Main />} />
-          <Route path="sign-in" element={<SignIn />} />
-          <Route path="sign-up" element={<SignUp />} />
+
+          <Route element={<CheckAuht />}>
+            <Route path="sign-in" element={<SignIn />} />
+            <Route path="sign-up" element={<SignUp />} />
+          </Route>
+
           <Route path="*" element={<NoMatch />} />
         </Route>
+
         <Route element={<PrivateRoute />}>
           <Route path="/users" element={<UserList />} />
         </Route>
@@ -46,18 +54,3 @@ const AppRouter = () => {
 };
 
 export default AppRouter;
-
-{
-  /* <Route index element={<Main />} /> */
-}
-{
-  /* <Route path="dashboard" element={<Dashboard />} /> */
-}
-
-// export const publicRoutes = [
-//   { path: "/sign-up", exact: true, component: <SignUp /> },
-// ];
-
-// export const privateRoutes = [
-//   { path: "/sign-in", exact: true, component: <SignIn /> },
-// ];

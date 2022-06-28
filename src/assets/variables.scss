@@ -6,10 +6,10 @@ $font-family: "Montserrat", sans-serif;
 
 
 :root {
-  --primary-color: #221c35;
+  // --primary-color: #221c35;
 
-  --secondary-color: #ad24fd;
-  --darken-secondary-color: #6a1899;
+  --primary-color: rgba(13,59,201,0.87);
+  --darken-secondary-color: rgba(10, 38, 129, 0.87);
 
   --text-color: var(--primary-color);
   --darken-text-color: rgb(240, 238, 238);
@@ -17,10 +17,10 @@ $font-family: "Montserrat", sans-serif;
 
 
 $primary-color: var(--primary-color);
+$darken-primary-color: var(--darken-secondary-color);
 
 
-$secondary-color: var(--secondary-color);
-$darken-secondary-color: var(--darken-secondary-color);
+// $secondary-color: var(--secondary-color);
 
 
 $text-color: var(--text-color);

@@ -10,9 +10,9 @@ const Main = () => {
   const dispatch = useDispatch();
   const router = useNavigate();
 
-  const handleClick = () => {
-    dispatch(signOut());
-    router('/sign-in')
+  const handleClick = async () => {
+    await dispatch(signOut());
+    router("/sign-in");
   };
 
   return (
@@ -33,6 +33,12 @@ const Main = () => {
         <Grid container style={{ marginTop: 20 }} justifyContent="center">
           <Link to="/sign-in">
             <Button>Sign in</Button>
+          </Link>
+        </Grid>
+
+        <Grid container style={{ marginTop: 20 }} justifyContent="center">
+          <Link to="/sign-up">
+            <Button>Sign up</Button>
           </Link>
         </Grid>
 
