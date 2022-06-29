@@ -10,11 +10,16 @@ const firstNameMaxLength = 15
 const lastNameMinLength = 3
 const lastNameMaxLength = 15
 
+const taskTitle = 50
+const tastDescriprion = 500
+
 export const length = {
   firstNameMinLength,
   firstNameMaxLength,
   lastNameMinLength,
   lastNameMaxLength,
   passwordMinLength,
-  passwordMaxLength
+  passwordMaxLength,
+  taskTitle,
+  tastDescriprion
 }
