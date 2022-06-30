@@ -4,6 +4,8 @@
   border-radius: 5px;
   display: flex;
   border: 1px solid;
+  border-left: none;
+  border-right: none;
 
   &__body {
     width: 90%;

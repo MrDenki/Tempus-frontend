@@ -3,7 +3,6 @@ import Task from "../Task";
 import Button from "@/components/UI/Button";
 
 const TaskList = ({ tasks, onCreate, onEdit }) => {
-  console.log(tasks)
   return (
     <>
       <Button success onClick={() => onCreate()}>

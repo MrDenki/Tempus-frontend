@@ -2,9 +2,9 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
-import Button from "@/components/UI/Button";
 import { Heading, Title, Subtitle } from "@/components/Typography";
 import { signOut } from "@/store/slices/authSlice";
+import Button from "../components/UI/Button";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -55,6 +55,7 @@ const Main = () => {
             <Button onClick={handleClick}>Sign out</Button>
           </Grid>
         )}
+
       </Grid>
     </Grid>
   );

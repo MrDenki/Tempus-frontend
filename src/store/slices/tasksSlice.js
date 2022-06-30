@@ -12,7 +12,7 @@ export const getTasks = createAsyncThunk(
   async (userId, { rejectWithValue }) => {
     try {
       const { data } = await tasksService.getTasks(userId);
-      return data
+      return data;
     } catch (error) {
       const message = error.response.data.message;
       return rejectWithValue(message);
@@ -38,6 +38,7 @@ export const deleteTask = createAsyncThunk(
   async (taskId, { rejectWithValue }) => {
     try {
       await tasksService.deleteTask(taskId);
+      return taskId;
     } catch (error) {
       const message = error.response.data.message;
       return rejectWithValue(message);
@@ -49,7 +50,9 @@ export const updateTask = createAsyncThunk(
   "tasks/updateTask",
   async (task, { rejectWithValue }) => {
     try {
-      await tasksService.updateTask(task);
+      console.log(task, 'task');
+      const { data } = await tasksService.updateTask(task);
+      return data;
     } catch (error) {
       const message = error.response.data.message;
       return rejectWithValue(message);
@@ -71,7 +74,6 @@ export const tasksSlice = createSlice({
     },
     [getTasks.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      console.log(payload);
       state.tasks = payload;
     },
     [getTasks.rejected]: (state, { payload }) => {

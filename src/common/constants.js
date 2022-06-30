@@ -22,11 +22,25 @@ export const colors = {
   },
 };
 
+const taskTitleMinLength = 3;
+const taskTitleMaxLength = 50;
+
+const tastDescriptionMinLength = 3;
+const taskDescriptionMaxLength = 500;
+
 export const length = {
   firstNameMinLength,
   firstNameMaxLength,
+
   lastNameMinLength,
   lastNameMaxLength,
+
   passwordMinLength,
   passwordMaxLength,
+
+  taskTitleMinLength,
+  taskTitleMaxLength,
+
+  tastDescriptionMinLength,
+  taskDescriptionMaxLength,
 };

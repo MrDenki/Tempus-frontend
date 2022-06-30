@@ -41,14 +41,16 @@ const routes = [
         ],
       },
       {
-        path: '/tasks',
-        element: <Tasks />
-      }
+        element: <PrivateRoute />,
+        children: [
+          { path: "users", element: <UserList /> },
+          {
+            path: "tasks",
+            element: <Tasks />,
+          },
+        ],
+      },
     ],
-  },
-  {
-    element: <PrivateRoute />,
-    children: [{ path: "users", element: <UserList /> }],
   },
 ];
 
