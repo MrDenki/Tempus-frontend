@@ -2,12 +2,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
-import Button from "@/components/UI/Button";
 import { Heading, Title, Subtitle } from "@/components/Typography";
 import { signOut } from "@/store/slices/authSlice";
-import { useState } from "react";
-import Modal from "../modals/modal";
-import CreateTask from "../components/Modals/CreateTask";
+import CreateTaskModal from "../modals/modal";
+import Button from "../components/UI/Button";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -19,8 +17,6 @@ const Main = () => {
     await dispatch(signOut());
     router("/sign-in");
   };
-
-  const [modalActive, setModalAtive] = useState(false);
 
   return (
     <Grid container justifyContent="center" alignItems="center">
@@ -61,10 +57,12 @@ const Main = () => {
           </Grid>
         )}
 
-        <Button onClick={() => setModalAtive(true)}>Модальное окношко</Button>
+        {/* <Button onClick={() => setModalAtive(true)}>Модальное окношко</Button>
         <Modal active={modalActive} setActive={setModalAtive}>
-          <CreateTask/>
-        </Modal>
+          <CreateTask />
+        </Modal> */}
+
+        <CreateTaskModal/>
       </Grid>
     </Grid>
   );

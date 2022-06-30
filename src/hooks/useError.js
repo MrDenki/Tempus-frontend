@@ -39,16 +39,6 @@ const useError = (field) => {
         return;
       }
 
-      if(field.errors.validTaskTitle){
-        setErrorMessage("Invalid title")
-        return;
-      }
-
-      if(field.errors.validTaskDescription){
-        setErrorMessage("Invalid description")
-        return;
-      }
-
       setErrorMessage("");
     }
   }, [field.touched, field.errors]);
