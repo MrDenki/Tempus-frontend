@@ -11,10 +11,6 @@ const SignUp = () => {
   const [openAlert, setOpenAlert] = useState(false);
   const { isLoading, isAuth, signUpError } = useSelector((state) => state.auth);
 
-  // useEffect(() => {
-  //   if (isAuth) router("/");
-  // }, [isAuth]);
-
   useEffect(() => {
     if (signUpError) setOpenAlert(true);
     else setOpenAlert(false);

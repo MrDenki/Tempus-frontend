@@ -6,7 +6,10 @@ import "./style.scss";
 const Button = ({
   children,
   className,
+  secondary,
+  success,
   fullWidth,
+  small,
   rounded,
   disabled,
   text,
@@ -20,12 +23,25 @@ const Button = ({
   if (text) classes.push("button_text");
   if (className) classes.push(className);
 
+  const size = () => {
+    if (small) return "small";
+    return "medium";
+  };
+
+  const btnColor = () => {
+    if (secondary) return "secondary";
+    if (success) return "success";
+    return "primary";
+  };
+
   return (
     <MUIButton
       className={classes.join(" ")}
+      color={btnColor()}
       variant="outlined"
       disabled={disabled}
       fullWidth={fullWidth}
+      size={size()}
       type={type}
       sx={sx}
       onClick={onClick}

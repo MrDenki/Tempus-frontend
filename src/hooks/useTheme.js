@@ -1,23 +1,24 @@
 import { createTheme } from "@mui/material/styles";
+import { colors } from "@/common/constants";
 
 const useTheme = () => {
   return createTheme({
     palette: {
       type: "light",
       primary: {
-        main: "rgba(13,59,201,0.87)",
+        main: colors.light.primary,
       },
       secondary: {
-        main: "#F64C72",
+        main: colors.light.secondary,
       },
       error: {
-        main: "#d50102",
+        main: colors.light.error,
       },
       warning: {
-        main: "#d50102",
+        main: colors.light.warning,
       },
       success: {
-        main: "#99738E",
+        main: colors.light.success,
       },
     },
   });

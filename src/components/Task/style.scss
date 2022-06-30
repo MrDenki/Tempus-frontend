@@ -1,0 +1,48 @@
+.task {
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: flex;
+  border: 1px solid;
+
+  &__body {
+    width: 90%;
+    word-break: break-all;
+    padding: 10px 0;
+  }
+
+  &__title {
+    width: 100%;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+
+  &__description {
+    width: 90%;
+    display: block;
+  }
+
+  &__actions {
+    width: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.task:hover {
+  background-color: rgba(222, 222, 222, 0.208) !important;
+}
+
+@media screen and (max-width: 400px) {
+  .task {
+    display: block;
+    &__body {
+      width: 100%;
+    }
+    &__actions {
+      width: auto;
+      justify-content: flex-start;
+    }
+  }
+}
