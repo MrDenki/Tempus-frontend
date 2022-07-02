@@ -53,9 +53,12 @@ const Main = () => {
         {isAuth && (
           <Grid container style={{ marginTop: 20 }} justifyContent="center">
             <Button onClick={handleClick}>Sign out</Button>
+
+            <Link to="/tasks">
+              <Button>tasks</Button>
+            </Link>
           </Grid>
         )}
-
       </Grid>
     </Grid>
   );

@@ -6,22 +6,34 @@ import {
   deleteTask,
   updateTask,
 } from "../store/slices/tasksSlice";
-import TaskList from "../components/TaskList";
-import CreateTaskModal from "../modals/modal";
+import TaskList from "../components/Task/TaskList";
+import CreateTaskModal from "../components/Modals/CreateTaskModal";
 import UpdateTaskModal from "../components/Modals/UpdateTaskModal";
+import { getCurrentUser } from "@/store/slices/authSlice";
+import { getSearchedTask } from "@/store/slices/tasksSlice";
 
 const Tasks = () => {
   const dispatch = useDispatch();
-  const { currentUser, isAuth } = useSelector((state) => state.auth);
-  const { tasks, isLoading, error } = useSelector((state) => state.task);
+  const { currentUser } = useSelector((state) => state.auth);
+  const { tasks, isLoading, error, isSearch } = useSelector(
+    (state) => state.task
+  );
 
   const [isShowCreateTaskModal, setIsShowCreateTaskModal] = useState(false);
   const [isShowUpdateTaskModal, setIsShowUpdateTaskModal] = useState(false);
   const [editedTask, setEditedTask] = useState();
 
   useEffect(() => {
-    if (isAuth) dispatch(getTasks(currentUser.id));
-  }, []);
+    if (currentUser) dispatch(getTasks(currentUser.id));
+  }, [currentUser]);
+
+  useEffect(() => {
+    console.log(isLoading);
+  }, [isLoading]);
+
+  const hanldeSearch = (searchText) => {
+    dispatch(getSearchedTask(searchText));
+  };
 
   const showCreateTaskModal = () => {
     setIsShowCreateTaskModal(true);
@@ -54,14 +66,18 @@ const Tasks = () => {
   };
 
   return (
-    <>
-      <div style={{ width: 800, margin: "0 auto" }}>
-        <TaskList
-          tasks={tasks}
-          onCreate={showCreateTaskModal}
-          onEdit={handleOpenUpdateTaskModal}
-        />
-      </div>
+    <div className="task-page">
+      <h3 className="task-page__title">My Task</h3>
+
+      <TaskList
+        className="task-page__task-list"
+        tasks={tasks}
+        isSearch={isSearch}
+        isLoading={isLoading}
+        onSearch={hanldeSearch}
+        onCreate={showCreateTaskModal}
+        onEdit={handleOpenUpdateTaskModal}
+      />
 
       {isShowCreateTaskModal && (
         <CreateTaskModal
@@ -80,7 +96,7 @@ const Tasks = () => {
           onSubmit={handleUpdateTask}
         />
       )}
-    </>
+    </div>
   );
 };
 

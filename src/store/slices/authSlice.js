@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "../../api/authService";
+// import { clearTaskState } from "./tasksSlice";
 
 const initialState = {
   isAuth: localStorage.getItem("isAuth") || false,
@@ -43,11 +44,13 @@ export const signUp = createAsyncThunk(
 
 export const signOut = createAsyncThunk(
   "auth/signOut",
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
-      localStorage.removeItem("isAuth");
       await authService.signOut();
+      localStorage.removeItem("isAuth");
+      // await dispatch(clearTaskState())
     } catch (error) {
+      console.log(error);
       const message = error.response.data.message;
       return rejectWithValue(message);
     }

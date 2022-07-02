@@ -1,14 +1,15 @@
 import Button from "@/components/UI/Button";
-import { colors } from "@/common/constants";
-import "./style.scss";
+import IconButton from "@mui/material/IconButton";
+import StartIcon from "../icons/StartIcon";
 
-const Task = ({ task, onEdit }) => {
+const Task = ({ className, task, onEdit, onClick }) => {
   const trimDescription = (description) => {
     if (description.length >= 100) return description.slice(0, 100) + "...";
-    return description
+    return description;
   };
+
   return (
-    <div className="task" style={{ borderColor: colors.light.primary }}>
+    <div className={["task", className].join(" ")} onClick={onClick}>
       <div className="task__body">
         <h4 className="task__title">{task.title}</h4>
         <span className="task__description">
@@ -17,9 +18,11 @@ const Task = ({ task, onEdit }) => {
       </div>
 
       <div className="task__actions">
-        <Button small onClick={() => onEdit(task)}>
-          Edit
-        </Button>
+        <div>00:00:00</div>
+
+        <IconButton onClick={onEdit}>
+          <StartIcon />
+        </IconButton>
       </div>
     </div>
   );

@@ -1,0 +1,91 @@
+.selected-task {
+  padding: 15px 20px 50px 20px;
+
+  &__header {
+    display: flex;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+
+  &__item {
+    padding: 5px 25px 5px 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__timer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  &__actions {
+    width: 100%;
+    padding: 5px 15px 5px 15px;
+  }
+
+  &__divider {
+    border-left: 2px solid #ccc;
+  }
+
+  &__field {
+  }
+
+  .field {
+    margin-bottom: 12px;
+    color: rgb(115, 114, 114);
+    display: flex;
+    width: 330px;
+    // word-wrap: break-word;
+    word-break: break-all;
+
+    &__item1 {
+      flex: 35%;
+    }
+    &__item2 {
+      flex: 65%;
+    }
+  }
+
+  .MuiIconButton-root {
+    height: 45px;
+    width: 45px;
+
+    .icon {
+      position: absolute;
+    }
+  }
+}
+
+@media screen and (max-width: 890px) {
+  .selected-task {
+    padding: 0px 10px;
+
+    &__header {
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: column-reverse;
+      border: none;
+    }
+
+    &__item {
+      justify-content: flex-start;
+      flex-wrap: wrap;
+    }
+
+    &__divider {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .selected-task {
+    &__item:first-child {
+      margin-left: -17px;
+      padding: 0px 0px;
+    }
+  }
+}

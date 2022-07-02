@@ -10,6 +10,8 @@ const TextField = ({
   label,
   value,
   name,
+  icon,
+  small,
   disabled,
   error,
   helperText,
@@ -19,7 +21,7 @@ const TextField = ({
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   // const variant = 'standard'
-  const variant = 'outlined'
+  const variant = "outlined";
   // const variant = 'filled'
 
   if (type === "password") {
@@ -63,10 +65,16 @@ const TextField = ({
       name={name}
       disabled={disabled}
       error={error}
-      helperText={helperText || " "}
+      helperText={helperText || !small && " "}
       value={value}
       onChange={onChange}
       onBlur={onBlur}
+      size={small ? 'small' : 'medium'}
+      InputProps={icon && {
+        startAdornment: (
+          <InputAdornment position="start">{icon}</InputAdornment>
+        ),
+      }}
     />
   );
 };

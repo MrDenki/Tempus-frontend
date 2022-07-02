@@ -8,6 +8,8 @@ const Button = ({
   className,
   secondary,
   success,
+  startIcon,
+  contained,
   fullWidth,
   small,
   rounded,
@@ -38,8 +40,9 @@ const Button = ({
     <MUIButton
       className={classes.join(" ")}
       color={btnColor()}
-      variant="outlined"
+      variant={contained ? "contained" : "outlined"}
       disabled={disabled}
+      startIcon={startIcon}
       fullWidth={fullWidth}
       size={size()}
       type={type}
