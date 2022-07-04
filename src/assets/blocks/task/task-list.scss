@@ -67,6 +67,12 @@
     overflow: hidden;
   }
 
+  &__button.MuiButton-root {
+    font-size: .80rem;
+    padding-left: 18px !important;
+    padding-right: 23px !important;
+  }
+
   .open {
     width: 51%;
     overflow: hidden;

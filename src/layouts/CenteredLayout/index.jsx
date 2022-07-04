@@ -1,6 +1,6 @@
 import { Outlet } from "react-router-dom";
 import { Suspense } from "react";
-import Spiner from "@/components/Spiner";
+import Spiner from "@/components/UI/Spiner";
 
 const CenteredLayout = () => (
   <div className="wrapper">

@@ -61,11 +61,23 @@ export const updateTask = createAsyncThunk(
   }
 );
 
+// export const changeTask = createAsyncThunk(
+//   "tasks/changeTask",
+//   async (task, { rejectWithValue }) => {
+//     try {
+//       const { data } = await tasksService.updateTask(task);
+//       return data;
+//     } catch (error) {
+//       const message = error.response.data.message;
+//       return rejectWithValue(message);
+//     }
+//   }
+// );
+
 export const getSearchedTask = createAsyncThunk(
   "tasks/getSearchedTask",
   async (searchText, { rejectWithValue }) => {
     try {
-      console.log(searchText);
       const { data } = await tasksService.searchTask(searchText);
       return data;
     } catch (error) {

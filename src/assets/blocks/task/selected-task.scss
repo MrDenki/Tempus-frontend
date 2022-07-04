@@ -4,6 +4,7 @@
   &__header {
     display: flex;
     border: 1px solid #ccc;
+    padding: 4px 0;
     margin-bottom: 10px;
     border-radius: 10px;
   }
@@ -11,23 +12,20 @@
   &__item {
     padding: 5px 25px 5px 5px;
     display: flex;
+    gap: 15px;
     align-items: center;
-    justify-content: space-between;
   }
 
   &__timer {
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
   }
 
   &__actions {
     width: 100%;
+    display: flex;
     padding: 5px 15px 5px 15px;
-  }
-
-  &__divider {
-    border-left: 2px solid #ccc;
   }
 
   &__field {
@@ -38,7 +36,6 @@
     color: rgb(115, 114, 114);
     display: flex;
     width: 330px;
-    // word-wrap: break-word;
     word-break: break-all;
 
     &__item1 {
@@ -50,8 +47,8 @@
   }
 
   .MuiIconButton-root {
-    height: 45px;
-    width: 45px;
+    // height: 45px;
+    // width: 45px;
 
     .icon {
       position: absolute;

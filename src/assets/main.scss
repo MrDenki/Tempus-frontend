@@ -1,5 +1,9 @@
 @import "./variables.scss";
+@import "./blocks/UI/index.scss";
 @import "./blocks/task/index.scss";
+@import "./blocks/spiner.scss";
+@import "./blocks/form/form.scss";
+@import "./blocks/user/index.scss";
 
 html,
 body {
@@ -42,4 +46,26 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+// .MuiButton-root {
+//   border-radius: 20px !important;
+// }
+
+.MuiButton-root.MuiButton-sizeSmall {
+  padding: 4px 10px !important;
+}
+
+.MuiOutlinedInput-root {
+  border-radius: 20px !important;
+}
+
+.MuiInputBase-input.MuiInputBase-inputAdornedEnd {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.test {
+  height: 360px;
+  width: 440px;
 }

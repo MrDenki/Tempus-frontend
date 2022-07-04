@@ -1,26 +1,47 @@
+import { useState } from "react";
 import Button from "@/components/UI/Button";
+import { TextField } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import StartIcon from "../icons/StartIcon";
+import { useTrim, useDebounce } from "@/hooks";
 
-const Task = ({ className, task, onEdit, onClick }) => {
-  const trimDescription = (description) => {
-    if (description.length >= 100) return description.slice(0, 100) + "...";
-    return description;
+const Task = ({ className, task, selected, onChange, onClick }) => {
+  const classes = ["task"];
+  if (selected) classes.push("selected");
+
+  const [currentTask, setCurrentTask] = useState(task);
+  const debouncedOnСhange = useDebounce(onChange, 500);
+  const trimTaskDescription= useTrim(30);
+
+  const changeTitle = (e) => {
+    const changedTask = { ...currentTask };
+    changedTask.title = e.target.value;
+    setCurrentTask(changedTask);
+    debouncedOnСhange(changedTask)
   };
 
   return (
-    <div className={["task", className].join(" ")} onClick={onClick}>
+    <div className={classes.join(" ")} onClick={onClick}>
       <div className="task__body">
-        <h4 className="task__title">{task.title}</h4>
+        <div className="task__title">
+          {/* {task && task.title} */}
+          <TextField
+            fullWidth
+            variant="standard"
+            value={currentTask.title}
+            onChange={changeTitle}
+          />
+        </div>
+
         <span className="task__description">
-          {trimDescription(task.description)}
+          {currentTask.description && trimTaskDescription(currentTask.description)}
         </span>
       </div>
 
       <div className="task__actions">
         <div>00:00:00</div>
 
-        <IconButton onClick={onEdit}>
+        <IconButton>
           <StartIcon />
         </IconButton>
       </div>

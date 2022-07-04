@@ -65,16 +65,18 @@ const TextField = ({
       name={name}
       disabled={disabled}
       error={error}
-      helperText={helperText || !small && " "}
+      helperText={helperText || (!small && " ")}
       value={value}
       onChange={onChange}
       onBlur={onBlur}
-      size={small ? 'small' : 'medium'}
-      InputProps={icon && {
-        startAdornment: (
-          <InputAdornment position="start">{icon}</InputAdornment>
-        ),
-      }}
+      size={small ? "small" : "medium"}
+      InputProps={
+        icon && {
+          startAdornment: (
+            <InputAdornment position="start">{icon}</InputAdornment>
+          ),
+        }
+      }
     />
   );
 };

@@ -1,5 +1,5 @@
 .task {
-  padding: 0px 15px;
+  padding: 0px 18px;
   display: flex;
   border-bottom: 1px solid $border-color;
 
@@ -10,14 +10,17 @@
   }
 
   &__title {
-    width: 100%;
+    width: 95%;
     margin: 0;
-    margin-bottom: 10px;
+    .MuiInput-root::before {
+      border: none;
+    }
   }
 
   &__description {
     width: 80%;
     display: block;
+    margin-top: 10px;
   }
 
   &__actions {

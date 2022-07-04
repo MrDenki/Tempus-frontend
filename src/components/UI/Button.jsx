@@ -1,7 +1,5 @@
 import React from "react";
 import MUIButton from "@mui/material/Button";
-// import { SxProps } from '@mui/system'
-import "./style.scss";
 
 const Button = ({
   children,
@@ -19,11 +17,15 @@ const Button = ({
   sx,
   onClick,
 }) => {
-  const classes = ["button"];
+  const classes = ["button", className];
 
   if (rounded) classes.push("button_rounded");
   if (text) classes.push("button_text");
   if (className) classes.push(className);
+
+  let variant = 'outlined'
+  if(text) variant = 'text'
+  if(contained) variant = 'contained'
 
   const size = () => {
     if (small) return "small";
@@ -40,7 +42,7 @@ const Button = ({
     <MUIButton
       className={classes.join(" ")}
       color={btnColor()}
-      variant={contained ? "contained" : "outlined"}
+      variant={variant}
       disabled={disabled}
       startIcon={startIcon}
       fullWidth={fullWidth}

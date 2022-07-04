@@ -4,7 +4,7 @@ import Task from "./Task";
 import SelectedTask from "./SelectedTask";
 import TextField from "../UI/TextField";
 import Button from "@/components/UI/Button";
-import Spiner from "@/components/Spiner";
+import Spiner from "@/components/UI/Spiner";
 import { useState } from "react";
 import { useDebounce } from "@/hooks";
 
@@ -12,7 +12,7 @@ const TaskList = ({
   className,
   tasks,
   onCreate,
-  onEdit,
+  onChange,
   onSearch,
   isSearch,
   isLoading,
@@ -22,12 +22,15 @@ const TaskList = ({
   const [selectedTask, setSelectedTask] = useState();
   const debouncedOnSearch = useDebounce(onSearch, 500);
 
+  const [taskss, setTaskss] = useState(tasks || []);
+
   const searchTask = (e) => {
     setSearchText(e.target.value);
     debouncedOnSearch(e.target.value);
   };
 
   const handleOpenSelectedTask = (task) => {
+    console.log("task", task);
     setSelectedTask(task);
     setOpenSelectedTask(true);
   };
@@ -36,14 +39,35 @@ const TaskList = ({
     setOpenSelectedTask(false);
   };
 
+  const handleChangeTask = (task) => {
+    setSelectedTask(task);
+
+    let isCreated = false;
+    if (task.id === "new") isCreated = true;
+    
+    onChange(task, isCreated);
+  };
+
+  const createTask = () => {
+    if (taskss.find((task) => task.id === "new")) {
+    } else {
+      const _ = [...taskss];
+      const newTask = { id: "new", title: "", description: "" };
+      _.push(newTask);
+      setTaskss(_);
+      handleOpenSelectedTask(newTask);
+    }
+  };
+
   return (
     <div className={["task-list", className].join(" ")}>
       <div className="task-list__header">
         <Button
-          small
           contained
+          rounded
+          className="task-list__button"
           startIcon={<AddIcon />}
-          onClick={() => onCreate()}
+          onClick={createTask}
         >
           New task
         </Button>
@@ -59,18 +83,14 @@ const TaskList = ({
       </div>
 
       <div className="task-list__body">
-        {!isLoading && !isSearch && !!tasks.length && (
+        {!isLoading && !isSearch && taskss && !!taskss.length && (
           <div className="task-list__list-holder">
-            {tasks.map((task) => (
+            {taskss.map((task) => (
               <Task
-                className={
-                  selectedTask && task.id === selectedTask.id
-                    ? "selected"
-                    : null
-                }
+                selected={selectedTask && task.id === selectedTask.id}
                 onClick={() => handleOpenSelectedTask(task)}
                 task={task}
-                onEdit={onEdit}
+                onChange={handleChangeTask}
                 key={task.id}
               />
             ))}
@@ -84,6 +104,7 @@ const TaskList = ({
         >
           <SelectedTask
             selectedTask={selectedTask}
+            onChange={handleChangeTask}
             onClose={handleCloseSelectedTask}
           />
         </div>
@@ -94,7 +115,7 @@ const TaskList = ({
           </div>
         )}
 
-        {!isLoading && !isSearch && !tasks.length && (
+        {!isLoading && !isSearch && taskss && !taskss.length && (
           <div className="task-list__no-task">
             <h3 className="task-list__no-task-title">No tasks</h3>
           </div>

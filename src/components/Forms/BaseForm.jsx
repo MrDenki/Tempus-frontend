@@ -3,8 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
-import { Title } from "../../Typography";
-import "./style.scss";
+import { Title } from "@/components/Typography";
 
 const BaseForm = ({ title, children, onSubmit }) => {
   return (

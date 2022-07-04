@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getTasks,
-  createTask,
   deleteTask,
-  updateTask,
+  getSearchedTask,
+  createTask,
 } from "../store/slices/tasksSlice";
 import TaskList from "../components/Task/TaskList";
 import CreateTaskModal from "../components/Modals/CreateTaskModal";
 import UpdateTaskModal from "../components/Modals/UpdateTaskModal";
-import { getCurrentUser } from "@/store/slices/authSlice";
-import { getSearchedTask } from "@/store/slices/tasksSlice";
+// import { getCurrentUser } from "@/store/slices/authSlice";
+
 
 const Tasks = () => {
   const dispatch = useDispatch();
@@ -27,10 +27,6 @@ const Tasks = () => {
     if (currentUser) dispatch(getTasks(currentUser.id));
   }, [currentUser]);
 
-  useEffect(() => {
-    console.log(isLoading);
-  }, [isLoading]);
-
   const hanldeSearch = (searchText) => {
     dispatch(getSearchedTask(searchText));
   };
@@ -38,9 +34,13 @@ const Tasks = () => {
   const showCreateTaskModal = () => {
     setIsShowCreateTaskModal(true);
   };
-  const handleOpenUpdateTaskModal = (task) => {
-    setEditedTask(task);
-    setIsShowUpdateTaskModal(true);
+
+  const handleChangeTask = (task, isCreated) => {
+    // setEditedTask(task);
+    // setIsShowUpdateTaskModal(true);
+    console.log(task, isCreated);
+    // if (isCreated) dispatch(createTask(task));
+    // else dispatch(updateTask(task));
   };
 
   const handleCloseCreateTaskModak = () => {
@@ -60,7 +60,6 @@ const Tasks = () => {
   };
 
   const handleDeleteTask = (taskId) => {
-    console.log(taskId, "taskId");
     dispatch(deleteTask(taskId));
     handleCloseUpdateTaskModal();
   };
@@ -75,8 +74,8 @@ const Tasks = () => {
         isSearch={isSearch}
         isLoading={isLoading}
         onSearch={hanldeSearch}
-        onCreate={showCreateTaskModal}
-        onEdit={handleOpenUpdateTaskModal}
+        // onCreate={showCreateTaskModal}
+        onChange={handleChangeTask}
       />
 
       {isShowCreateTaskModal && (
