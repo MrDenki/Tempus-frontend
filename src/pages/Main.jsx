@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import { Heading, Title, Subtitle } from "@/components/Typography";
 import { signOut } from "@/store/slices/authSlice";
 import Button from "../components/UI/Button";
+import Sidebar from "../components/Sidebar";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -18,49 +19,52 @@ const Main = () => {
   };
 
   return (
-    <Grid container justifyContent="center" alignItems="center">
-      <Grid item textAlign="center">
-        <Heading>Tempus</Heading>
+    <>
+    <Sidebar/>
+      <Grid container justifyContent="center" alignItems="center">
+        <Grid item textAlign="center">
+          <Heading>Tempus</Heading>
 
-        <Title>Main page</Title>
+          <Title>Main page</Title>
 
-        <Subtitle>This is the main page</Subtitle>
+          <Subtitle>This is the main page</Subtitle>
 
-        {isAuth && (
-          <Grid container style={{ marginTop: 20 }} justifyContent="center">
-            <Link to="/users">
-              <Button>Users list</Button>
-            </Link>
-          </Grid>
-        )}
+          {isAuth && (
+            <Grid container style={{ marginTop: 20 }} justifyContent="center">
+              <Link to="/users">
+                <Button>Users list</Button>
+              </Link>
+            </Grid>
+          )}
 
-        {!isAuth && (
-          <Grid container style={{ marginTop: 20 }} justifyContent="center">
-            <Link to="/sign-in">
-              <Button>Sign in</Button>
-            </Link>
-          </Grid>
-        )}
+          {!isAuth && (
+            <Grid container style={{ marginTop: 20 }} justifyContent="center">
+              <Link to="/sign-in">
+                <Button>Sign in</Button>
+              </Link>
+            </Grid>
+          )}
 
-        {!isAuth && (
-          <Grid container style={{ marginTop: 20 }} justifyContent="center">
-            <Link to="/sign-up">
-              <Button>Sign up</Button>
-            </Link>
-          </Grid>
-        )}
+          {!isAuth && (
+            <Grid container style={{ marginTop: 20 }} justifyContent="center">
+              <Link to="/sign-up">
+                <Button>Sign up</Button>
+              </Link>
+            </Grid>
+          )}
 
-        {isAuth && (
-          <Grid container style={{ marginTop: 20 }} justifyContent="center">
-            <Button onClick={handleClick}>Sign out</Button>
+          {isAuth && (
+            <Grid container style={{ marginTop: 20 }} justifyContent="center">
+              <Button onClick={handleClick}>Sign out</Button>
 
-            <Link to="/tasks">
-              <Button>tasks</Button>
-            </Link>
-          </Grid>
-        )}
+              <Link to="/tasks">
+                <Button>tasks</Button>
+              </Link>
+            </Grid>
+          )}
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 
