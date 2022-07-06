@@ -1,14 +1,12 @@
-@import "../../../assets/variables.scss";
-
 .button {
   // color: $text-color !important;
 
   // border-color: $darken-primary-color !important;
   // border-width: 2px !important;
 
-  // &_rounded {
-  //   border-radius: 20px !important;
-  // }
+  &_rounded {
+    border-radius: 20px !important;
+  }
 
   // &_text {
   //   border: none !important;

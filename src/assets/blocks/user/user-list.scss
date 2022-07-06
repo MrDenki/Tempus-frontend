@@ -1,0 +1,116 @@
+@import "../../mixin/scrollbar.scss";
+@include scrollbar($dark-tertiary, $tertiary);
+
+.circle {
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 25px;
+  border: 2px solid white;
+  color: white;
+  border-radius: 50%;
+}
+
+.user-list {
+  // padding: 20px 15px !important;
+  border: 2px solid $tertiary;
+  // border-radius: 6px;
+  border-top: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 0;
+  overflow-y: auto;
+
+  &__header {
+    // border: 2px solid $tertiary;
+    position: relative;
+    height: 60px;
+    // padding: 10px 18px !important;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+
+    background: linear-gradient(
+      22deg,
+      $primary-color 30%,
+      $secondary-color 100%
+    );
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+    &-item {
+      display: flex;
+      flex: 50%;
+      justify-content: center;
+      align-items: center;
+      .MuiButton-root,
+      .MuiInputBase-input,
+      .MuiInputAdornment-root,
+      .MuiOutlinedInput-notchedOutline {
+        border-color: white !important;
+        color: white !important;
+      }
+    }
+  }
+
+  &__search {
+    margin-left: 10px;
+    max-width: 50%;
+    justify-self: flex-start;
+  }
+
+  &__list {
+    padding: 0px !important;
+  }
+
+  &__item {
+    padding: 0 10px !important;
+
+    &-checkbox {
+      margin-right: 10px !important;
+    }
+  }
+
+  &__item.selected {
+    background-color: $dark-tertiary;
+  }
+
+  &__item:hover {
+    background-color: $light-tertiary;
+    cursor: pointer;
+  }
+
+  &__button {
+    width: 50% !important;
+    height: 60px;
+    border-radius: 0 !important;
+    // border-bottom-left-radius: 20px !important;
+
+    &-right {
+      border-bottom-right-radius: 20px !important;
+      background: linear-gradient(
+        34deg,
+        $primary-color 13%,
+        $secondary-color 100%
+      );
+      color: white !important;
+    }
+
+    &-left {
+      border-bottom-left-radius: 20px !important;
+    }
+  }
+
+  &__no-users {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 18px;
+  }
+}

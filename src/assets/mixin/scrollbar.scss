@@ -1,0 +1,15 @@
+@mixin scrollbar($track-color, $thumb-color) {
+  ::-webkit-scrollbar {
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $track-color;
+    // border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $thumb-color;
+    // border-radius: 5px;
+  }
+}

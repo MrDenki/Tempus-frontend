@@ -4,7 +4,9 @@ import tasksService from "../../api/tasksService";
 const initialState = {
   tasks: [],
   isLoading: false,
+  isSearch: false,
   error: "",
+  searchError: "",
 };
 
 export const getTasks = createAsyncThunk(
@@ -50,8 +52,33 @@ export const updateTask = createAsyncThunk(
   "tasks/updateTask",
   async (task, { rejectWithValue }) => {
     try {
-      console.log(task, 'task');
       const { data } = await tasksService.updateTask(task);
+      return data;
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
+// export const changeTask = createAsyncThunk(
+//   "tasks/changeTask",
+//   async (task, { rejectWithValue }) => {
+//     try {
+//       const { data } = await tasksService.updateTask(task);
+//       return data;
+//     } catch (error) {
+//       const message = error.response.data.message;
+//       return rejectWithValue(message);
+//     }
+//   }
+// );
+
+export const getSearchedTask = createAsyncThunk(
+  "tasks/getSearchedTask",
+  async (searchText, { rejectWithValue }) => {
+    try {
+      const { data } = await tasksService.searchTask(searchText);
       return data;
     } catch (error) {
       const message = error.response.data.message;
@@ -117,6 +144,18 @@ export const tasksSlice = createSlice({
     [updateTask.rejected]: (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
+    },
+
+    [getSearchedTask.pending]: (state) => {
+      state.isSearch = true
+    },
+    [getSearchedTask.fulfilled]: (state, { payload }) => {
+      state.isSearch = false;
+      state.tasks = payload
+    },
+    [getSearchedTask.rejected]: (state, { payload }) => {
+      state.isSearch = false;
+      state.searchError = payload;
     },
   },
 });

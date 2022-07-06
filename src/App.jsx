@@ -1,15 +1,16 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useRoutes } from "react-router-dom";
 import routes from "@/router";
 import { getCurrentUser } from "@/store/slices/authSlice";
 
 const App = () => {
   const dispatch = useDispatch();
+  const { isAuth } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(getCurrentUser());
-  }, []);
+    if (isAuth) dispatch(getCurrentUser());
+  }, [isAuth]);
 
   let elementRoute = useRoutes(routes);
 

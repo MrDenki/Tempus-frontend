@@ -1,27 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
-
 $font-size: 14px;
 $font-family: "Montserrat", sans-serif;
 
-
 :root {
-  // --primary-color: #221c35;
-
-  --primary-color: rgba(13,59,201,0.87);
+  --primary-color: #3d62d4;
   --darken-secondary-color: rgba(10, 38, 129, 0.87);
 
   --text-color: var(--primary-color);
   --darken-text-color: rgb(240, 238, 238);
 }
 
-
-$primary-color: var(--primary-color);
+$primary-color: #DB334D;
+$light-primary: #FFFAEE;
+$secondary-color: #FB6477;
+$tertiary: #FBB1A6;
+$dark-tertiary: #ffdccc;
+$light-tertiary: #FFECE3;
+$border-color: rgba($primary-color, 0.6);
 $darken-primary-color: var(--darken-secondary-color);
-
-
-// $secondary-color: var(--secondary-color);
-
 
 $text-color: var(--text-color);
 $darken-text-color: var(--darken-text-color);

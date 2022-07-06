@@ -1,11 +1,7 @@
 .task {
-  padding: 15px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  padding: 0px 18px;
   display: flex;
-  border: 1px solid;
-  border-left: none;
-  border-right: none;
+  border-bottom: 1px solid $border-color;
 
   &__body {
     width: 90%;
@@ -14,29 +10,36 @@
   }
 
   &__title {
-    width: 100%;
+    width: 95%;
     margin: 0;
-    margin-bottom: 10px;
+    .MuiInput-root::before {
+      border: none;
+    }
   }
 
   &__description {
-    width: 90%;
+    width: 80%;
     display: block;
+    margin-top: 10px;
   }
 
   &__actions {
-    width: 10%;
+    width: 20%;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
+  }
+
+  &:hover {
+    background-color: $light-tertiary;
   }
 }
 
-.task:hover {
-  background-color: rgba(222, 222, 222, 0.208) !important;
+.selected {
+  background-color: $dark-tertiary;
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 690px) {
   .task {
     display: block;
     &__body {
