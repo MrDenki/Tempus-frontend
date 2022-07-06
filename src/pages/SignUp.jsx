@@ -26,15 +26,13 @@ const SignUp = () => {
   };
 
   return (
-    <>
       <SignUpForm onSubmit={handleSubmit} isLoading={isLoading} />
-      <Alert
-        title="Sign up error"
-        message={signUpError}
-        open={openAlert}
-        onClose={closeAlert}
-      />
-    </>
+      // <Alert
+      //   title="Sign up error"
+      //   message={signUpError}
+      //   open={openAlert}
+      //   onClose={closeAlert}
+      // />
   );
 };
 

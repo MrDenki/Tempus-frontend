@@ -7,7 +7,7 @@ import Spiner from "@/components/UI/Spiner";
 
 const DefayultLayout = () => {
   return (
-    <Container className="wrapper">
+    <div className="wrapper">
       {/* <Header /> */}
 
       <Suspense fallback={<Spiner />}>
@@ -15,7 +15,7 @@ const DefayultLayout = () => {
       </Suspense>
 
       {/* <Footer /> */}
-    </Container>
+    </div>
   );
 };
 export default DefayultLayout;

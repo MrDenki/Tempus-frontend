@@ -28,16 +28,18 @@ const routes = [
     children: [
       {
         element: <CenteredLayout />,
+        children: [{ path: "*", element: <NoMatch /> }],
+      },
+      {
+        element: <CheckAuht />,
         children: [
-          { index: true, element: <Main /> },
           {
-            element: <CheckAuht />,
+            element: <Main />,
             children: [
               { path: "sign-in", element: <SignIn /> },
               { path: "sign-up", element: <SignUp /> },
             ],
           },
-          { path: "*", element: <NoMatch /> },
         ],
       },
       {
