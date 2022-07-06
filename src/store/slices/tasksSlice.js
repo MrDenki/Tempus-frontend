@@ -108,9 +108,9 @@ export const unassignWorker = createAsyncThunk(
 
 export const getSearchedTask = createAsyncThunk(
   "tasks/getSearchedTask",
-  async (searchText, { rejectWithValue }) => {
+  async ({userId, title}, { rejectWithValue }) => {
     try {
-      const { data } = await tasksService.searchTask(searchText);
+      const { data } = await tasksService.searchTask(userId, title);
       return data;
     } catch (error) {
       const message = error.response.data.message;

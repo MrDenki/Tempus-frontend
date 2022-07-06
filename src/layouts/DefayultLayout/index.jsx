@@ -4,18 +4,22 @@ import { Container } from "@mui/material";
 import Spiner from "@/components/UI/Spiner";
 // import Header from '../components/Header';
 // import Footer from '../components/Footer'
+import Sidebar from "@/components/Sidebar";
 
 const DefayultLayout = () => {
   return (
-    <Container className="wrapper">
-      {/* <Header /> */}
+    <>
+      <Sidebar />
+      <Container className="wrapper">
+        {/* <Header /> */}
 
-      <Suspense fallback={<Spiner />}>
-        <Outlet />
-      </Suspense>
+        <Suspense fallback={<Spiner />}>
+          <Outlet />
+        </Suspense>
 
-      {/* <Footer /> */}
-    </Container>
+        {/* <Footer /> */}
+      </Container>
+    </>
   );
 };
 export default DefayultLayout;

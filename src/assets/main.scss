@@ -19,6 +19,7 @@ body {
 
 #root {
   height: 100%;
+  display: flex;
 }
 
 a {
@@ -66,10 +67,12 @@ a:hover {
 // }
 
 .navigation {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  bottom: 0px;
+  position: static;
+  display: flex;
+  flex-direction: column;
+  // top: 0px;
+  // left: 0px;
+  // bottom: 0px;
   width: 70px;
   border-bottom-right-radius: 10px;
   border-top-right-radius: 10px;
@@ -85,7 +88,7 @@ a:hover {
 }
 
 .navigation ul {
-  position: absolute;
+  // position: absolute;
   top: 0;
   left: 0;
   width: 100%;

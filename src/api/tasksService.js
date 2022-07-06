@@ -6,8 +6,8 @@ export default class tasksService {
   static createTask = (task) => instance.post("tasks", task);
   static deleteTask = (taskId) => instance.delete(`tasks/${taskId}`);
   static updateTask = (task) => instance.put(`tasks/${task.id}`, task);
-  static searchTask = (searchText) =>
-    instance.get(`tasks`, { params: { searchText } });
+  static searchTask = (userId, title) =>
+    instance.get(`/tasks/getUserTasks`, { params: { userId, title } });
   static getUserTasks = (userId) =>
     instance.get("/tasks/getUserTasks", { params: { userId } });
 

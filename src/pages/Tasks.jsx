@@ -22,7 +22,9 @@ const Tasks = () => {
   }, [currentUser]);
 
   const handleSearch = (searchText) => {
-    dispatch(getSearchedTask(searchText));
+    if (searchText === "") dispatch(getTasks(currentUser.id));
+    else
+      dispatch(getSearchedTask({ userId: currentUser.id, title: searchText }));
   };
 
   const handleChangeTask = async (task, isCreated) => {
@@ -39,7 +41,7 @@ const Tasks = () => {
 
   return (
     <>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <div className="task-page">
         <h3 className="task-page__title">My Task</h3>
 
