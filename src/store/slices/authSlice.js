@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "../../api/authService";
+// import { clearTaskState } from "./tasksSlice";
 
 const initialState = {
   isAuth: localStorage.getItem("isAuth") || false,
@@ -13,8 +14,9 @@ const initialState = {
 
 export const signIn = createAsyncThunk(
   "auth/signIn",
-  async (credentials, { rejectWithValue }) => {
+  async (credentials, { rejectWithValue, dispatch }) => {
     try {
+      // dispatch(setAuth(true))
       const {
         data: { user },
       } = await authService.signIn(credentials);
@@ -43,11 +45,13 @@ export const signUp = createAsyncThunk(
 
 export const signOut = createAsyncThunk(
   "auth/signOut",
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
-      localStorage.removeItem("isAuth");
       await authService.signOut();
+      localStorage.removeItem("isAuth");
+      // await dispatch(clearTaskState())
     } catch (error) {
+      console.log(error);
       const message = error.response.data.message;
       return rejectWithValue(message);
     }
@@ -83,16 +87,19 @@ export const authSlice = createSlice({
     clearGetCurrentUserError: (state) => {
       state.getCurrentUserError = "";
     },
+    setAuth: (state, isAuth) => {
+      state.isAuth = isAuth;
+    },
   },
   extraReducers: {
     [signIn.pending]: (state) => {
       state.isLoading = true;
     },
     [signIn.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.isAuth = true;
-      state.currentUser = action.payload;
       localStorage.setItem("isAuth", true);
+      state.isAuth = true;
+      state.isLoading = false;
+      state.currentUser = action.payload;
     },
     [signIn.rejected]: (state, action) => {
       state.isLoading = false;

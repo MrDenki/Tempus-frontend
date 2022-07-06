@@ -1,5 +1,3 @@
-import "./style.scss";
-
 const Spiner = () => (
   <div className="spiner-wrap">
     <div className="spiner">

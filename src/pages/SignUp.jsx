@@ -11,10 +11,6 @@ const SignUp = () => {
   const [openAlert, setOpenAlert] = useState(false);
   const { isLoading, isAuth, signUpError } = useSelector((state) => state.auth);
 
-  // useEffect(() => {
-  //   if (isAuth) router("/");
-  // }, [isAuth]);
-
   useEffect(() => {
     if (signUpError) setOpenAlert(true);
     else setOpenAlert(false);
@@ -22,7 +18,7 @@ const SignUp = () => {
 
   const handleSubmit = async (credentials) => {
     await dispatch(signUp(credentials));
-    if (isAuth) router("/");
+    if (isAuth) router("/tasks");
   };
 
   const closeAlert = () => {
@@ -30,15 +26,13 @@ const SignUp = () => {
   };
 
   return (
-    <>
       <SignUpForm onSubmit={handleSubmit} isLoading={isLoading} />
-      <Alert
-        title="Sign up error"
-        message={signUpError}
-        open={openAlert}
-        onClose={closeAlert}
-      />
-    </>
+      // <Alert
+      //   title="Sign up error"
+      //   message={signUpError}
+      //   open={openAlert}
+      //   onClose={closeAlert}
+      // />
   );
 };
 

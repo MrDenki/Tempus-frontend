@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
-import Button from "@/components/UI/Button";
 import { Heading, Title, Subtitle } from "@/components/Typography";
 import { signOut } from "@/store/slices/authSlice";
+import Button from "../components/UI/Button";
+import Sidebar from "../components/Sidebar";
+import { Outlet } from "react-router-dom";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -18,45 +20,76 @@ const Main = () => {
   };
 
   return (
-    <Grid container justifyContent="center" alignItems="center">
-      <Grid item textAlign="center">
-        <Heading>Tempus</Heading>
+    // <Grid container justifyContent="center" alignItems="center">
+    //   <Grid item textAlign="center">
+    //     <Heading>Tempus</Heading>
 
-        <Title>Main page</Title>
+    //     <Title>Main page</Title>
 
-        <Subtitle>This is the main page</Subtitle>
+    //     <Subtitle>This is the main page</Subtitle>
 
-        {isAuth && (
-          <Grid container style={{ marginTop: 20 }} justifyContent="center">
-            <Link to="/users">
-              <Button>Users list</Button>
-            </Link>
-          </Grid>
-        )}
+    //     {isAuth && (
+    //       <Grid container style={{ marginTop: 20 }} justifyContent="center">
+    //         <Link to="/users">
+    //           <Button>Users list</Button>
+    //         </Link>
+    //       </Grid>
+    //     )}
 
-        {!isAuth && (
-          <Grid container style={{ marginTop: 20 }} justifyContent="center">
-            <Link to="/sign-in">
-              <Button>Sign in</Button>
-            </Link>
-          </Grid>
-        )}
+    //     {!isAuth && (
+    //       <Grid container style={{ marginTop: 20 }} justifyContent="center">
+    //         <Link to="/sign-in">
+    //           <Button>Sign in</Button>
+    //         </Link>
+    //       </Grid>
+    //     )}
 
-        {!isAuth && (
-          <Grid container style={{ marginTop: 20 }} justifyContent="center">
-            <Link to="/sign-up">
-              <Button>Sign up</Button>
-            </Link>
-          </Grid>
-        )}
+    //     {!isAuth && (
+    //       <Grid container style={{ marginTop: 20 }} justifyContent="center">
+    //         <Link to="/sign-up">
+    //           <Button>Sign up</Button>
+    //         </Link>
+    //       </Grid>
+    //     )}
 
-        {isAuth && (
-          <Grid container style={{ marginTop: 20 }} justifyContent="center">
-            <Button onClick={handleClick}>Sign out</Button>
-          </Grid>
-        )}
-      </Grid>
-    </Grid>
+    //     {isAuth && (
+    //       <Grid container style={{ marginTop: 20 }} justifyContent="center">
+    //         <Button onClick={handleClick}>Sign out</Button>
+
+    //         <Link to="/tasks">
+    //           <Button>tasks</Button>
+    //         </Link>
+    //       </Grid>
+    //     )}
+    //   </Grid>
+    // </Grid>
+
+    <div className="main">
+      <div className="main__logo">
+        <div className="main__imageLogo"></div>
+
+        <div className="main__title-logo">Tempus</div>
+
+        <div className="main__quote">
+          Quia tempus est mensura motus, erit etiam a mensura de requiem, pro
+          omnibus ceteris est in tempus...
+        {/* <Button onClick={handleClick}>Sign out</Button> */}
+
+        </div>
+      </div>
+
+      <div className="main__form">
+        <Outlet />
+
+        {/* <SignInForm onSubmit={handleSubmit} isLoading={isLoading} /> */}
+        {/* <Alert
+          title="Sign in error"
+          message={signInError}
+          open={openAlert}
+          onClose={closeAlert}
+        /> */}
+      </div>
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@ const useField = (field, fieldName) => {
   const [value, setValue] = useState(field.value || "");
 
   const onChange = (val) => {
-    val = val.replace(/\s/g, "");
+    // val = val.replace(/\s/g, "");
 
     setValue(val);
     setValid(true);

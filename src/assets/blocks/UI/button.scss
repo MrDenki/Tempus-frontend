@@ -1,0 +1,39 @@
+@function darker($color, $tone) {
+  $adjust: -16 * $tone;
+  @return adjust-color($color, $red: $adjust, $green: $adjust, $blue: $adjust);
+}
+
+.button {
+  // color: $text-color !important;
+  text-transform: none !important;
+  font-weight: 400 !important;
+  font-family: $font-family !important;
+  font-size: 1rem !important;
+  box-shadow: none !important;
+
+  // border-color: $darken-primary-color !important;
+  // border-width: 2px !important;
+  &__contained {
+    background: $gradient !important;
+    background-color: $primary-color !important;
+    transition: background 0.2s ease;
+
+    &:hover {
+      background: darker($primary-color, 1) !important;
+    }
+  }
+
+  &_rounded {
+    border-radius: 20px !important;
+  }
+
+  // &_text {
+  //   border: none !important;
+  // }
+  margin: 0;
+}
+
+// .button:hover {
+//   color: $darken-text-color !important;
+//   background: $darken-primary-color !important;
+// }
