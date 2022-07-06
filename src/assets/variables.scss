@@ -11,14 +11,19 @@ $font-family: "Montserrat", sans-serif;
   --darken-text-color: rgb(240, 238, 238);
 }
 
-$primary-color: #DB334D;
-$light-primary: #FFFAEE;
-$secondary-color: #FB6477;
-$tertiary: #FBB1A6;
+$primary-color: #db334d;
+$light-primary: #fffaee;
+$secondary-color: #fb6477;
+$tertiary: #fbb1a6;
 $dark-tertiary: #ffdccc;
-$light-tertiary: #FFECE3;
+$light-tertiary: #ffece3;
 $border-color: rgba($primary-color, 0.6);
 $darken-primary-color: var(--darken-secondary-color);
 
 $text-color: var(--text-color);
 $darken-text-color: var(--darken-text-color);
+
+$icon-color: #ababab;
+
+$gradient: linear-gradient(22deg, $primary-color 30%, $secondary-color 100%);
+$gradient-hover: linear-gradient(22deg, $primary-color 70%, $secondary-color 100%);

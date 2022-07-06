@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import SearchIcon from "@mui/icons-material/Search";
 import Task from "./Task";
@@ -5,33 +6,38 @@ import SelectedTask from "./SelectedTask";
 import TextField from "../UI/TextField";
 import Button from "@/components/UI/Button";
 import Spiner from "@/components/UI/Spiner";
-import { useState } from "react";
 import { useDebounce } from "@/hooks";
+import { setSelecedTask } from "../../store/slices/tasksSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const TaskList = ({
   className,
   tasks,
-  onCreate,
   onChange,
+  onDelete,
   onSearch,
   isSearch,
   isLoading,
 }) => {
+  const dispatch = useDispatch();
+  const debouncedOnSearch = useDebounce(onSearch, 500);
   const [searchText, setSearchText] = useState("");
   const [openSelectedTask, setOpenSelectedTask] = useState(false);
-  const [selectedTask, setSelectedTask] = useState();
-  const debouncedOnSearch = useDebounce(onSearch, 500);
+  const [taskss, setTaskss] = useState(tasks);
+  const { selectedTaskId } = useSelector((state) => state.task);
 
-  const [taskss, setTaskss] = useState(tasks || []);
+  useEffect(() => {
+    setTaskss(tasks);
+  }, [tasks]);
 
   const searchTask = (e) => {
     setSearchText(e.target.value);
+    dispatch(setSelecedTask(undefined));
     debouncedOnSearch(e.target.value);
   };
 
-  const handleOpenSelectedTask = (task) => {
-    console.log("task", task);
-    setSelectedTask(task);
+  const handleOpenSelectedTask = (taskId) => {
+    dispatch(setSelecedTask(taskId));
     setOpenSelectedTask(true);
   };
 
@@ -40,15 +46,19 @@ const TaskList = ({
   };
 
   const handleChangeTask = (task) => {
-    setSelectedTask(task);
+    dispatch(setSelecedTask(task.id));
 
     let isCreated = false;
-    if (task.id === "new") isCreated = true;
-    
+    if (task.id === "new") {
+      delete task.id;
+      isCreated = true;
+    }
+
     onChange(task, isCreated);
   };
 
   const createTask = () => {
+    setSearchText("");
     if (taskss.find((task) => task.id === "new")) {
     } else {
       const _ = [...taskss];
@@ -57,6 +67,23 @@ const TaskList = ({
       setTaskss(_);
       handleOpenSelectedTask(newTask);
     }
+  };
+
+  const handleDeleteTask = (taskId) => {
+    if (taskId === "new") {
+      setTaskss(taskss.filter((task) => task.id !== "new"));
+      dispatch(setSelecedTask(tasks[tasks.length - 1].id));
+    } else {
+      if (tasks.length === 1) dispatch(setSelecedTask(undefined));
+      else dispatch(setSelecedTask(tasks[tasks.length - 2]));
+      onDelete(taskId);
+    }
+  };
+
+  const currentSelectedTask = () => {
+    return taskss.find((task) => {
+      return task.id === selectedTaskId;
+    });
   };
 
   return (
@@ -83,19 +110,33 @@ const TaskList = ({
       </div>
 
       <div className="task-list__body">
-        {!isLoading && !isSearch && taskss && !!taskss.length && (
-          <div className="task-list__list-holder">
-            {taskss.map((task) => (
-              <Task
-                selected={selectedTask && task.id === selectedTask.id}
-                onClick={() => handleOpenSelectedTask(task)}
-                task={task}
-                onChange={handleChangeTask}
-                key={task.id}
-              />
-            ))}
-          </div>
-        )}
+        <div className="task-list__list-holder">
+          {!isLoading && !isSearch && taskss && !taskss.length && (
+            <div className="task-list__no-task">
+              <h3 className="task-list__no-task-title">No tasks</h3>
+            </div>
+          )}
+
+          {!isLoading && !isSearch && taskss && !!taskss.length && (
+            <>
+              {taskss.map((task) => (
+                <Task
+                  selected={task.id === selectedTaskId}
+                  onClick={() => handleOpenSelectedTask(task)}
+                  task={task}
+                  onChange={handleChangeTask}
+                  key={task.id}
+                />
+              ))}
+            </>
+          )}
+
+          {(isLoading || isSearch) && (
+            <div className="task-list__is-search">
+              <Spiner />
+            </div>
+          )}
+        </div>
 
         <div
           className={`task-list__selected-task ${
@@ -103,23 +144,14 @@ const TaskList = ({
           }`}
         >
           <SelectedTask
-            selectedTask={selectedTask}
-            onChange={handleChangeTask}
+            selectedTask={currentSelectedTask()}
+            onChangeTask={handleChangeTask}
+            onDeleteTask={handleDeleteTask}
+            // onDeleteUser={}
+            // onSelectUser={}
             onClose={handleCloseSelectedTask}
           />
         </div>
-
-        {(isLoading || isSearch) && (
-          <div className="task-list__is-search">
-            <Spiner />
-          </div>
-        )}
-
-        {!isLoading && !isSearch && taskss && !taskss.length && (
-          <div className="task-list__no-task">
-            <h3 className="task-list__no-task-title">No tasks</h3>
-          </div>
-        )}
       </div>
     </div>
   );

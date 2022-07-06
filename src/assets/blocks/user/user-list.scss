@@ -14,15 +14,14 @@
 }
 
 .user-list {
-  // padding: 20px 15px !important;
   border: 2px solid $tertiary;
-  // border-radius: 6px;
   border-top: none;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  border-bottom: 0;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
   overflow-y: auto;
+  background-color: white;
 
   &__header {
     // border: 2px solid $tertiary;
@@ -56,9 +55,19 @@
     }
   }
 
+  // &__footer {
+  //   padding: 20px;
+  //   display: flex;
+  //   justify-content: space-between;
+  //   border: 2px solid $tertiary;
+  //   border-bottom-left-radius: 20px;
+  //   border-bottom-right-radius: 20px;
+  //   background-color: white;
+  // }
+
   &__search {
     margin-left: 10px;
-    max-width: 50%;
+    max-width: 40%;
     justify-self: flex-start;
   }
 
@@ -84,24 +93,26 @@
   }
 
   &__button {
-    width: 50% !important;
-    height: 60px;
-    border-radius: 0 !important;
+    width: 40% !important;
+    // border-radius: 0 !important;.
     // border-bottom-left-radius: 20px !important;
 
-    &-right {
-      border-bottom-right-radius: 20px !important;
-      background: linear-gradient(
-        34deg,
-        $primary-color 13%,
-        $secondary-color 100%
-      );
-      color: white !important;
-    }
+    // &-right {
+    //   border-bottom-right-radius: 20px !important;
+    //   color: white !important;
+    // }
 
-    &-left {
-      border-bottom-left-radius: 20px !important;
-    }
+    // &-left {
+    //   border-bottom-left-radius: 20px !important;
+    // }
+  }
+
+  &__spiner {
+    height: 100%;
+    // flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   &__no-users {
@@ -112,5 +123,9 @@
     align-items: center;
     flex-direction: column;
     font-size: 18px;
+
+    &-smile {
+      font-size: 25px;
+    }
   }
 }

@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import TaskList from "../components/Task/TaskList";
 import {
   getTasks,
   deleteTask,
   getSearchedTask,
   createTask,
+  updateTask,
 } from "../store/slices/tasksSlice";
-import TaskList from "../components/Task/TaskList";
-import CreateTaskModal from "../components/Modals/CreateTaskModal";
-import UpdateTaskModal from "../components/Modals/UpdateTaskModal";
-// import { getCurrentUser } from "@/store/slices/authSlice";
-
 
 const Tasks = () => {
   const dispatch = useDispatch();
@@ -19,49 +16,24 @@ const Tasks = () => {
     (state) => state.task
   );
 
-  const [isShowCreateTaskModal, setIsShowCreateTaskModal] = useState(false);
-  const [isShowUpdateTaskModal, setIsShowUpdateTaskModal] = useState(false);
-  const [editedTask, setEditedTask] = useState();
-
   useEffect(() => {
     if (currentUser) dispatch(getTasks(currentUser.id));
   }, [currentUser]);
 
-  const hanldeSearch = (searchText) => {
+  const handleSearch = (searchText) => {
     dispatch(getSearchedTask(searchText));
   };
 
-  const showCreateTaskModal = () => {
-    setIsShowCreateTaskModal(true);
-  };
-
-  const handleChangeTask = (task, isCreated) => {
-    // setEditedTask(task);
-    // setIsShowUpdateTaskModal(true);
-    console.log(task, isCreated);
-    // if (isCreated) dispatch(createTask(task));
-    // else dispatch(updateTask(task));
-  };
-
-  const handleCloseCreateTaskModak = () => {
-    setIsShowCreateTaskModal(false);
-  };
-
-  const handleCloseUpdateTaskModal = () => {
-    setIsShowUpdateTaskModal(false);
-  };
-
-  const handleCreateTask = (task) => {
-    dispatch(createTask(task));
-  };
-
-  const handleUpdateTask = (task) => {
-    dispatch(updateTask(task));
+  const handleChangeTask = async (task, isCreated) => {
+    if (isCreated) {
+      task.creatorId = currentUser.id;
+      const data = await dispatch(createTask(task));
+      task.id = data.payload.id
+    } else dispatch(updateTask(task));
   };
 
   const handleDeleteTask = (taskId) => {
     dispatch(deleteTask(taskId));
-    handleCloseUpdateTaskModal();
   };
 
   return (
@@ -73,28 +45,10 @@ const Tasks = () => {
         tasks={tasks}
         isSearch={isSearch}
         isLoading={isLoading}
-        onSearch={hanldeSearch}
-        // onCreate={showCreateTaskModal}
+        onSearch={handleSearch}
         onChange={handleChangeTask}
+        onDelete={handleDeleteTask}
       />
-
-      {isShowCreateTaskModal && (
-        <CreateTaskModal
-          show={isShowCreateTaskModal}
-          onClose={handleCloseCreateTaskModak}
-          onSubmit={handleCreateTask}
-        />
-      )}
-
-      {isShowUpdateTaskModal && (
-        <UpdateTaskModal
-          task={editedTask}
-          show={isShowUpdateTaskModal}
-          onClose={handleCloseUpdateTaskModal}
-          onDelete={handleDeleteTask}
-          onSubmit={handleUpdateTask}
-        />
-      )}
     </div>
   );
 };

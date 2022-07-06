@@ -1,37 +1,66 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import List from "@mui/material/List";
 import UserListItem from "./UserListItem";
-// import { TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@/components/UI/TextField";
-import { Checkbox } from "@mui/material";
 import Button from "@/components/UI/Button";
+import { useDebounce } from "@/hooks";
+import { useDispatch, useSelector } from "react-redux";
+import { getUsers } from "@/store/slices/userSlice";
+import { assignWorker, unassignWorker } from "../../store/slices/tasksSlice";
+import Spiner from "@/components/UI/Spiner";
 
-const UserList = ({ className, users, workers, footer }) => {
-  const [addedWorkers, setAddedWorkers] = useState([]);
+const UserList = ({ className, selectedTask, onSearch }) => {
+  const dispatch = useDispatch();
   const [searchText, setSearchText] = useState("");
+  const [isShowOnlyAssignedUsers, setIsShowOnlyAssignedUsers] = useState(false);
+  const debouncedOnSearch = useDebounce(onSearch, 500);
+  const { users } = useSelector((state) => state.user);
+  const { isLoading, isSearch } = useSelector((state) => state.user);
 
-  const handleClick = (userId) => {
-    if (userInWorkers(userId)) {
-      const _ = [...addedWorkers];
-      const index = _.indexOf(userId);
-      _.splice(index, 1);
-      setAddedWorkers(_);
+  useEffect(() => {
+    dispatch(getUsers());
+  }, []);
+
+  const showOnlyAssignedUsers = () => {
+    if (!isShowOnlyAssignedUsers) {
+      dispatch(getUsers({ taskId: selectedTask.id }));
+      setIsShowOnlyAssignedUsers(true);
     } else {
-      const _ = [...addedWorkers];
-      _.push(userId);
-      setAddedWorkers(_);
+      dispatch(getUsers());
+      setIsShowOnlyAssignedUsers(false);
     }
   };
 
-  const userInWorkers = (userId) => {
-    return addedWorkers.includes(userId);
+  const searchTask = (e) => {
+    setSearchText(e.target.value);
+    debouncedOnSearch(e.target.value);
   };
 
-  const [age, setAge] = useState("");
+  const selectUser = (userId) => {
+    let isUserSelected = false;
+    selectedTask.workers.forEach((worker) => {
+      if (worker.workerId === userId) isUserSelected = true;
+    });
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
+    const obj = {
+      taskId: selectedTask.id,
+      workerId: userId,
+    };
+
+    if (isUserSelected) dispatch(unassignWorker(obj));
+    else dispatch(assignWorker(obj));
+  };
+
+  const isUserAssignedToCurrentTask = (userId) => {
+    if (!selectedTask) return;
+
+    let selected = false;
+    selectedTask.workers.forEach((worker) => {
+      if (worker.workerId === userId) selected = true;
+    });
+
+    return selected;
   };
 
   return (
@@ -39,17 +68,18 @@ const UserList = ({ className, users, workers, footer }) => {
       <div className="user-list__header">
         <div className="user-list__header-item user-list__search">
           <TextField
-            // className="user-list__search"
             small
             icon={<SearchIcon />}
             value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
+            onChange={searchTask}
           />
         </div>
 
         <div className="user-list__header-item">
-          <div className="circle">{addedWorkers.length}</div>
-          <Button text>Appointed</Button>
+          <div className="circle">{selectedTask && selectedTask.workers && selectedTask.workers.length}</div>
+          <Button text onClick={showOnlyAssignedUsers}>
+            {isShowOnlyAssignedUsers ? 'Assigned': 'Unassigned'}
+          </Button>
         </div>
       </div>
 
@@ -58,21 +88,28 @@ const UserList = ({ className, users, workers, footer }) => {
           <List className="user-list__list">
             {users.map((user) => (
               <UserListItem
-                selected={userInWorkers(user.id)}
+                selected={isUserAssignedToCurrentTask(user.id)}
                 user={user}
-                onClick={handleClick}
+                onClick={selectUser}
                 key={user.id}
               />
             ))}
           </List>
         )}
 
-        {!users.length && (
-          <div className="user-list__no-users">No users??🤔</div>
+        {!users.length && (isLoading || isSearch) && (
+          <div className="user-list__spiner">
+            <Spiner />
+          </div>
+        )}
+
+        {!users.length && !isLoading && !isSearch && (
+          <div className="user-list__no-users">
+            <span className="user-list__no-users-smile">🤔</span>
+            No users??
+          </div>
         )}
       </div>
-
-      {footer}
     </>
   );
 };

@@ -3,6 +3,7 @@ import tasksService from "../../api/tasksService";
 
 const initialState = {
   tasks: [],
+  selectedTaskId: undefined,
   isLoading: false,
   isSearch: false,
   error: "",
@@ -13,7 +14,7 @@ export const getTasks = createAsyncThunk(
   "tasks/getTasks",
   async (userId, { rejectWithValue }) => {
     try {
-      const { data } = await tasksService.getTasks(userId);
+      const { data } = await tasksService.getUserTasks(userId);
       return data;
     } catch (error) {
       const message = error.response.data.message;
@@ -24,9 +25,11 @@ export const getTasks = createAsyncThunk(
 
 export const createTask = createAsyncThunk(
   "tasks/createTask",
-  async (task, { rejectWithValue }) => {
+  async (task, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await tasksService.createTask(task);
+      dispatch(setSelecedTask(data));
+      dispatch(getTasks(task.creatorId));
       return data;
     } catch (error) {
       const message = error.response.data.message;
@@ -50,10 +53,39 @@ export const deleteTask = createAsyncThunk(
 
 export const updateTask = createAsyncThunk(
   "tasks/updateTask",
-  async (task, { rejectWithValue }) => {
+  async (task, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await tasksService.updateTask(task);
-      return data;
+      dispatch(setSelecedTask(task));
+      dispatch(getTasks(task.creatorId));
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const assignWorker = createAsyncThunk(
+  "tasks/assigneWorker",
+  async ({ taskId, workerId }, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await tasksService.assignWorker(taskId, workerId);
+      // dispatch(getTasks());
+      return { taskId, workerId };
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const unassignWorker = createAsyncThunk(
+  "tasks/unassignWorker",
+  async ({ taskId, workerId }, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await tasksService.unassignWorker(taskId, workerId);
+      // dispatch(getTasks());
+      return { taskId, workerId };
     } catch (error) {
       const message = error.response.data.message;
       return rejectWithValue(message);
@@ -94,6 +126,10 @@ export const tasksSlice = createSlice({
     clearError: (state) => {
       state.error = "";
     },
+    setSelecedTask: (state, { payload }) => {
+      if (payload && payload.id) state.selectedTaskId = payload.id;
+      else state.selectedTaskId = undefined;
+    },
   },
   extraReducers: {
     [getTasks.pending]: (state) => {
@@ -109,11 +145,11 @@ export const tasksSlice = createSlice({
     },
 
     [createTask.pending]: (state) => {
-      state.isLoading = true;
+      // state.isLoading = true;
     },
     [createTask.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      state.tasks.push(payload);
+      // state.isLoading = false;
+      // state.tasks.push(payload);
     },
     [createTask.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -121,10 +157,10 @@ export const tasksSlice = createSlice({
     },
 
     [deleteTask.pending]: (state) => {
-      state.isLoading = true;
+      // state.isLoading = true;
     },
     [deleteTask.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
+      // state.isLoading = false;
       state.tasks = state.tasks.filter((task) => task.id !== payload);
     },
     [deleteTask.rejected]: (state, { payload }) => {
@@ -133,13 +169,13 @@ export const tasksSlice = createSlice({
     },
 
     [updateTask.pending]: (state) => {
-      state.isLoading = true;
+      // state.isLoading = true;
     },
     [updateTask.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
-      const currentTask = state.tasks.find((task) => task.id === payload.id);
-      const index = state.tasks.indexOf(currentTask);
-      state.tasks[index] = payload;
+      // state.isLoading = false;
+      // const currentTask = state.tasks.find((task) => task.id === payload.id);
+      // const index = state.tasks.indexOf(currentTask);
+      // state.tasks[index] = payload;
     },
     [updateTask.rejected]: (state, { payload }) => {
       state.isLoading = false;
@@ -147,18 +183,35 @@ export const tasksSlice = createSlice({
     },
 
     [getSearchedTask.pending]: (state) => {
-      state.isSearch = true
+      state.isSearch = true;
     },
     [getSearchedTask.fulfilled]: (state, { payload }) => {
       state.isSearch = false;
-      state.tasks = payload
+      state.tasks = payload;
     },
     [getSearchedTask.rejected]: (state, { payload }) => {
       state.isSearch = false;
       state.searchError = payload;
     },
+
+    // [assigneWorker.pending]
+    [assignWorker.fulfilled]: (state, { payload: { taskId, workerId } }) => {
+      const editedTask = state.tasks.find((task) => task.id === taskId);
+      editedTask.workers.push({ workerId });
+
+      // console.log(state.tasks.find((task) => task.id === taskId));
+      // console.log(...editedTask.workers);
+      // state.tasks[state.tasks[editedTask.id]] = editedTask;
+      // state.tasks = payload;
+    },
+    [unassignWorker.fulfilled]: (state, { payload: { taskId, workerId } }) => {
+      const editedTask = state.tasks.find((task) => task.id === taskId);
+      editedTask.workers = editedTask.workers.filter(
+        (worker) => worker.workerId !== workerId
+      );
+    },
   },
 });
 
-export const { clearError } = tasksSlice.actions;
+export const { clearError, setSelecedTask } = tasksSlice.actions;
 export default tasksSlice.reducer;

@@ -1,10 +1,12 @@
 .task-list {
-  border: 1px solid $tertiary;
+  // border: 1px solid $tertiary;
+  box-shadow: -6px -2px 27px -6px rgba(34, 60, 80, 0.13);
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 79px);
-  background-color: $light-primary;
+  background-color: rgba($light-primary, 0.6);
+  // background-color: $light-primary;
 
   ::-webkit-scrollbar {
     width: 7px;
@@ -43,6 +45,7 @@
   }
 
   &__no-task {
+    height: 100%;
     flex-grow: 1;
     display: flex;
     justify-content: center;
@@ -55,6 +58,7 @@
   }
 
   &__is-search {
+    height: 100%;
     flex-grow: 1;
     display: flex;
     justify-content: center;

@@ -9,9 +9,9 @@ const initialState = {
 
 export const getUsers = createAsyncThunk(
   "user/getUsers",
-  async (_, { rejectWithValue }) => {
+  async (query, { rejectWithValue }) => {
     try {
-      const { data } = await userService.getUsers();
+      const { data } = await userService.getUsers(query);
       return data;
     } catch (error) {
       const message = error.response.data.message;

@@ -23,9 +23,14 @@ const Button = ({
   if (text) classes.push("button_text");
   if (className) classes.push(className);
 
-  let variant = 'outlined'
-  if(text) variant = 'text'
-  if(contained) variant = 'contained'
+  let variant = "outlined";
+
+  if (text) variant = "text";
+
+  if (contained) {
+    variant = "contained";
+    classes.push("button__contained");
+  }
 
   const size = () => {
     if (small) return "small";
