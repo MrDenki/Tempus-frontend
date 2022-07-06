@@ -18,7 +18,7 @@ const SignUp = () => {
 
   const handleSubmit = async (credentials) => {
     await dispatch(signUp(credentials));
-    if (isAuth) router("/");
+    if (isAuth) router("/tasks");
   };
 
   const closeAlert = () => {

@@ -14,8 +14,9 @@ const initialState = {
 
 export const signIn = createAsyncThunk(
   "auth/signIn",
-  async (credentials, { rejectWithValue }) => {
+  async (credentials, { rejectWithValue, dispatch }) => {
     try {
+      // dispatch(setAuth(true))
       const {
         data: { user },
       } = await authService.signIn(credentials);
@@ -86,16 +87,19 @@ export const authSlice = createSlice({
     clearGetCurrentUserError: (state) => {
       state.getCurrentUserError = "";
     },
+    setAuth: (state, isAuth) => {
+      state.isAuth = isAuth;
+    },
   },
   extraReducers: {
     [signIn.pending]: (state) => {
       state.isLoading = true;
     },
     [signIn.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.isAuth = true;
-      state.currentUser = action.payload;
       localStorage.setItem("isAuth", true);
+      state.isAuth = true;
+      state.isLoading = false;
+      state.currentUser = action.payload;
     },
     [signIn.rejected]: (state, action) => {
       state.isLoading = false;

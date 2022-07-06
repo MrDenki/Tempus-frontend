@@ -6,7 +6,6 @@ import Alert from "@/components/UI/Alert";
 import SignInForm from "@/components/Forms/SignInForm";
 import { Outlet } from "react-router-dom";
 
-
 const SignIn = () => {
   const dispatch = useDispatch();
   const router = useNavigate();
@@ -18,9 +17,13 @@ const SignIn = () => {
     else setOpenAlert(false);
   }, [signInError]);
 
+  useEffect(() => {
+    if (isAuth) router("/tasks");
+  }, [isAuth]);
+
   const handleSubmit = async (credentials) => {
     await dispatch(signIn(credentials));
-    if (isAuth) router("/");
+    if (isAuth) router("/tasks");
   };
 
   const closeAlert = () => {
@@ -43,7 +46,7 @@ const SignIn = () => {
     //   <div className="signIn__form">
     //     <Outlet />
 
-        <SignInForm onSubmit={handleSubmit} isLoading={isLoading} />
+    <SignInForm onSubmit={handleSubmit} isLoading={isLoading} />
     //     <Alert
     //       title="Sign in error"
     //       message={signInError}

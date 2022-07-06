@@ -13,12 +13,12 @@ const Tasks = lazy(() => import("@/pages/Tasks"));
 
 const PrivateRoute = () => {
   const { isAuth } = useSelector((state) => state.auth);
-  return isAuth ? <Outlet /> : <Navigate to="/" />;
+  return isAuth ? <Outlet /> : <Navigate to="/sign-in" />;
 };
 
 const CheckAuht = () => {
   const { isAuth } = useSelector((state) => state.auth);
-  return !isAuth ? <Outlet /> : <Navigate to="/" />;
+  return !isAuth ? <Outlet /> : <Navigate to="/tasks" />;
 };
 
 const routes = [
@@ -31,18 +31,6 @@ const routes = [
         children: [{ path: "*", element: <NoMatch /> }],
       },
       {
-        element: <CheckAuht />,
-        children: [
-          {
-            element: <Main />,
-            children: [
-              { path: "sign-in", element: <SignIn /> },
-              { path: "sign-up", element: <SignUp /> },
-            ],
-          },
-        ],
-      },
-      {
         element: <PrivateRoute />,
         children: [
           { path: "users", element: <UserList /> },
@@ -50,6 +38,18 @@ const routes = [
             path: "tasks",
             element: <Tasks />,
           },
+        ],
+      },
+    ],
+  },
+  {
+    element: <CheckAuht />,
+    children: [
+      {
+        element: <Main />,
+        children: [
+          { path: "sign-in", element: <SignIn /> },
+          { path: "sign-up", element: <SignUp /> },
         ],
       },
     ],
