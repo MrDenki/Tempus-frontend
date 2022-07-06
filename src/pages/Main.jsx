@@ -5,8 +5,7 @@ import Grid from "@mui/material/Grid";
 import { Heading, Title, Subtitle } from "@/components/Typography";
 import { signOut } from "@/store/slices/authSlice";
 import Button from "../components/UI/Button";
-import { Outlet } from "react-router-dom";
-
+import Sidebar from "../components/Sidebar";
 
 const Main = () => {
   const dispatch = useDispatch();

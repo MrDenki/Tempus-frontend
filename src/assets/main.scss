@@ -41,12 +41,6 @@ a:hover {
   height: 100%;
 }
 
-.icon {
-  fill: $primary-color;
-  height: 35px;
-  width: 35px;
-}
-
 .center-container {
   height: 100%;
   display: flex;
@@ -54,24 +48,169 @@ a:hover {
   justify-content: center;
 }
 
-// .MuiButton-root {
-//   border-radius: 20px !important;
+.MuiFormHelperText-root {
+  margin: 0 !important;
+  // height: 50px;
+}
+
+// .MuiOutlinedInput-root fieldset  {
+//   border-color: $secondary-color !important;
 // }
 
-.MuiButton-root.MuiButton-sizeSmall {
-  padding: 4px 10px !important;
+// .MuiOutlinedInput-root.Mui-focused fieldset  {
+//   border-color: $darken-secondary-color !important;
+// }
+
+.navigation {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  bottom: 0px;
+  width: 70px;
+  border-radius: 10px;
+  box-sizing: initial;
+  border-left: 5px solid $primary-color;
+  background: $primary-color;
+  transition: all 0.5s;
+  overflow-x: hidden;
+} 
+
+.navigation.active {
+  width: 300px;
 }
 
-.MuiOutlinedInput-root {
-  border-radius: 20px !important;
+.navigation ul {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding-left: 5px;
+  padding-top: 40px;
 }
 
-.MuiInputBase-input.MuiInputBase-inputAdornedEnd {
-  border-top-right-radius: 0px !important;
-  border-bottom-right-radius: 0px !important;
+.navigation ul li {
+  position: relative;
+  list-style: none;
+  width: 100%;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 
-.test {
-  height: 360px;
-  width: 440px;
+.navigation ul li.active {
+  background: #fff;
+}
+
+.navigation ul li b:nth-child(1) {
+  position: absolute;
+  top: -20px;
+  height: 20px;
+  width: 100%;
+  background: #fff;
+  display: none;
+}
+
+.navigation ul li b:nth-child(1)::before{
+  content: '';
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  border-bottom-right-radius: 20px;
+  background: $primary-color;
+}
+
+.navigation ul li b:nth-child(2) {
+  position: absolute;
+  bottom: -20px;
+  height: 20px;
+  width: 100%;
+  background: #fff;
+  display: none;
+}
+
+.navigation ul li b:nth-child(2)::before{
+  content: '';
+  position: absolute;
+  bottom:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  border-top-right-radius: 20px;
+  background: $primary-color;
+}
+
+.navigation ul li.active b:nth-child(1), .navigation ul li.active b:nth-child(2) {
+  display: block;
+}
+
+.navigation ul li a {
+  position: relative;
+  display: block;
+  width: 100%;
+  display: flex;
+  text-decoration: none;
+  color: #fff;
+}
+
+.navigation ul li.active a {
+  color: #333;
+}
+
+.navigation ul li a .icon {
+  position: relative;
+  list-style: none;
+  display: block;
+  min-width: 60px;
+  height: 60px;
+  line-height: 70px;
+  text-align: center;
+}
+
+.navigation ul li a .icon ion-icon {
+  font-size: 1.5em;
+}
+
+.navigation ul li a .title {
+  position: relative;
+  display: block;
+  padding-left: 10px;
+  height: 60px;
+  line-height: 60px;
+  white-space: normal;
+}
+
+.toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: $secondary-color;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggle.active {
+  background: $primary-color;
+}
+
+.toggle ion-icon {
+  position: absolute;
+  color: #fff;
+  font-size: 34px;
+  display: none;
+}
+
+.toggle ion-icon.open,
+.toggle.active ion-icon.close {
+  display: block;
+}
+
+.toggle ion-icon.close,
+.toggle.active ion-icon.open {
+  display: none;
 }
