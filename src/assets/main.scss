@@ -4,10 +4,16 @@
 @import "./blocks/spiner.scss";
 @import "./blocks/form/form.scss";
 @import "./blocks/user/index.scss";
+@import "./blocks/signIn/index.scss";
+
+* {
+  margin: 0;
+  padding: 0;
+}
 
 html,
 body {
-  height: 99%;
+  height: 100%;
   font-family: $font-family;
 }
 
