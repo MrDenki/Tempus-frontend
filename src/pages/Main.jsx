@@ -6,6 +6,7 @@ import { Heading, Title, Subtitle } from "@/components/Typography";
 import { signOut } from "@/store/slices/authSlice";
 import Button from "../components/UI/Button";
 import Sidebar from "../components/Sidebar";
+import { Outlet } from "react-router-dom";
 
 const Main = () => {
   const dispatch = useDispatch();

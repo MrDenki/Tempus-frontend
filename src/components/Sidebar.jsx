@@ -2,12 +2,20 @@ import { useEffect } from "react";
 
 const Sidebar = () => {
   useEffect(() => {
-    let menuToggle = document.querySelector(".toggle");
+    let openMenuToggle = document.querySelector(".toggle-open");
+    let closeMenuToggle = document.querySelector(".toggle-close");
     let navigation = document.querySelector(".navigation");
-    menuToggle.onclick = function () {
-      menuToggle.classList.toggle("active");
-      navigation.classList.toggle("active");    
+    openMenuToggle.onclick = function () {
+      openMenuToggle.classList.toggle("active");
+      closeMenuToggle.classList.toggle("active");
+      navigation.classList.toggle("active");
     };
+
+    closeMenuToggle.onclick = function () {
+        openMenuToggle.classList.remove("active");
+        closeMenuToggle.classList.remove("active");
+        navigation.classList.remove("active");
+    }
 
     let list_nav = document.getElementsByClassName("navigation-list");
     for (let i = 0; i < list_nav.length; i++) {
@@ -25,6 +33,14 @@ const Sidebar = () => {
     <>
       <div className="navigation">
         <ul>
+          <li>
+            <div className="toggle-open">
+              <ion-icon name="menu-outline" className="open"></ion-icon>
+            </div>
+            <div className="toggle-close">
+              <ion-icon name="close-outline" className="close"></ion-icon>
+            </div>
+          </li>
           <li className="navigation-list active">
             <b></b>
             <b></b>
@@ -56,10 +72,6 @@ const Sidebar = () => {
             </a>
           </li>
         </ul>
-      </div>
-      <div className="toggle">
-        <ion-icon name="menu-outline" className="open"></ion-icon>
-        <ion-icon name="close-outline" className="close"></ion-icon>
       </div>
     </>
   );

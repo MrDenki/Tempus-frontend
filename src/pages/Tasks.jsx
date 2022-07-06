@@ -9,8 +9,8 @@ import {
 import TaskList from "../components/Task/TaskList";
 import CreateTaskModal from "../components/Modals/CreateTaskModal";
 import UpdateTaskModal from "../components/Modals/UpdateTaskModal";
+import Sidebar from "@/components/Sidebar";
 // import { getCurrentUser } from "@/store/slices/authSlice";
-
 
 const Tasks = () => {
   const dispatch = useDispatch();
@@ -65,37 +65,40 @@ const Tasks = () => {
   };
 
   return (
-    <div className="task-page">
-      <h3 className="task-page__title">My Task</h3>
+    <>
+      <Sidebar />
+      <div className="task-page">
+        <h3 className="task-page__title">My Task</h3>
 
-      <TaskList
-        className="task-page__task-list"
-        tasks={tasks}
-        isSearch={isSearch}
-        isLoading={isLoading}
-        onSearch={hanldeSearch}
-        // onCreate={showCreateTaskModal}
-        onChange={handleChangeTask}
-      />
-
-      {isShowCreateTaskModal && (
-        <CreateTaskModal
-          show={isShowCreateTaskModal}
-          onClose={handleCloseCreateTaskModak}
-          onSubmit={handleCreateTask}
+        <TaskList
+          className="task-page__task-list"
+          tasks={tasks}
+          isSearch={isSearch}
+          isLoading={isLoading}
+          onSearch={hanldeSearch}
+          // onCreate={showCreateTaskModal}
+          onChange={handleChangeTask}
         />
-      )}
 
-      {isShowUpdateTaskModal && (
-        <UpdateTaskModal
-          task={editedTask}
-          show={isShowUpdateTaskModal}
-          onClose={handleCloseUpdateTaskModal}
-          onDelete={handleDeleteTask}
-          onSubmit={handleUpdateTask}
-        />
-      )}
-    </div>
+        {isShowCreateTaskModal && (
+          <CreateTaskModal
+            show={isShowCreateTaskModal}
+            onClose={handleCloseCreateTaskModak}
+            onSubmit={handleCreateTask}
+          />
+        )}
+
+        {isShowUpdateTaskModal && (
+          <UpdateTaskModal
+            task={editedTask}
+            show={isShowUpdateTaskModal}
+            onClose={handleCloseUpdateTaskModal}
+            onDelete={handleDeleteTask}
+            onSubmit={handleUpdateTask}
+          />
+        )}
+      </div>
+    </>
   );
 };
 

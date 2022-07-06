@@ -67,7 +67,8 @@ a:hover {
   left: 0px;
   bottom: 0px;
   width: 70px;
-  border-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-right-radius: 10px;
   box-sizing: initial;
   border-left: 5px solid $primary-color;
   background: $primary-color;
@@ -180,12 +181,11 @@ a:hover {
   white-space: normal;
 }
 
-.toggle {
-  position: fixed;
-  top: 20px;
-  right: 20px;
+.toggle-open {
+  position: relative;
   width: 50px;
   height: 50px;
+  top: -20px;
   background: $secondary-color;
   border-radius: 10px;
   cursor: pointer;
@@ -194,23 +194,55 @@ a:hover {
   align-items: center;
 }
 
-.toggle.active {
-  background: $primary-color;
+.toggle-open {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  top: -20px;
+  background: $secondary-color;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.toggle ion-icon {
-  position: absolute;
-  color: #fff;
-  font-size: 34px;
+.toggle-close {
+  width: 50px;
+  height: 50px;
+  top: -20px;
+  background: $secondary-color;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
   display: none;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 0 76%;
+  white-space: normal;
 }
 
-.toggle ion-icon.open,
-.toggle.active ion-icon.close {
-  display: block;
+.toggle-open.active {
+  display: none
 }
 
-.toggle ion-icon.close,
-.toggle.active ion-icon.open {
-  display: none;
+.toggle-close.active {
+  display: flex
 }
+
+// .toggle ion-icon {
+//   position: absolute;
+//   color: #fff;
+//   font-size: 34px;
+//   display: none;
+// }
+
+// .toggle ion-icon.open,
+// .toggle.active ion-icon.close {
+//   display: block;
+// }
+
+// .toggle ion-icon.close,
+// .toggle.active ion-icon.open {
+//   display: none;
+// }
