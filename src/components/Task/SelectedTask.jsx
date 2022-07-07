@@ -12,14 +12,8 @@ import PlusIcon from "../icons/Plus";
 import DescriptionIcon from "../icons/Description";
 import UserList from "@/components/User/UserList";
 import Modal from "@mui/material/Modal";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import {
-  getTasks,
-  deleteTask,
-  getSearchedTask,
-  createTask,
-  updateTask,
-} from "@/store/slices/tasksSlice";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { completeTask } from "@/store/slices/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const style = {
@@ -36,14 +30,15 @@ const SelectedTask = ({
   onClose,
   onChangeTask,
   onDeleteTask,
-  onDeleteUser,
-  onSelectUser,
 }) => {
-  const disabledFields = selectedTask === undefined;
+  const disabledFields =
+    selectedTask === undefined ||
+    (selectedTask && selectedTask.workers && selectedTask.workers[0].isComplete);
   const [currentTask, setCurrentTask] = useState(selectedTask);
   const debouncedOnСhange = useDebounce(onChangeTask, 500);
-  const trimTaskTitle = useTrim(25);
   const { selectedTaskId } = useSelector((state) => state.task);
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.auth);
 
   useEffect(() => {
     setCurrentTask(selectedTask);
@@ -69,7 +64,9 @@ const SelectedTask = ({
     if (changedTask.title) debouncedOnСhange(changedTask);
   };
 
-  const [open, setOpen] = useState(false);
+  const endTask = () => {
+    dispatch(completeTask({ taskId: selectedTask.id, userId: currentUser.id }));
+  };
 
   return (
     <>
@@ -80,7 +77,12 @@ const SelectedTask = ({
               small
               rounded
               startIcon={<CheckIcon />}
-              disabled={selectedTask === undefined || selectedTask.id === "new"}
+              disabled={
+                selectedTask === undefined ||
+                selectedTask.id === "new" ||
+                selectedTask.workers[0].isComplete
+              }
+              onClick={endTask}
             >
               Complete
             </Button>

@@ -53,7 +53,8 @@ const TaskList = ({ className }) => {
     dispatch(setSelecedTaskId(undefined));
   };
 
-  const handleOpenSelectedTask = () => {
+  const handleOpenSelectedTask = (taskId) => {
+    dispatch(setSelecedTaskId(taskId))
     setOpenSelectedTask(true);
   };
   const handleCloseSelectedTask = () => {
@@ -77,7 +78,7 @@ const TaskList = ({ className }) => {
       _.push(newTask);
       setTasks(_);
       dispatch(setSelecedTaskId("new"));
-      handleOpenSelectedTask(newTask);
+      handleOpenSelectedTask(newTask.id);
     }
   };
 

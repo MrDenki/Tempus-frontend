@@ -28,7 +28,7 @@ export const createTask = createAsyncThunk(
   async (task, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await tasksService.createTask(task);
-      dispatch(setSelecedTaskId(data.id));
+      dispatch(setSelecedTaskId(data.taskId));
       dispatch(getTasks(task.creatorId));
       // return data;
     } catch (error) {
@@ -38,12 +38,11 @@ export const createTask = createAsyncThunk(
   }
 );
 
-
 export const updateTask = createAsyncThunk(
   "tasks/updateTask",
   async (task, { rejectWithValue, dispatch }) => {
     try {
-      const { data } = await tasksService.updateTask(task);
+      await tasksService.updateTask(task);
       dispatch(setSelecedTaskId(task.id));
       dispatch(getTasks(task.creatorId));
     } catch (error) {
@@ -65,6 +64,22 @@ export const deleteTask = createAsyncThunk(
     }
   }
 );
+
+export const getSearchedTask = createAsyncThunk(
+  "tasks/getSearchedTask",
+  async ([userId, title], { rejectWithValue }) => {
+    console.log(userId, title);
+    try {
+      const { data } = await tasksService.searchTask(userId, title);
+      return data;
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
+
 
 export const assignWorker = createAsyncThunk(
   "tasks/assigneWorker",
@@ -94,32 +109,61 @@ export const unassignWorker = createAsyncThunk(
   }
 );
 
-// export const changeTask = createAsyncThunk(
-//   "tasks/changeTask",
-//   async (task, { rejectWithValue }) => {
-//     try {
-//       const { data } = await tasksService.updateTask(task);
-//       return data;
-//     } catch (error) {
-//       const message = error.response.data.message;
-//       return rejectWithValue(message);
-//     }
-//   }
-// );
 
-export const getSearchedTask = createAsyncThunk(
-  "tasks/getSearchedTask",
-  async ([userId, title], { rejectWithValue }) => {
-    console.log(userId, title);
+
+export const startTask = createAsyncThunk(
+  "tasks/startTask",
+  async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
     try {
-      const { data } = await tasksService.searchTask(userId, title);
-      return data;
+      const { data } = await tasksService.startTask(taskId, userId);
+      dispatch(getTasks(userId));
     } catch (error) {
       const message = error.response.data.message;
       return rejectWithValue(message);
     }
   }
 );
+
+
+export const completeTask = createAsyncThunk(
+  "tasks/completeTask",
+  async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await tasksService.completeTask(taskId, userId);
+      dispatch(getTasks(userId));
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const startPause = createAsyncThunk(
+  "tasks/startPause",
+  async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await tasksService.startPause(taskId, userId);
+      dispatch(getTasks(userId));
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const endPause = createAsyncThunk(
+  "tasks/endPause",
+  async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await tasksService.endPause(taskId, userId);
+      dispatch(getTasks(userId));
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
 
 export const tasksSlice = createSlice({
   name: "tasks",

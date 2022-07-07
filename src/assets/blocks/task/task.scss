@@ -22,6 +22,10 @@
     }
   }
 
+  &__comleted {
+    color: rgb(100, 243, 75);
+  }
+
   &__description {
     width: 70%;
     display: block;
@@ -34,6 +38,10 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+  }
+
+  &__timer {
+    min-width: 70px;
   }
 
   &__button-icon {

@@ -3,7 +3,7 @@ import instance from "./instance";
 export default class tasksService {
   static getTasks = (userId) =>
     instance.get(`tasks/getUserTasks`, { params: { userId } });
-  static createTask = (task) => instance.post("tasks", task);
+  static createTask = (task) => instance.post("tasks/createUserTask", task);
   static deleteTask = (taskId) => instance.delete(`tasks/${taskId}`);
   static updateTask = (task) => instance.put(`tasks/${task.id}`, task);
   static searchTask = (userId, title) =>
@@ -16,6 +16,15 @@ export default class tasksService {
   static unassignWorker = (taskId, userId) =>
     instance.post(`/tasks/${taskId}/unassignWorker`, { userId });
 
-  static startTask = (taskId) => instance.post(`task/${taskId}/start`)
-  static completeTask = (taskId) => instance.post(`task/${taskId}/complete`)
+  static startTask = (taskId, userId) =>
+    instance.post(`tasks/${taskId}/start`, { userId });
+
+  static completeTask = (taskId, userId) =>
+    instance.post(`tasks/${taskId}/complete`, { userId });
+
+  static startPause = (taskId, userId) =>
+    instance.post(`tasks/${taskId}/startpause`, { userId });
+    
+  static endPause = (taskId, userId) =>
+    instance.post(`tasks/${taskId}/endpause`, { userId });
 }
