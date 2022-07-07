@@ -103,7 +103,7 @@ const SelectedTask = ({
           </div>
         </div>
 
-        <h3>
+        <div className="selected-task__field field">
           {currentTask && typeof currentTask.title === "string" && (
             <TextField
               fullWidth
@@ -127,7 +127,7 @@ const SelectedTask = ({
               disabled={disabledFields}
             />
           )}
-        </h3>
+        </div>
 
         {/* <div className="selected-task__field field">
           <div className="field__title">Project</div>
@@ -137,7 +137,7 @@ const SelectedTask = ({
           </div>
         </div> */}
 
-        <div className="selected-task__field field">
+        {/* <div className="selected-task__field field">
           <div className="field__title">Assignee</div>
           {<PeopleIcon className="field__icon" />}
           <div className="field__value">
@@ -166,7 +166,7 @@ const SelectedTask = ({
               />
             </div>
           </div>
-        </Modal>
+        </Modal> */}
 
         {/* <div className="selected-task__field field">
           <div className="field__item1">Due Date:</div>

@@ -15,4 +15,7 @@ export default class tasksService {
     instance.post(`/tasks/${taskId}/assignWorker`, { userId });
   static unassignWorker = (taskId, userId) =>
     instance.post(`/tasks/${taskId}/unassignWorker`, { userId });
+
+  static startTask = (taskId) => instance.post(`task/${taskId}/start`)
+  static completeTask = (taskId) => instance.post(`task/${taskId}/complete`)
 }
