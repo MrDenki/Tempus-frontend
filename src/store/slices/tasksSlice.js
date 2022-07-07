@@ -28,9 +28,23 @@ export const createTask = createAsyncThunk(
   async (task, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await tasksService.createTask(task);
-      dispatch(setSelecedTask(data));
+      dispatch(setSelecedTaskId(data.taskId));
       dispatch(getTasks(task.creatorId));
-      return data;
+      // return data;
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const updateTask = createAsyncThunk(
+  "tasks/updateTask",
+  async (task, { rejectWithValue, dispatch }) => {
+    try {
+      await tasksService.updateTask(task);
+      dispatch(setSelecedTaskId(task.id));
+      dispatch(getTasks(task.creatorId));
     } catch (error) {
       const message = error.response.data.message;
       return rejectWithValue(message);
@@ -51,19 +65,21 @@ export const deleteTask = createAsyncThunk(
   }
 );
 
-export const updateTask = createAsyncThunk(
-  "tasks/updateTask",
-  async (task, { rejectWithValue, dispatch }) => {
+export const getSearchedTask = createAsyncThunk(
+  "tasks/getSearchedTask",
+  async ([userId, title], { rejectWithValue }) => {
+    console.log(userId, title);
     try {
-      const { data } = await tasksService.updateTask(task);
-      dispatch(setSelecedTask(task));
-      dispatch(getTasks(task.creatorId));
+      const { data } = await tasksService.searchTask(userId, title);
+      return data;
     } catch (error) {
       const message = error.response.data.message;
       return rejectWithValue(message);
     }
   }
 );
+
+
 
 export const assignWorker = createAsyncThunk(
   "tasks/assigneWorker",
@@ -93,31 +109,61 @@ export const unassignWorker = createAsyncThunk(
   }
 );
 
-// export const changeTask = createAsyncThunk(
-//   "tasks/changeTask",
-//   async (task, { rejectWithValue }) => {
-//     try {
-//       const { data } = await tasksService.updateTask(task);
-//       return data;
-//     } catch (error) {
-//       const message = error.response.data.message;
-//       return rejectWithValue(message);
-//     }
-//   }
-// );
 
-export const getSearchedTask = createAsyncThunk(
-  "tasks/getSearchedTask",
-  async ({userId, title}, { rejectWithValue }) => {
+
+export const startTask = createAsyncThunk(
+  "tasks/startTask",
+  async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
     try {
-      const { data } = await tasksService.searchTask(userId, title);
-      return data;
+      const { data } = await tasksService.startTask(taskId, userId);
+      dispatch(getTasks(userId));
     } catch (error) {
       const message = error.response.data.message;
       return rejectWithValue(message);
     }
   }
 );
+
+
+export const completeTask = createAsyncThunk(
+  "tasks/completeTask",
+  async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await tasksService.completeTask(taskId, userId);
+      dispatch(getTasks(userId));
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const startPause = createAsyncThunk(
+  "tasks/startPause",
+  async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await tasksService.startPause(taskId, userId);
+      dispatch(getTasks(userId));
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
+export const endPause = createAsyncThunk(
+  "tasks/endPause",
+  async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await tasksService.endPause(taskId, userId);
+      dispatch(getTasks(userId));
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
 
 export const tasksSlice = createSlice({
   name: "tasks",
@@ -126,8 +172,8 @@ export const tasksSlice = createSlice({
     clearError: (state) => {
       state.error = "";
     },
-    setSelecedTask: (state, { payload }) => {
-      if (payload && payload.id) state.selectedTaskId = payload.id;
+    setSelecedTaskId: (state, { payload }) => {
+      if (payload) state.selectedTaskId = payload;
       else state.selectedTaskId = undefined;
     },
   },
@@ -213,5 +259,5 @@ export const tasksSlice = createSlice({
   },
 });
 
-export const { clearError, setSelecedTask } = tasksSlice.actions;
+export const { clearError, setSelecedTaskId } = tasksSlice.actions;
 export default tasksSlice.reducer;

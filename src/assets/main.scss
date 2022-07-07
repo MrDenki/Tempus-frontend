@@ -159,6 +159,11 @@ a:hover {
 .navigation ul li.active b:nth-child(2) {
   display: block;
 }
+.toggle-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
 
 .navigation ul li a {
   position: relative;
