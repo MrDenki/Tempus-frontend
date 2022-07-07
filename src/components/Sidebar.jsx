@@ -3,19 +3,23 @@ import { useEffect } from "react";
 const Sidebar = () => {
   useEffect(() => {
     let openMenuToggle = document.querySelector(".toggle-open");
-    let closeMenuToggle = document.querySelector(".toggle-close");
     let navigation = document.querySelector(".navigation");
+    let navigationHeader = document.querySelector(".navigation-header");
     openMenuToggle.onclick = function () {
-      openMenuToggle.classList.toggle("active");
-      closeMenuToggle.classList.toggle("active");
       navigation.classList.toggle("active");
+
+      setTimeout(() => {
+        openMenuToggle.classList.toggle("active");
+        navigationHeader.classList.toggle("open");
+        
+
+      }, 400);
     };
 
-    closeMenuToggle.onclick = function () {
-        openMenuToggle.classList.remove("active");
-        closeMenuToggle.classList.remove("active");
-        navigation.classList.remove("active");
-    }
+    // closeMenuToggle.onclick = function () {
+    //     openMenuToggle.classList.remove("active");
+    //     navigation.classList.remove("active");
+    // }
 
     let list_nav = document.getElementsByClassName("navigation-list");
     for (let i = 0; i < list_nav.length; i++) {
@@ -31,47 +35,40 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="navigation">
-        <ul>
-          <li>
-            <div className="toggle-open">
-              <ion-icon name="menu-outline" className="open"></ion-icon>
-            </div>
-            <div className="toggle-close">
-              <ion-icon name="close-outline" className="close"></ion-icon>
-            </div>
-          </li>
-          <li className="navigation-list active">
-            <b></b>
-            <b></b>
-            <a href="#">
-              <span className="icon">
-                <ion-icon name="briefcase-outline"></ion-icon>
-              </span>
-              <span className="title">Tasks</span>
-            </a>
-          </li>
-          <li className="navigation-list">
-            <b></b>
-            <b></b>
-            <a href="#">
-              <span className="icon">
-                <ion-icon name="id-card-outline"></ion-icon>
-              </span>
-              <span className="title">Reports</span>
-            </a>
-          </li>
-          <li className="navigation-list">
-            <b></b>
-            <b></b>
-            <a href="#">
-              <span className="icon">
-                <ion-icon name="people-outline"></ion-icon>
-              </span>
-              <span className="title">Team</span>
-            </a>
-          </li>
-        </ul>
+      <div className="navigation active">
+        <div className="navigation-header open">
+          <div className="toggle-open active">
+            <ion-icon name="menu-outline" className="open"></ion-icon>
+          </div>
+        </div>
+        <div className="navigation-body">
+          <ul>
+            <li className="navigation-list active">
+              <a href="#">
+                <span className="icon">
+                  <ion-icon name="briefcase-outline"></ion-icon>
+                </span>
+                <span className="title">Tasks</span>
+              </a>
+            </li>
+            <li className="navigation-list">
+              <a href="#">
+                <span className="icon">
+                  <ion-icon name="id-card-outline"></ion-icon>
+                </span>
+                <span className="title">Reports</span>
+              </a>
+            </li>
+            <li className="navigation-list">
+              <a href="#">
+                <span className="icon">
+                  <ion-icon name="people-outline"></ion-icon>
+                </span>
+                <span className="title">Team</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </>
   );
