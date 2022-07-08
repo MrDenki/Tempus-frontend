@@ -40,7 +40,7 @@ const TaskList = ({ className }) => {
   }, [tasksFromStore]);
   
   const currentSelectedTask = () =>
-    tasks.find((task) => task.id === selectedTaskId);
+    tasks.find((task) => task.taskId === selectedTaskId);
 
   const searchTaskByTitle = (title) => {
     if (title) dispatch(getSearchedTask([currentUser.id, title]));

@@ -189,7 +189,7 @@ const Task = ({ task, selected, onChange, onClick }) => {
             <div className="task__comleted">Completed</div>
           )}
 
-          {task && !task.isActive && (
+          {task && !task.isActive && !task.isComplete && (
             <IconButton className="task__button" onClick={start}>
               <StartIcon className="task__button-icon" />
             </IconButton>
