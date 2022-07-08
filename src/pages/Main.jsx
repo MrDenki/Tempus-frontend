@@ -67,14 +67,13 @@ const Main = () => {
     <div className="main">
       <div className="main__logo">
         <div className="main__imageLogo"></div>
+        <div className="main__logo-quote">
+          <div className="main__title-logo">Tempus</div>
 
-        <div className="main__title-logo">Tempus</div>
-
-        <div className="main__quote">
-          Quia tempus est mensura motus, erit etiam a mensura de requiem, pro
-          omnibus ceteris est in tempus...
-        {/* <Button onClick={handleClick}>Sign out</Button> */}
-
+          <div className="main__quote">
+            Quia tempus est mensura motus, erit etiam a mensura de requiem, pro
+            omnibus ceteris est in tempus...
+          </div>
         </div>
       </div>
 

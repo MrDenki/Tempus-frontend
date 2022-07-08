@@ -136,6 +136,8 @@ const SignUpForm = ({ onSubmit, isLoading }) => {
           <Button
             className="form__button"
             type="submit"
+            contained
+            rounded
             disabled={isLoading}
             fullWidth
           >
