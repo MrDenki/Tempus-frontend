@@ -83,7 +83,7 @@ const Sidebar = () => {
           <div className="navigation-footer">
             <ul>
               <li className="navigation-list">
-                <Link to="#">
+                <Link to="/account">
                   <span className="icon">
                     <ion-icon name="person-outline"></ion-icon>
                   </span>
@@ -91,7 +91,7 @@ const Sidebar = () => {
                 </Link>
               </li>
               <li className="navigation-list">
-                <Link to="#">
+                <Link to="/settings">
                   <span className="icon">
                     <ion-icon name="settings-outline"></ion-icon>
                   </span>
