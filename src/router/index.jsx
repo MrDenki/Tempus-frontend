@@ -10,6 +10,10 @@ const SignIn = lazy(() => import("@/pages/SignIn"));
 const NoMatch = lazy(() => import("@/pages/NoMatch"));
 const UserList = lazy(() => import("@/pages/UserList"));
 const Tasks = lazy(() => import("@/pages/Tasks"));
+const Reports = lazy(() => import("@/pages/Reports"));
+const Team = lazy(() => import("@/pages/Team"));
+const Settings = lazy(() => import("@/pages/Settings"));
+const Account = lazy(() => import("@/pages/Account"));
 
 const PrivateRoute = () => {
   const { isAuth } = useSelector((state) => state.auth);
@@ -38,6 +42,10 @@ const routes = [
             path: "tasks",
             element: <Tasks />,
           },
+          { path: "reports", element: <Reports /> },
+          { path: "team", element: <Team /> },
+          { path: "account", element: <Account /> },
+          { path: "settings", element: <Settings /> },
         ],
       },
     ],

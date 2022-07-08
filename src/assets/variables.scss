@@ -12,9 +12,9 @@ $font-family: "Montserrat", sans-serif;
 }
 
 $primary-color: #07042E;
-$light-primary: #04072e;
-$secondary-color: #07042E;  //222045
-$tertiary: #07042e;
+$light-primary: #FFFAEE;
+$secondary-color: #FB6477;  //222045
+$tertiary: #07042E;
 $dark-tertiary: #ffdccc;
 $light-tertiary: #07042E;
 $border-color: rgba($primary-color, 0.6);
@@ -25,5 +25,7 @@ $darken-text-color: var(--darken-text-color);
 
 $icon-color: #ababab;
 
-$gradient: linear-gradient(22deg, $primary-color 30%, $secondary-color 100%);
+$gradient: $primary-color;
+
+// $gradient: linear-gradient(22deg, $primary-color 30%, $secondary-color 100%);
 $gradient-hover: linear-gradient(22deg, $primary-color 70%, $secondary-color 100%);
