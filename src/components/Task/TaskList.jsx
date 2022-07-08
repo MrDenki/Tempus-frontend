@@ -62,8 +62,8 @@ const TaskList = ({ className }) => {
   };
 
   const handleChangeTask = (task) => {
-    if (task.id === "new") {
-      delete task.id;
+    if (task.taskId === "new") {
+      delete task.taskId;
       task.creatorId = currentUser.id;
       dispatch(createTask(task));
     } else dispatch(updateTask(task));
@@ -71,25 +71,25 @@ const TaskList = ({ className }) => {
 
   const createLocalTask = () => {
     setSearchText("");
-    if (tasks.find((task) => task.id === "new")) {
+    if (tasks.find((task) => task.taskId === "new")) {
     } else {
       const _ = [...tasks];
-      const newTask = { id: "new", title: "", description: "" };
+      const newTask = { taskId: "new", title: "", description: "" };
       _.push(newTask);
       setTasks(_);
       dispatch(setSelecedTaskId("new"));
-      handleOpenSelectedTask(newTask.id);
+      handleOpenSelectedTask(newTask.taskId);
     }
   };
 
   const handleDeleteTask = async (taskId) => {
     if (taskId === "new") {
-      setTasks(tasks.filter((task) => task.id !== "new"));
-      dispatch(setSelecedTaskId(tasks[tasks.length - 1].id));
+      setTasks(tasks.filter((task) => task.taskId !== "new"));
+      dispatch(setSelecedTaskId(tasks[tasks.length - 1].taskId));
     } else {
       if (tasks.length === 1) dispatch(setSelecedTaskId(undefined));
       else {
-        await dispatch(setSelecedTaskId(tasks[tasks.length - 2].id));
+        await dispatch(setSelecedTaskId(tasks[tasks.length - 2].taskId));
       }
       dispatch(deleteTask(taskId));
     }
@@ -130,11 +130,11 @@ const TaskList = ({ className }) => {
             <>
               {tasks.map((task) => (
                 <Task
-                  selected={task.id === selectedTaskId}
-                  onClick={() => handleOpenSelectedTask(task.id)}
+                  selected={task.taskId === selectedTaskId}
+                  onClick={() => handleOpenSelectedTask(task.taskId)}
                   task={task}
                   onChange={handleChangeTask}
-                  key={task.id}
+                  key={task.taskId}
                 />
               ))}
             </>

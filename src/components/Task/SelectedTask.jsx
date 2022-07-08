@@ -33,7 +33,7 @@ const SelectedTask = ({
 }) => {
   const disabledFields =
     selectedTask === undefined ||
-    (selectedTask && selectedTask.workers && selectedTask.workers[0].isComplete);
+    (selectedTask && selectedTask.isComplete);
   const [currentTask, setCurrentTask] = useState(selectedTask);
   const debouncedOnСhange = useDebounce(onChangeTask, 500);
   const { selectedTaskId } = useSelector((state) => state.task);
@@ -65,7 +65,7 @@ const SelectedTask = ({
   };
 
   const endTask = () => {
-    dispatch(completeTask({ taskId: selectedTask.id, userId: currentUser.id }));
+    dispatch(completeTask({ taskId: selectedTask.taskId, userId: currentUser.id }));
   };
 
   return (
@@ -79,8 +79,8 @@ const SelectedTask = ({
               startIcon={<CheckIcon />}
               disabled={
                 selectedTask === undefined ||
-                selectedTask.id === "new" ||
-                selectedTask.workers[0].isComplete
+                selectedTask.taskId === "new" ||
+                selectedTask.isComplete 
               }
               onClick={endTask}
             >
@@ -91,8 +91,8 @@ const SelectedTask = ({
               small
               rounded
               startIcon={<DeleteIcon />}
-              disabled={disabledFields}
-              onClick={() => onDeleteTask(selectedTask.id)}
+              disabled={selectedTask === undefined}
+              onClick={() => onDeleteTask(selectedTask.taskId)}
             >
               Delete
             </Button>
