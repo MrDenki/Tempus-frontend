@@ -135,6 +135,20 @@ export const completeTask = createAsyncThunk(
   }
 );
 
+export const finishTask = createAsyncThunk(
+  "tasks/finishTask",
+  async ({ taskId }, { rejectWithValue, dispatch }) => {
+    try {
+      const { data } = await tasksService.finishTask(taskId);
+      // dispatch(getTasks(userId));
+      return data;
+    } catch (error) {
+      const message = error.response.data.message;
+      return rejectWithValue(message);
+    }
+  }
+);
+
 export const startPause = createAsyncThunk(
   "tasks/startPause",
   async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
@@ -253,6 +267,14 @@ export const tasksSlice = createSlice({
       });
     },
     [completeTask.fulfilled]: (state, { payload }) => {
+      state.tasks = state.tasks.map((task) => {
+        if (task.id === payload.id) {
+          task = { ...task, ...payload };
+        }
+        return task;
+      });
+    },
+    [finishTask.fulfilled]: (state, { payload }) => {
       state.tasks = state.tasks.map((task) => {
         if (task.id === payload.id) {
           task = { ...task, ...payload };

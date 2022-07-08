@@ -22,9 +22,13 @@ export default class tasksService {
   static completeTask = (taskId, userId) =>
     instance.post(`tasks/${taskId}/endTimeLine`, { userId });
 
+  static finishTask = (taskId, userId) =>
+    instance.post(`tasks/${taskId}/completeTask`, { userId });
+
+
   // static startPause = (taskId, userId) =>
   //   instance.post(`tasks/${taskId}/startpause`, { userId });
-    
+
   // static endPause = (taskId, userId) =>
   //   instance.post(`tasks/${taskId}/endpause`, { userId });
 }

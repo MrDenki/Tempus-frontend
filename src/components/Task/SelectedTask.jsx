@@ -13,7 +13,7 @@ import DescriptionIcon from "../icons/Description";
 import UserList from "@/components/User/UserList";
 import Modal from "@mui/material/Modal";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { completeTask } from "@/store/slices/tasksSlice";
+import { finishTask } from "@/store/slices/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const style = {
@@ -32,8 +32,7 @@ const SelectedTask = ({
   onDeleteTask,
 }) => {
   const disabledFields =
-    selectedTask === undefined ||
-    (selectedTask && selectedTask.isComplete);
+    selectedTask === undefined || (selectedTask && selectedTask.isComplete);
   const [currentTask, setCurrentTask] = useState(selectedTask);
   const debouncedOnСhange = useDebounce(onChangeTask, 500);
   const { selectedTaskId } = useSelector((state) => state.task);
@@ -65,7 +64,7 @@ const SelectedTask = ({
   };
 
   const endTask = () => {
-    dispatch(completeTask({ taskId: selectedTask.taskId, userId: currentUser.id }));
+    dispatch(finishTask({ taskId: selectedTask.taskId }));
   };
 
   return (
@@ -80,7 +79,7 @@ const SelectedTask = ({
               disabled={
                 selectedTask === undefined ||
                 selectedTask.taskId === "new" ||
-                selectedTask.isComplete 
+                selectedTask.isComplete
               }
               onClick={endTask}
             >
