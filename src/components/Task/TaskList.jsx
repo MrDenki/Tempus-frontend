@@ -7,83 +7,92 @@ import TextField from "../UI/TextField";
 import Button from "@/components/UI/Button";
 import Spiner from "@/components/UI/Spiner";
 import { useDebounce } from "@/hooks";
-import { setSelecedTask } from "../../store/slices/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  getTasks,
+  deleteTask,
+  setSelecedTaskId,
+  getSearchedTask,
+  createTask,
+  updateTask,
+} from "@/store/slices/tasksSlice";
 
-const TaskList = ({
-  className,
-  tasks,
-  onChange,
-  onDelete,
-  onSearch,
-  isSearch,
-  isLoading,
-}) => {
+const TaskList = ({ className }) => {
   const dispatch = useDispatch();
-  const debouncedOnSearch = useDebounce(onSearch, 500);
   const [searchText, setSearchText] = useState("");
   const [openSelectedTask, setOpenSelectedTask] = useState(false);
-  const [taskss, setTaskss] = useState(tasks);
+  const [tasks, setTasks] = useState([]);
+  const { currentUser } = useSelector((state) => state.auth);
   const { selectedTaskId } = useSelector((state) => state.task);
+  const {
+    tasks: tasksFromStore,
+    isLoading,
+    error,
+    isSearch,
+  } = useSelector((state) => state.task);
 
   useEffect(() => {
-    setTaskss(tasks);
-  }, [tasks]);
+    if (currentUser) dispatch(getTasks(currentUser.id));
+  }, [currentUser]);
 
+  useEffect(() => {
+    setTasks(tasksFromStore);
+  }, [tasksFromStore]);
+  
+  const currentSelectedTask = () =>
+    tasks.find((task) => task.taskId === selectedTaskId);
+
+  const searchTaskByTitle = (title) => {
+    if (title) dispatch(getSearchedTask([currentUser.id, title]));
+    else dispatch(getTasks(currentUser.id));
+  };
+  const debouncedOnSearch = useDebounce(searchTaskByTitle, 500);
   const searchTask = (e) => {
     setSearchText(e.target.value);
-    dispatch(setSelecedTask(undefined));
     debouncedOnSearch(e.target.value);
+    dispatch(setSelecedTaskId(undefined));
   };
 
   const handleOpenSelectedTask = (taskId) => {
-    dispatch(setSelecedTask(taskId));
+    dispatch(setSelecedTaskId(taskId))
     setOpenSelectedTask(true);
   };
-
   const handleCloseSelectedTask = () => {
     setOpenSelectedTask(false);
   };
 
   const handleChangeTask = (task) => {
-    dispatch(setSelecedTask(task.id));
-
-    let isCreated = false;
-    if (task.id === "new") {
-      delete task.id;
-      isCreated = true;
-    }
-
-    onChange(task, isCreated);
+    if (task.taskId === "new") {
+      delete task.taskId;
+      task.creatorId = currentUser.id;
+      dispatch(createTask(task));
+    } else dispatch(updateTask(task));
   };
 
-  const createTask = () => {
+  const createLocalTask = () => {
     setSearchText("");
-    if (taskss.find((task) => task.id === "new")) {
+    if (tasks.find((task) => task.taskId === "new")) {
     } else {
-      const _ = [...taskss];
-      const newTask = { id: "new", title: "", description: "" };
+      const _ = [...tasks];
+      const newTask = { taskId: "new", title: "", description: "" };
       _.push(newTask);
-      setTaskss(_);
-      handleOpenSelectedTask(newTask);
+      setTasks(_);
+      dispatch(setSelecedTaskId("new"));
+      handleOpenSelectedTask(newTask.taskId);
     }
   };
 
-  const handleDeleteTask = (taskId) => {
+  const handleDeleteTask = async (taskId) => {
     if (taskId === "new") {
-      setTaskss(taskss.filter((task) => task.id !== "new"));
-      dispatch(setSelecedTask(tasks[tasks.length - 1].id));
+      setTasks(tasks.filter((task) => task.taskId !== "new"));
+      dispatch(setSelecedTaskId(tasks[tasks.length - 1].taskId));
     } else {
-      if (tasks.length === 1) dispatch(setSelecedTask(undefined));
-      else dispatch(setSelecedTask(tasks[tasks.length - 2]));
-      onDelete(taskId);
+      if (tasks.length === 1) dispatch(setSelecedTaskId(undefined));
+      else {
+        await dispatch(setSelecedTaskId(tasks[tasks.length - 2].taskId));
+      }
+      dispatch(deleteTask(taskId));
     }
-  };
-
-  const currentSelectedTask = () => {
-    return taskss.find((task) => {
-      return task.id === selectedTaskId;
-    });
   };
 
   return (
@@ -94,7 +103,7 @@ const TaskList = ({
           rounded
           className="task-list__button"
           startIcon={<AddIcon />}
-          onClick={createTask}
+          onClick={createLocalTask}
         >
           New task
         </Button>
@@ -111,21 +120,21 @@ const TaskList = ({
 
       <div className="task-list__body">
         <div className="task-list__list-holder">
-          {!isLoading && !isSearch && taskss && !taskss.length && (
+          {!isLoading && !isSearch && tasks && !tasks.length && (
             <div className="task-list__no-task">
               <h3 className="task-list__no-task-title">No tasks</h3>
             </div>
           )}
 
-          {!isLoading && !isSearch && taskss && !!taskss.length && (
+          {!isLoading && !isSearch && tasks && !!tasks.length && (
             <>
-              {taskss.map((task) => (
+              {tasks.map((task) => (
                 <Task
-                  selected={task.id === selectedTaskId}
-                  onClick={() => handleOpenSelectedTask(task)}
+                  selected={task.taskId === selectedTaskId}
+                  onClick={() => handleOpenSelectedTask(task.taskId)}
                   task={task}
                   onChange={handleChangeTask}
-                  key={task.id}
+                  key={task.taskId}
                 />
               ))}
             </>
@@ -147,8 +156,6 @@ const TaskList = ({
             selectedTask={currentSelectedTask()}
             onChangeTask={handleChangeTask}
             onDeleteTask={handleDeleteTask}
-            // onDeleteUser={}
-            // onSelectUser={}
             onClose={handleCloseSelectedTask}
           />
         </div>

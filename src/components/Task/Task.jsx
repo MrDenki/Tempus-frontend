@@ -1,23 +1,127 @@
-import { useState, useEffect } from "react";
-import Button from "@/components/UI/Button";
+import { useState, useEffect, useRef } from "react";
 import { TextField } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
+import PauseIcon from "@mui/icons-material/Pause";
 import StartIcon from "../icons/StartIcon";
 import { useTrim, useDebounce } from "@/hooks";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  startTask,
+  completeTask,
+} from "../../store/slices/tasksSlice";
 
-const Task = ({ className, task, selected, onChange, onClick }) => {
+const Task = ({ task, selected, onChange, onClick }) => {
   const classes = ["task"];
   if (selected) classes.push("selected");
 
+  const dispatch = useDispatch();
   const [currentTask, setCurrentTask] = useState(task);
   const debouncedOnСhange = useDebounce(onChange, 500);
   const trimTaskDescription = useTrim(30);
-  const { isLoading, currentUser } = useSelector((state) => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
+  const { tasks } = useSelector((state) => state.task);
+  const [workTime, setWorkTime] = useState();
+
+  const timer = useRef(null);
 
   useEffect(() => {
     setCurrentTask(task);
   }, [task]);
+
+  useEffect(() => {
+    if (task.workerId === currentUser.id) {
+      if (task.isComplete) {
+        clearInterval(timer.current);
+      }
+
+      let delta = Math.floor(task.workTime / 1000);
+      let days = Math.floor(delta / 86400);
+      delta -= days * 86400;
+      let hours = Math.floor(delta / 3600) % 24;
+      hours += days * 24;
+      delta -= hours * 3600;
+      let minutes = Math.floor(delta / 60) % 60;
+      delta -= minutes * 60;
+      let seconds = delta % 60;
+
+      let hourStr = hours;
+      let minStr = minutes;
+      let secStr = seconds;
+      if (hours < 10) hourStr = `0${hours}`;
+      if (minutes < 10) minStr = `0${minutes}`;
+      if (seconds < 10) secStr = `0${seconds}`;
+      let dateStr = `${hourStr}:${minStr}:${secStr}`;
+      setWorkTime(dateStr);
+
+      if (!task.isActive) {
+        clearInterval(timer.current);
+      }
+      if (task.isActive) {
+        timer.current = setInterval(() => {
+          if (seconds < 59) seconds += 1;
+          else {
+            seconds = 0;
+            minutes += 1;
+          }
+
+          if (minutes >= 59) {
+            minutes = 0;
+            hours += 1;
+          }
+
+          let hourStr = hours;
+          let minStr = minutes;
+          let secStr = seconds;
+
+          if (hours < 10) hourStr = `0${hours}`;
+          if (minutes < 10) minStr = `0${minutes}`;
+          if (seconds < 10) secStr = `0${seconds}`;
+          let dateStr = `${hourStr}:${minStr}:${secStr}`;
+
+          setWorkTime(dateStr);
+        }, 1000);
+      }
+    }
+    return () => {
+      clearInterval(timer.current);
+    };
+  }, [task]);
+
+  const startTimer = () => {
+    if (!workTime) return;
+    const time = workTime.split(":");
+    let hours = Number(time[0]);
+    let minutes = Number(time[1]);
+    let seconds = Number(time[2]);
+
+    timer.current = setInterval(() => {
+      if (seconds < 59) seconds += 1;
+      else {
+        seconds = 0;
+        minutes += 1;
+      }
+
+      if (minutes >= 59) {
+        minutes = 0;
+        hours += 1;
+      }
+
+      let hourStr = hours;
+      let minStr = minutes;
+      let secStr = seconds;
+
+      if (hours < 10) hourStr = `0${hours}`;
+      if (minutes < 10) minStr = `0${minutes}`;
+      if (seconds < 10) secStr = `0${seconds}`;
+      let dateStr = `${hourStr}:${minStr}:${secStr}`;
+
+      setWorkTime(dateStr);
+    }, 1000);
+  };
+
+  const stopTimer = () => {
+    clearInterval(timer.current);
+  };
 
   const changeTitle = (e) => {
     if (e.target.value.length === 0) return;
@@ -30,14 +134,24 @@ const Task = ({ className, task, selected, onChange, onClick }) => {
   };
 
   const taskIsAssignedToCurrentUser = () => {
-    if (!task || !task.workers) return;
+    if (!task) return;
+    if (task.workerId === currentUser.id) return true;
+    return false;
+  };
 
-    let selected = false;
-    task.workers.forEach((worker) => {
-      if (worker.workerId === currentUser.id) selected = true;
-    });
+  const start = async () => {
+    const activeTask = tasks.find((task) => task.isActive);
+    if (activeTask)
+      await dispatch(
+        completeTask({ taskId: activeTask.id, userId: currentUser.id })
+      );
+    dispatch(startTask({ taskId: task.id, userId: currentUser.id }));
+    startTimer();
+  };
 
-    return selected;
+  const pauseTask = () => {
+    dispatch(completeTask({ taskId: task.id, userId: currentUser.id }));
+    stopTimer();
   };
 
   return (
@@ -47,6 +161,7 @@ const Task = ({ className, task, selected, onChange, onClick }) => {
           <TextField
             fullWidth
             variant="standard"
+            disabled={currentTask && currentTask.isComplete}
             value={currentTask.title}
             onChange={changeTitle}
           />
@@ -60,17 +175,23 @@ const Task = ({ className, task, selected, onChange, onClick }) => {
 
       {taskIsAssignedToCurrentUser() && (
         <div className="task__actions">
-          <div>00:00:00</div>
+          <div className="task__timer">{workTime}</div>
 
-          <Button
-            className="task__button"
-            startIcon={<StartIcon className="task__button-icon" />}
-            small
-            rounded
-            contained
-          >
-            Start
-          </Button>
+          {task && task.isComplete && (
+            <div className="task__comleted">Completed</div>
+          )}
+
+          {task && !task.isActive && !task.isComplete && (
+            <IconButton className="task__button" onClick={start}>
+              <StartIcon className="task__button-icon" />
+            </IconButton>
+          )}
+
+          {task && task.isActive && (
+            <IconButton className="task__button" onClick={pauseTask}>
+              <PauseIcon className="task__button-icon" />
+            </IconButton>
+          )}
         </div>
       )}
     </div>

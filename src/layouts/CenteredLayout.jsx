@@ -1,9 +1,10 @@
-import { Outlet } from "react-router-dom";
 import { Suspense } from "react";
+import { Outlet } from "react-router-dom";
+import { Container } from "@mui/material";
 import Spiner from "@/components/UI/Spiner";
 
 const CenteredLayout = () => (
-  <div className="wrapper">
+  <Container className="wrapper">
     <div className="container">
       <div className="center-container">
         <Suspense fallback={<Spiner />}>
@@ -11,7 +12,7 @@ const CenteredLayout = () => (
         </Suspense>
       </div>
     </div>
-  </div>
+  </Container>
 );
 
 export default CenteredLayout;

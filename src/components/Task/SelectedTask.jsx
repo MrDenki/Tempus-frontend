@@ -12,14 +12,8 @@ import PlusIcon from "../icons/Plus";
 import DescriptionIcon from "../icons/Description";
 import UserList from "@/components/User/UserList";
 import Modal from "@mui/material/Modal";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import {
-  getTasks,
-  deleteTask,
-  getSearchedTask,
-  createTask,
-  updateTask,
-} from "@/store/slices/tasksSlice";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { finishTask } from "@/store/slices/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const style = {
@@ -36,14 +30,14 @@ const SelectedTask = ({
   onClose,
   onChangeTask,
   onDeleteTask,
-  onDeleteUser,
-  onSelectUser,
 }) => {
-  const disabledFields = selectedTask === undefined;
+  const disabledFields =
+    selectedTask === undefined || (selectedTask && selectedTask.isComplete);
   const [currentTask, setCurrentTask] = useState(selectedTask);
   const debouncedOnСhange = useDebounce(onChangeTask, 500);
-  const trimTaskTitle = useTrim(25);
   const { selectedTaskId } = useSelector((state) => state.task);
+  const dispatch = useDispatch();
+  const { currentUser } = useSelector((state) => state.auth);
 
   useEffect(() => {
     setCurrentTask(selectedTask);
@@ -69,7 +63,9 @@ const SelectedTask = ({
     if (changedTask.title) debouncedOnСhange(changedTask);
   };
 
-  const [open, setOpen] = useState(false);
+  const endTask = () => {
+    dispatch(finishTask({ taskId: selectedTask.taskId }));
+  };
 
   return (
     <>
@@ -80,7 +76,12 @@ const SelectedTask = ({
               small
               rounded
               startIcon={<CheckIcon />}
-              disabled={selectedTask === undefined || selectedTask.id === "new"}
+              disabled={
+                selectedTask === undefined ||
+                selectedTask.taskId === "new" ||
+                selectedTask.isComplete
+              }
+              onClick={endTask}
             >
               Complete
             </Button>
@@ -89,8 +90,8 @@ const SelectedTask = ({
               small
               rounded
               startIcon={<DeleteIcon />}
-              disabled={disabledFields}
-              onClick={() => onDeleteTask(selectedTask.id)}
+              disabled={selectedTask === undefined}
+              onClick={() => onDeleteTask(selectedTask.taskId)}
             >
               Delete
             </Button>
@@ -103,7 +104,7 @@ const SelectedTask = ({
           </div>
         </div>
 
-        <h3>
+        <div className="selected-task__field field">
           {currentTask && typeof currentTask.title === "string" && (
             <TextField
               fullWidth
@@ -127,7 +128,7 @@ const SelectedTask = ({
               disabled={disabledFields}
             />
           )}
-        </h3>
+        </div>
 
         {/* <div className="selected-task__field field">
           <div className="field__title">Project</div>
@@ -137,7 +138,7 @@ const SelectedTask = ({
           </div>
         </div> */}
 
-        <div className="selected-task__field field">
+        {/* <div className="selected-task__field field">
           <div className="field__title">Assignee</div>
           {<PeopleIcon className="field__icon" />}
           <div className="field__value">
@@ -166,7 +167,7 @@ const SelectedTask = ({
               />
             </div>
           </div>
-        </Modal>
+        </Modal> */}
 
         {/* <div className="selected-task__field field">
           <div className="field__item1">Due Date:</div>

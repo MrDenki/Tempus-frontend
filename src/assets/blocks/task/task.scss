@@ -22,6 +22,10 @@
     }
   }
 
+  &__comleted {
+    color: rgb(100, 243, 75);
+  }
+
   &__description {
     width: 70%;
     display: block;
@@ -36,10 +40,14 @@
     align-items: center;
   }
 
+  &__timer {
+    min-width: 70px;
+  }
+
   &__button-icon {
-    fill: #fff !important;
-    height: 25px !important;
-    width: 25px !important;
+    fill: $primary-color !important;
+    height: 35px !important;
+    width: 35px !important;
   }
 
   &__button.MuiButton-root {
@@ -48,12 +56,12 @@
   }
 
   &:hover {
-    background-color: rgba($light-tertiary, 0.3);
+    background-color: rgba($light-tertiary, 0.1);
   }
 }
 
 .selected {
-  background-color: rgba($light-tertiary, 0.3);
+  background-color: rgba($light-tertiary, 0.05);
   // background-color: rgba($dark-tertiary, 0.3);
 }
 

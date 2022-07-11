@@ -8,22 +8,11 @@ import {
   updateTask,
 } from "../store/slices/tasksSlice";
 import TaskList from "../components/Task/TaskList";
-import Sidebar from "@/components/Sidebar";
 
 const Tasks = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.auth);
-  const { tasks, isLoading, error, isSearch } = useSelector(
-    (state) => state.task
-  );
 
-  useEffect(() => {
-    if (currentUser) dispatch(getTasks(currentUser.id));
-  }, [currentUser]);
-
-  const handleSearch = (searchText) => {
-    dispatch(getSearchedTask(searchText));
-  };
 
   const handleChangeTask = async (task, isCreated) => {
     if (isCreated) {
@@ -33,27 +22,15 @@ const Tasks = () => {
     } else dispatch(updateTask(task));
   };
 
-  const handleDeleteTask = (taskId) => {
-    dispatch(deleteTask(taskId));
-  };
-
   return (
-    <>
-      <Sidebar />
-      <div className="task-page">
-        <h3 className="task-page__title">My Task</h3>
+    <div className="task-page">
+      <h3 className="task-page__title">My Task</h3>
 
-        <TaskList
-          className="task-page__task-list"
-          tasks={tasks}
-          isSearch={isSearch}
-          isLoading={isLoading}
-          onSearch={handleSearch}
-          onChange={handleChangeTask}
-          onDelete={handleDeleteTask}
-        />
-      </div>
-    </>
+      <TaskList
+        className="task-page__task-list"
+        onChange={handleChangeTask}
+      />
+    </div>
   );
 };
 

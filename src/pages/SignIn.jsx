@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { signIn, clearSignInError } from "@/store/slices/authSlice";
 import Alert from "@/components/UI/Alert";
 import SignInForm from "@/components/Forms/SignInForm";
-import { Outlet } from "react-router-dom";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -17,9 +16,6 @@ const SignIn = () => {
     else setOpenAlert(false);
   }, [signInError]);
 
-  useEffect(() => {
-    if (isAuth) router("/tasks");
-  }, [isAuth]);
 
   const handleSubmit = async (credentials) => {
     await dispatch(signIn(credentials));
@@ -31,30 +27,16 @@ const SignIn = () => {
   };
 
   return (
-    // <div className="signIn">
-    //   <div className="signIn__logo">
-    //     <div className="signIn__imageLogo"></div>
+    <>
+      <SignInForm onSubmit={handleSubmit} isLoading={isLoading} />
 
-    //     <div className="signIn__title-logo">TEMPUS</div>
-
-    //     <div className="signIn__quote">
-    //       Quia tempus est mensura motus, erit etiam a mensura de requiem, pro
-    //       omnibus ceteris est in tempus...
-    //     </div>
-    //   </div>
-
-    //   <div className="signIn__form">
-    //     <Outlet />
-
-    <SignInForm onSubmit={handleSubmit} isLoading={isLoading} />
-    //     <Alert
-    //       title="Sign in error"
-    //       message={signInError}
-    //       open={openAlert}
-    //       onClose={closeAlert}
-    //     />
-    //   </div>
-    // </div>
+      <Alert
+        title="Sign in error"
+        message={signInError}
+        open={openAlert}
+        onClose={closeAlert}
+      />
+    </>
   );
 };
 

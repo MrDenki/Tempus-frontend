@@ -95,10 +95,12 @@ const SignInForm = ({ onSubmit, isLoading }) => {
           </div>
         </Grid> */}
 
-        <Grid item xs={12}>
+        <Grid item xs={12} flex>
           <Button
             className="form__button"
             type="submit"
+            contained
+            rounded
             disabled={isLoading}
             fullWidth
           >
