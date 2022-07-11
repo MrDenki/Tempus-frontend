@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "../../api/authService";
-// import { clearTaskState } from "./tasksSlice";
 
 const initialState = {
   isAuth: localStorage.getItem("isAuth") || false,

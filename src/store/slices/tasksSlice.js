@@ -149,32 +149,6 @@ export const finishTask = createAsyncThunk(
   }
 );
 
-export const startPause = createAsyncThunk(
-  "tasks/startPause",
-  async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
-    try {
-      const { data } = await tasksService.startPause(taskId, userId);
-      dispatch(getTasks(userId));
-    } catch (error) {
-      const message = error.response.data.message;
-      return rejectWithValue(message);
-    }
-  }
-);
-
-export const endPause = createAsyncThunk(
-  "tasks/endPause",
-  async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
-    try {
-      const { data } = await tasksService.endPause(taskId, userId);
-      dispatch(getTasks(userId));
-    } catch (error) {
-      const message = error.response.data.message;
-      return rejectWithValue(message);
-    }
-  }
-);
-
 export const tasksSlice = createSlice({
   name: "tasks",
   initialState,
@@ -251,15 +225,6 @@ export const tasksSlice = createSlice({
     },
     [startTask.fulfilled]: (state, { payload }) => {
       state.tasks = state.tasks.map((task) => {
-        // if (task.isActive) {
-        //   task.isActive = false;
-        //   task.workTime +=
-        //     Date.now() -
-        //     new Date(task.TimeLines[task.TimeLines.length - 1].startTime);
-        // }
-        return task;
-      });
-      state.tasks = state.tasks.map((task) => {
         if (task.id === payload.id) {
           task = { ...task, ...payload };
         }
@@ -286,11 +251,6 @@ export const tasksSlice = createSlice({
     [assignWorker.fulfilled]: (state, { payload: { taskId, workerId } }) => {
       const editedTask = state.tasks.find((task) => task.id === taskId);
       editedTask.workers.push({ workerId });
-
-      // console.log(state.tasks.find((task) => task.id === taskId));
-      // console.log(...editedTask.workers);
-      // state.tasks[state.tasks[editedTask.id]] = editedTask;
-      // state.tasks = payload;
     },
     [unassignWorker.fulfilled]: (state, { payload: { taskId, workerId } }) => {
       const editedTask = state.tasks.find((task) => task.id === taskId);

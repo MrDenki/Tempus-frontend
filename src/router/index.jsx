@@ -31,10 +31,6 @@ const routes = [
     element: <DefayultLayout />,
     children: [
       {
-        element: <CenteredLayout />,
-        children: [{ path: "*", element: <NoMatch /> }],
-      },
-      {
         element: <PrivateRoute />,
         children: [
           { path: "users", element: <UserList /> },
@@ -61,6 +57,10 @@ const routes = [
         ],
       },
     ],
+  },
+  {
+    element: <CenteredLayout />,
+    children: [{ path: "*", element: <NoMatch /> }],
   },
 ];
 

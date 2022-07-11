@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import Button from "@/components/UI/Button";
 import { TextField } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import PauseIcon from "@mui/icons-material/Pause";
@@ -8,8 +7,6 @@ import { useTrim, useDebounce } from "@/hooks";
 import { useDispatch, useSelector } from "react-redux";
 import {
   startTask,
-  startPause,
-  endPause,
   completeTask,
 } from "../../store/slices/tasksSlice";
 
@@ -157,11 +154,6 @@ const Task = ({ task, selected, onChange, onClick }) => {
     stopTimer();
   };
 
-  // const continueTask = () => {
-  //   dispatch(endPause({ taskId: task.id, userId: currentUser.id }));
-  //   startTimer();
-  // };
-
   return (
     <div className={classes.join(" ")} onClick={onClick}>
       <div className="task__body">
@@ -194,15 +186,6 @@ const Task = ({ task, selected, onChange, onClick }) => {
               <StartIcon className="task__button-icon" />
             </IconButton>
           )}
-
-          {/* {task.workers &&
-            task.workers[0].isStarted &&
-            task.workers[0].isPaused &&
-            !task.workers[0].isComplete && (
-              <IconButton className="task__button" onClick={continueTask}>
-                <StartIcon className="task__button-icon" />
-              </IconButton>
-            )} */}
 
           {task && task.isActive && (
             <IconButton className="task__button" onClick={pauseTask}>

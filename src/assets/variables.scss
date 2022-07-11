@@ -2,6 +2,7 @@
 
 $font-size: 14px;
 $font-family: "Montserrat", sans-serif;
+$font-color: #fff;
 
 :root {
   --primary-color: #3d62d4;
@@ -13,10 +14,13 @@ $font-family: "Montserrat", sans-serif;
 
 $primary-color: #07042E;
 $light-primary: #FFFAEE;
+
 $secondary-color: #c29bff;  //222045
+
 $tertiary: #07042E;
 $dark-tertiary: #ffdccc;
 $light-tertiary: #07042E;
+
 $border-color: rgba($primary-color, 0.6);
 $darken-primary-color: var(--darken-secondary-color);
 
