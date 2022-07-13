@@ -3,7 +3,11 @@ import Card from "@mui/material/Card";
 const Report = ({ task }) => {
   const formatTime = (dateString) => {
     const date = new Date(dateString);
-    return `${date.getHours()}:${date.getMinutes()}`;
+    let hourStr = date.getHours();
+    let minStr = date.getMinutes();
+    if (hourStr < 10) hourStr = `0${hourStr}`;
+    if (minStr < 10) minStr = `0${minStr}`;
+    return `${hourStr}:${minStr}`;
   };
 
   const formatWorkTime = (workTime) => {
