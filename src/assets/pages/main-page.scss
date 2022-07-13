@@ -11,7 +11,7 @@
       position: absolute;
       height: 100%;
       width: 60%;
-      // background-image: url("images/clock.png");
+      background-image: url("images/clock.png");
       background-repeat: no-repeat;
       background-size: 79%;
       background-position-x: 0px;
@@ -56,59 +56,59 @@
   }
 }
 
-.test-wrap {
-  z-index: 100;
-  position: absolute;
-  bottom: 0;
-}
+// .test-wrap {
+//   z-index: 100;
+//   position: absolute;
+//   bottom: 0;
+// }
 
-.test {
-  display: inline-block;
-  position: relative;
-  top: -205px;
-  left: -760px;
-  width: 1240px;
-  height: 1240px;
-  background-image: url("images/clock1.png");
-  background-repeat: no-repeat;
-  background-size: 23%;
-  background-position-x: 70%;
-  background-position-y: 60%;
-}
+// .test {
+//   display: inline-block;
+//   position: relative;
+//   top: -205px;
+//   left: -760px;
+//   width: 1240px;
+//   height: 1240px;
+//   background-image: url("images/clock1.png");
+//   background-repeat: no-repeat;
+//   background-size: 23%;
+//   background-position-x: 70%;
+//   background-position-y: 60%;
+// }
 
-.test div {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  border: 100px solid rgba(255, 255, 255, 0.205);
-  opacity: 1;
-  border-radius: 50%;
-  animation: spiner1 10s cubic-bezier(0, 0.2, 1, 1) infinite;
-}
+// .test div {
+//   position: absolute;
+//   width: 100%;
+//   height: 100%;
+//   border: 100px solid rgba(255, 255, 255, 0.205);
+//   opacity: 1;
+//   border-radius: 50%;
+//   animation: spiner 10s cubic-bezier(0, 0.2, 1, 1) infinite;
+// }
 
-.test div:nth-child(1) {
-  animation-delay: 2s;
-}
-.test div:nth-child(2) {
-  animation-delay: 4s
-}
-.test div:nth-child(3) {
-  animation-delay: 6s;
-}
+// .test div:nth-child(1) {
+//   animation-delay: 33%;
+// }
+// .test div:nth-child(2) {
+//   animation-delay: 66%;
+// }
+// .test div:nth-child(3) {
+//   animation-delay: 99%;
+// }
 
-@keyframes spiner1 {
-  0% {
-    top: 20%;
-    left: 20%;
-    width: 60%;
-    height: 60%;
-    opacity: 1;
-  }
-  100% {
-    top: 5%;
-    left: 5%;
-    width: 90%;
-    height: 90%;
-    opacity: 0;
-  }
-}
+// @keyframes spiner {
+//   0% {
+//     top: 20%;
+//     left: 20%;
+//     width: 60%;
+//     height: 60%;
+//     opacity: 1;
+//   }
+//   100% {
+//     top: 5%;
+//     left: 5%;
+//     width: 90%;
+//     height: 90%;
+//     opacity: 0;
+//   }
+// }
