@@ -130,7 +130,7 @@ export const completeTask = createAsyncThunk(
       return data;
     } catch (error) {
       const message = error.response.data.message;
-      return rejectWithValue(message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -235,6 +235,15 @@ export const tasksSlice = createSlice({
       state.tasks = state.tasks.map((task) => {
         if (task.id === payload.id) {
           task = { ...task, ...payload };
+        }
+        return task;
+      });
+    },
+    [completeTask.rejected]: (state, { payload }) => {
+      state.error = payload.message;
+      state.tasks = state.tasks.map((task) => {
+        if (task.id === payload.task.id) {
+          task = { ...task, ...payload.task };
         }
         return task;
       });

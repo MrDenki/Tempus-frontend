@@ -1,18 +1,56 @@
 .report-list {
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh - 79px) !important;
-  padding: 15px 25px;
+  min-height: calc(100vh - 150px);
+  display: flex;
+  flex-grow: 1;
+
+  &__list-holder {
+    padding: 15px 25px;
+    flex-grow: 1;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 55%;
+  }
+
+  &__date {
+    padding: 0;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 600;
+  }
 }
 
-
 .task-report {
-  padding: 15px 25px;
-  margin-bottom: 10px;
+  padding: 20px 25px 10px 25px;
+  margin-bottom: 20px;
+  display: flex;
 
   &__task-title {
     font-size: 18px;
     font-weight: 600;
+  }
+
+  &__timelines {
+    padding: 20px 25px 10px 25px;
+  }
+
+  &__timeline {
     margin-bottom: 10px;
+  }
+
+  &__timeline-work-time {
+    margin-left: 25px;
+  }
+
+  &__work-time {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__container {
+    flex: 50%;
   }
 }

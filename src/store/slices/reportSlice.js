@@ -2,57 +2,91 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import tasksService from "../../api/tasksService";
 
 const initialState = {
+  error: "",
+  isLoading: false,
   reports: [
     {
-      title: "fsgdh",
-      description: "",
-      creatorId: 1,
-      id: 18,
-      taskId: 18,
-      workerId: 1,
-      isActive: false,
-      workTime: 13276,
-      isComplete: false,
-      TimeLines: [
+      date: "11.7.2022",
+      data: [
         {
-          id: 81,
-          taskId: 18,
-          startTime: "2022-07-08T10:10:59.392Z",
-          endTime: "2022-07-08T10:11:12.668Z",
+          title: "Task #1",
+          description: null,
+          workTime: 123123,
+          timeLines: [
+            {
+              id: 30,
+              taskId: 11,
+              startTime: "2022-07-11T07:17:00.584Z",
+              endTime: "2022-07-11T07:18:59.037Z",
+              workTime: 123123,
+            },
+            {
+              id: 31,
+              taskId: 11,
+              startTime: "2022-07-11T07:21:07.072Z",
+              endTime: "2022-07-11T07:21:17.116Z",
+              workTime: 123123,
+            },
+          ],
         },
       ],
     },
     {
-      title: "testttt",
-      description: "sdf",
-      creatorId: 1,
-      id: 19,
-      taskId: 19,
-      workerId: 1,
-      isActive: false,
-      workTime: 292716,
-      isComplete: true,
-      TimeLines: [
+      date: "12.7.2022",
+      data: [
         {
-          id: 80,
-          taskId: 19,
-          startTime: "2022-07-08T09:43:20.526Z",
-          endTime: "2022-07-08T09:48:13.242Z",
+          title: "Task #1",
+          description: null,
+          workTime: 123123,
+          timeLines: [
+            {
+              id: 30,
+              taskId: 11,
+              startTime: "2022-07-11T07:17:00.584Z",
+              endTime: "2022-07-11T07:18:59.037Z",
+              workTime: 123123,
+            },
+            {
+              id: 31,
+              taskId: 11,
+              startTime: "2022-07-11T07:21:07.072Z",
+              endTime: "2022-07-11T07:21:17.116Z",
+              workTime: 123123,
+            },
+          ],
+        },
+        {
+          title: "Task #2",
+          description: null,
+          workTime: 123123,
+          timeLines: [
+            {
+              id: 30,
+              taskId: 11,
+              startTime: "2022-07-11T07:17:00.584Z",
+              endTime: "2022-07-11T07:18:59.037Z",
+              workTime: 123123,
+            },
+            {
+              id: 31,
+              taskId: 11,
+              startTime: "2022-07-11T07:21:07.072Z",
+              endTime: "2022-07-11T07:21:17.116Z",
+              workTime: 234324324,
+            },
+          ],
         },
       ],
     },
   ],
-  isLoading: false,
-  isSearch: false,
-  error: "",
-  searchError: "",
 };
 
 export const getReports = createAsyncThunk(
-  "tasks/getTasks",
-  async (userId, { rejectWithValue }) => {
+  "tasks/getReports",
+  async ({ startTime, endTime, workerId }, { rejectWithValue }) => {
     try {
-      const { data } = await tasksService.getTasks(userId);
+      console.log(startTime, endTime, workerId );
+      const { data } = await tasksService.getReport(startTime, endTime, workerId);
       return data;
     } catch (error) {
       const message = error.response.data.message;
@@ -70,17 +104,17 @@ export const tasksSlice = createSlice({
     },
   },
   extraReducers: {
-    // [getTasks.pending]: (state) => {
-    //   state.isLoading = true;
-    // },
-    // [getTasks.fulfilled]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.tasks = payload;
-    // },
-    // [getTasks.rejected]: (state, { payload }) => {
-    //   state.isLoading = false;
-    //   state.error = payload;
-    // },
+    [getReports.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [getReports.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.reports = payload;
+    },
+    [getReports.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.error = payload;
+    },
   },
 });
 
