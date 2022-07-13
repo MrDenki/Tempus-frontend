@@ -1,0 +1,18 @@
+.report-list {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 79px) !important;
+  padding: 15px 25px;
+}
+
+
+.task-report {
+  padding: 15px 25px;
+  margin-bottom: 10px;
+
+  &__task-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+}

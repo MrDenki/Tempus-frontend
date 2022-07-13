@@ -83,20 +83,20 @@
   border: 100px solid rgba(255, 255, 255, 0.205);
   opacity: 1;
   border-radius: 50%;
-  animation: spiner 10s cubic-bezier(0, 0.2, 1, 1) infinite;
+  animation: spiner1 10s cubic-bezier(0, 0.2, 1, 1) infinite;
 }
 
 .test div:nth-child(1) {
-  animation-delay: 33%;
+  animation-delay: 2s;
 }
 .test div:nth-child(2) {
-  animation-delay: 66%;
+  animation-delay: 4s
 }
 .test div:nth-child(3) {
-  animation-delay: 99%;
+  animation-delay: 6s;
 }
 
-@keyframes spiner {
+@keyframes spiner1 {
   0% {
     top: 20%;
     left: 20%;

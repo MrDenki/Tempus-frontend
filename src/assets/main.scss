@@ -1,11 +1,13 @@
 @import "./variables.scss";
 @import "./blocks/UI/index.scss";
 @import "./blocks/task/index.scss";
+@import "./blocks/report/index.scss";
 @import "./blocks/spiner.scss";
 @import "./blocks/form/form.scss";
 @import "./blocks/user/index.scss";
 @import "./blocks/sidebar.scss";
 @import "./pages/main-page.scss";
+@import "./pages/reports-page.scss";
 
 * {
   margin: 0;
