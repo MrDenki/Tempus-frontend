@@ -1,9 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import Card from "@mui/material/Card";
-import { Divider } from "@mui/material";
-import Report from "./Report";
+import { Divider, Card } from "@mui/material";
 import { getReports } from "../../store/slices/reportSlice";
-import { useEffect } from "react";
+import Report from "./Report";
 import ReportsListHeader from "./ReportsListHeader";
 
 const ReportsList = () => {
@@ -14,12 +12,6 @@ const ReportsList = () => {
   const selectDate = (startTime, endTime) => {
     dispatch(getReports({ startTime, endTime, workerId: currentUser.id }));
   };
-
-  // useEffect(() => {
-  //   const startTime = new Date(new Date().setHours(0))
-  //   const endTime = new Date();
-  //   dispatch(getReports({ startTime, endTime, workerId: currentUser.id }));
-  // }, []);
 
   return (
     <>

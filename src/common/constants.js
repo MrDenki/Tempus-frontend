@@ -15,12 +15,14 @@ const lastNameMaxLength = 15;
 export const colors = {
   light: {
     primary: "#07042E",
-    secondary: "#07042E",
-    error: "#07042E",
+    secondary: "rgba(#f52548, 85%)",
+    error: "#f52548",
     warning: "#07042E",
     success: "rgba(13, 201, 60, 0.87)",
   },
 };
+
+// #f52548
 
 const taskTitleMinLength = 3;
 const taskTitleMaxLength = 50;

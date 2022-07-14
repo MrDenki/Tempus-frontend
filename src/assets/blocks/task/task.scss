@@ -23,7 +23,8 @@
   }
 
   &__comleted {
-    color: rgb(100, 243, 75);
+    color: #555C75;
+    margin-left: 5px;
   }
 
   &__description {
@@ -45,7 +46,7 @@
   }
 
   &__button-icon {
-    fill: $primary-color !important;
+    fill: $secondary-color !important;
     height: 35px !important;
     width: 35px !important;
   }

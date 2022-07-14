@@ -1,10 +1,14 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signOut } from "@/store/slices/authSlice";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { FiMenu } from "react-icons/fi";
 
 const Sidebar = () => {
+  const sidebarState = () => {
+    return localStorage.getItem("sidebar");
+  };
+
   useEffect(() => {
     let openMenuToggle = document.querySelector(".toggle-open");
     let navigation = document.querySelector(".navigation");
@@ -30,9 +34,11 @@ const Sidebar = () => {
         while (j < list_nav.length) {
           list_nav[j++].className = "navigation-list";
         }
-        list_nav[i].className = "navigation-list active";
       };
     }
+
+    // const selectedIndex = 1;
+    // list_nav[selectedIndex].className = "navigation-list active";
   }, []);
 
   const dispatch = useDispatch();
@@ -44,68 +50,75 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="navigation active">
+      <div className={["navigation", sidebarState() ? active : null].join(" ")}>
         <div className="navigation-header open">
           <div className="toggle-open active">
-            <ion-icon name="menu-outline" className="open"></ion-icon>
+            <FiMenu className="toggle-open" />
           </div>
         </div>
         <div className="navigation-container">
           <div className="navigation-body">
             <ul>
-              <li className="navigation-list active">
-                <Link to="/tasks">
+              <NavLink
+                to="/tasks"
+                className={({ isActive }) => (isActive ? "active" : "inactive")}
+              >
+                <li className="navigation-list ">
                   <span className="icon">
                     <ion-icon name="briefcase-outline"></ion-icon>
                   </span>
                   <span className="title">Tasks</span>
-                </Link>
-              </li>
-              <li className="navigation-list">
-                <Link to="/reports">
+                </li>
+              </NavLink>
+
+              <NavLink to="/reports" activeClassName="active">
+                <li className="navigation-list">
                   <span className="icon">
                     <ion-icon name="id-card-outline"></ion-icon>
                   </span>
                   <span className="title">Reports</span>
-                </Link>
-              </li>
-              <li className="navigation-list">
-                <Link to="/team">
+                </li>
+              </NavLink>
+
+              <NavLink to="/team" activeClassName="active">
+                <li className="navigation-list">
                   <span className="icon">
                     <ion-icon name="people-outline"></ion-icon>
                   </span>
                   <span className="title">Team</span>
-                </Link>
-              </li>
+                </li>
+              </NavLink>
             </ul>
           </div>
 
           <div className="navigation-footer">
             <ul>
-              <li className="navigation-list">
-                <Link to="/account">
+              <NavLink to="/account" activeClassName="active">
+                <li className="navigation-list">
                   <span className="icon">
                     <ion-icon name="person-outline"></ion-icon>
                   </span>
                   <span className="title">Account</span>
-                </Link>
-              </li>
-              <li className="navigation-list">
-                <Link to="/settings">
+                </li>
+              </NavLink>
+
+              <NavLink to="/settings" activeClassName="active">
+                <li className="navigation-list">
                   <span className="icon">
                     <ion-icon name="settings-outline"></ion-icon>
                   </span>
                   <span className="title">Settings</span>
-                </Link>
-              </li>
-              <li className="navigation-list">
-                <Link to="/sign-in" onClick={handleClick}>
+                </li>
+              </NavLink>
+
+              <a onClick={handleClick}>
+                <li className="navigation-list">
                   <span className="icon">
                     <ion-icon name="exit-outline"></ion-icon>
                   </span>
                   <span className="title">Sign Out</span>
-                </Link>
-              </li>
+                </li>
+              </a>
             </ul>
           </div>
         </div>

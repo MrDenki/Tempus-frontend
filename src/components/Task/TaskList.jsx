@@ -38,7 +38,7 @@ const TaskList = ({ className }) => {
   useEffect(() => {
     setTasks(tasksFromStore);
   }, [tasksFromStore]);
-  
+
   const currentSelectedTask = () =>
     tasks.find((task) => task.taskId === selectedTaskId);
 
@@ -54,7 +54,7 @@ const TaskList = ({ className }) => {
   };
 
   const handleOpenSelectedTask = (taskId) => {
-    dispatch(setSelecedTaskId(taskId))
+    dispatch(setSelecedTaskId(taskId));
     setOpenSelectedTask(true);
   };
   const handleCloseSelectedTask = () => {

@@ -55,12 +55,15 @@ a:hover {
 }
 
 .MuiFormHelperText-root {
-  margin: 0 !important;
-  // height: 50px;
+  margin-top: 2px !important;
 }
 
 .MuiOutlinedInput-root {
   border-radius: 20px !important;
+}
+
+.Mui-disabled:before {
+  border-bottom-style: none !important;
 }
 
 // .MuiOutlinedInput-root fieldset  {
@@ -68,5 +71,10 @@ a:hover {
 // }
 
 // .MuiOutlinedInput-root.Mui-focused fieldset  {
-//   border-color: $darken-secondary-color !important;
+//   border-color: $secondary-color !important;
 // }
+
+.MuiInputBase-inputAdornedEnd {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}

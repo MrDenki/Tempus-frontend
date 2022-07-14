@@ -18,7 +18,7 @@
     justify-content: flex-end;
 
     .toggle-open {
-      margin-right: 10px;
+      margin-right: 20px;
     }
   }
 }
@@ -46,61 +46,17 @@
   border-bottom-left-radius: 20px;
 }
 
-.navigation ul li.active {
-  background: #fff;
+.navigation ul a.active li {
+  background: #F6F9FE;
 }
 
-.navigation ul li b:nth-child(1) {
-  position: absolute;
-  top: -20px;
-  height: 20px;
-  width: 100%;
-  background: #fff;
-  display: none;
-}
-
-.navigation ul li b:nth-child(1)::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-bottom-right-radius: 20px;
-  background: $primary-color;
-}
-
-.navigation ul li b:nth-child(2) {
-  position: absolute;
-  bottom: -20px;
-  height: 20px;
-  width: 100%;
-  background: $font-color;
-  display: none;
-}
-
-.navigation ul li b:nth-child(2)::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-top-right-radius: 20px;
-  background: $primary-color;
-}
-
-.navigation ul li.active b:nth-child(1),
-.navigation ul li.active b:nth-child(2) {
-  display: block;
-}
 .toggle-container {
   margin-top: 20px;
   display: flex;
   justify-content: center;
 }
 
-.navigation ul li a {
+.navigation ul a li {
   position: relative;
   display: block;
   width: 100%;
@@ -110,14 +66,17 @@
 
   &:hover {
     background: $secondary-color;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    color: #fff !important;
   }
 }
 
-.navigation ul li.active a {
+.navigation ul a.active li {
   color: #333;
 }
 
-.navigation ul li a .icon {
+.navigation ul a li .icon {
   position: relative;
   list-style: none;
   display: block;
@@ -127,11 +86,11 @@
   text-align: center;
 }
 
-.navigation ul li a .icon ion-icon {
+.navigation ul a li .icon ion-icon {
   font-size: 1.5em;
 }
 
-.navigation ul li a .title {
+.navigation ul a li .title {
   position: relative;
   display: block;
   padding-left: 10px;
@@ -141,18 +100,14 @@
 }
 
 .toggle-open {
-  width: 50px;
-  height: 50px;
-  background: $secondary-color;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  color: $secondary-color;
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .toggle-open.active {
-  margin-right: 10px;
+  margin-right: 20px !important;
 }
 
 .navigation-header {

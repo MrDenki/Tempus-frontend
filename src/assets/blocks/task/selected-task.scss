@@ -33,7 +33,7 @@
     height: 300px;
 
     &-container {
-      position:relative;
+      position: relative;
       top: 200px;
     }
 
@@ -79,10 +79,21 @@
     }
   }
 
-  .MuiIconButton-root {
-    // height: 45px;
-    // width: 45px;
+  &__description {
+    display: flex;
+    align-items: center;
 
+    &-icon {
+      fill: $icon-color !important;
+      margin-right: 8px;
+    }
+
+    &-textfield {
+      margin-top: 15px;
+    }
+  }
+
+  .MuiIconButton-root {
     .icon {
       position: absolute;
     }
