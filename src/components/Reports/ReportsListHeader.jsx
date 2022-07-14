@@ -69,10 +69,11 @@ const ReportsListHeader = ({ onSelectDate }) => {
   }, []);
 
   return (
-    <div className="reports-page__header">
-      <div className="reports-page__dropdown">
-        <FormControl fullWidth>
-          <Select value={value} onChange={handleChange}>
+    <div className="report-list__header">
+      <div className="report-list__container">
+        <div className="report-list__dropdown">
+        <FormControl className="calendar">
+          <Select value={value} onChange={handleChange} className="report-input">
             <MenuItem value={"Day"}>Day</MenuItem>
             <MenuItem value={"Custom"}>Custom</MenuItem>
 
@@ -82,27 +83,28 @@ const ReportsListHeader = ({ onSelectDate }) => {
         </FormControl>
       </div>
 
-      <div className="reports-page__calendar">
-        <div className="reports-page__check-in">
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <div className="report-list__calendar">
+        <div className="report-list__check-in">
+          <LocalizationProvider dateAdapter={AdapterDateFns} >
             <DatePicker
               label={value == "Day" ? "Day" : "Check-in"}
               value={firstDate}
               onChange={selectFirstDate}
-              renderInput={(params) => <TextField {...params} />}
+              renderInput={(params) => <TextField {...params} className="report-input"/>}
+              inputFormat="dd MMM yyyy"
             />
           </LocalizationProvider>
         </div>
         {value == "Day" ? (
           <></>
         ) : (
-          <div className="reports-page__check-out">
+          <div className="report-list__check-out">
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 label="Check-out"
                 value={lastDate}
                 onChange={selectSecondDate}
-                renderInput={(params) => <TextField {...params} />}
+                renderInput={(params) => <TextField {...params} className="report-input"/>}
               />
             </LocalizationProvider>
           </div>
@@ -111,7 +113,7 @@ const ReportsListHeader = ({ onSelectDate }) => {
       {value == "Custom" ? (
         <></>
       ) : (
-        <div className="reports-page__button">
+        <div className="report-list__button">
           <IconButton size="medium" onClick={selectYesterdayDay}>
             <ArrowBackIosNewIcon />
           </IconButton>
@@ -121,6 +123,7 @@ const ReportsListHeader = ({ onSelectDate }) => {
           </IconButton>
         </div>
       )}
+      </div>
     </div>
   );
 };
