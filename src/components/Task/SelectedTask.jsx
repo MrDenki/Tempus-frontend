@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import { useDebounce } from "@/hooks";
 import { TextField } from "@mui/material";
 import Button from "../UI/Button";
 import DescriptionIcon from "../icons/Description";
 import { finishTask } from "@/store/slices/tasksSlice";
 import { useDispatch, useSelector } from "react-redux";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const style = {
   position: "absolute",
@@ -60,98 +60,97 @@ const SelectedTask = ({
   };
 
   return (
-    <>
-      <div className="selected-task">
-        <div className="selected-task__header">
-          <div className="selected-task__item selected-task__actions">
-            <Button
-              small
-              rounded
-              startIcon={<CheckIcon />}
-              disabled={
-                selectedTask === undefined ||
-                selectedTask.taskId === "new" ||
-                selectedTask.isComplete
-              }
-              onClick={endTask}
-            >
-              Complete
-            </Button>
+    <div className="selected-task">
+      <div className="selected-task__header">
+        <div className="selected-task__item selected-task__actions">
+          <Button
+            small
+            rounded
+            startIcon={<CheckIcon />}
+            disabled={
+              selectedTask === undefined ||
+              selectedTask.taskId === "new" ||
+              selectedTask.isComplete
+            }
+            onClick={endTask}
+          >
+            Complete
+          </Button>
 
-            <Button
-              small
-              rounded
-              startIcon={<DeleteIcon />}
-              disabled={selectedTask === undefined}
-              onClick={() => onDeleteTask(selectedTask.taskId)}
-            >
-              Delete
-            </Button>
-          </div>
-
-          <div className="selected-task__item">
-            <IconButton size="small" onClick={onClose}>
-              <ArrowForwardIcon />
-            </IconButton>
-          </div>
+          <Button
+            small
+            rounded
+            secondary
+            startIcon={<DeleteIcon />}
+            disabled={selectedTask === undefined}
+            onClick={() => onDeleteTask(selectedTask.taskId)}
+          >
+            Delete
+          </Button>
         </div>
 
-        <div className="selected-task__field field">
-          {currentTask && typeof currentTask.title === "string" && (
-            <TextField
-              fullWidth
-              multiline
-              minRows={1}
-              maxRows={5}
-              className="task__title"
-              variant="standard"
-              placeholder="Write a task name"
-              disabled={disabledFields}
-              value={currentTask.title}
-              onChange={changeTitle}
-            />
-          )}
-
-          {!currentTask && (
-            <TextField
-              fullWidth
-              variant="standard"
-              placeholder="Write a task name"
-              disabled={disabledFields}
-            />
-          )}
-        </div>
-
-        <div className="selected-task__description">
-          {<DescriptionIcon className="selected-task__description-icon" />}
-          <span>Description:</span>
-        </div>
-
-        <div className="selected-task__description-textfield">
-          {currentTask && typeof currentTask.description === "string" && (
-            <TextField
-              fullWidth
-              multiline
-              minRows={14}
-              maxRows={14}
-              placeholder="Write a task description"
-              disabled={disabledFields}
-              value={currentTask.description}
-              onChange={changeDescription}
-            />
-          )}
-
-          {!currentTask && (
-            <TextField
-              fullWidth
-              disabled={disabledFields}
-              placeholder="Write a task description"
-              variant="standard"
-            />
-          )}
+        <div className="selected-task__item">
+          <IconButton size="small" className="selected-task__back" onClick={onClose}>
+            <ArrowForwardIosIcon />
+          </IconButton>
         </div>
       </div>
-    </>
+
+      <div className="selected-task__field field">
+        {currentTask && typeof currentTask.title === "string" && (
+          <TextField
+            fullWidth
+            multiline
+            minRows={1}
+            maxRows={5}
+            className="task__title"
+            variant="standard"
+            placeholder="Write a task name"
+            disabled={disabledFields}
+            value={currentTask.title}
+            onChange={changeTitle}
+          />
+        )}
+
+        {!currentTask && (
+          <TextField
+            fullWidth
+            variant="standard"
+            placeholder="Write a task name"
+            disabled={disabledFields}
+          />
+        )}
+      </div>
+
+      <div className="selected-task__description">
+        {<DescriptionIcon className="selected-task__description-icon" />}
+        <span>Description</span>
+      </div>
+
+      <div className="selected-task__description-textfield">
+        {currentTask && typeof currentTask.description === "string" && (
+          <TextField
+            fullWidth
+            multiline
+            minRows={12}
+            maxRows={12}
+            placeholder="Write a task description"
+            disabled={disabledFields}
+            value={currentTask.description}
+            onChange={changeDescription}
+          />
+        )}
+
+        {!currentTask && (
+          <TextField
+            fullWidth
+            disabled={disabledFields}
+            placeholder="Write a task description"
+            variant="standard"
+          />
+        )}
+      </div>
+    </div>
   );
 };
 

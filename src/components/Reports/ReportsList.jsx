@@ -17,9 +17,9 @@ const ReportsList = () => {
     <>
       <ReportsListHeader onSelectDate={selectDate} />
 
-      <Card className="report-list" variant="outlined">
+      <div className="report-list" variant="outlined">
         <div className="report-list__list-holder">
-          {reports ? (
+          {reports.length ? (
             reports.map((report) => (
               <div key={report.date}>
                 <h5 className="report-list__date">{report.date}</h5>
@@ -31,10 +31,10 @@ const ReportsList = () => {
               </div>
             ))
           ) : (
-            <div>no reports</div>
+            <div className="report-list__no-reports">no reports</div>
           )}
         </div>
-      </Card>
+      </div>
     </>
   );
 };

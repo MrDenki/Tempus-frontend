@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { signOut } from "@/store/slices/authSlice";
 import { FiMenu } from "react-icons/fi";
+import { BiTimeFive, BiTask } from "react-icons/bi";
 
 const Sidebar = () => {
   const sidebarState = () => {
@@ -65,7 +66,7 @@ const Sidebar = () => {
               >
                 <li className="navigation-list ">
                   <span className="icon">
-                    <ion-icon name="briefcase-outline"></ion-icon>
+                    <BiTimeFive className="nav-icon first" />
                   </span>
                   <span className="title">Tasks</span>
                 </li>
@@ -77,7 +78,7 @@ const Sidebar = () => {
               >
                 <li className="navigation-list">
                   <span className="icon">
-                    <ion-icon name="id-card-outline"></ion-icon>
+                    <BiTask className="nav-icon first" />
                   </span>
                   <span className="title">Reports</span>
                 </li>

@@ -10,6 +10,7 @@ import Button from "@/components/UI/Button";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import IconButton from "@mui/material/IconButton";
+import { Card } from "@mui/material";
 
 const ReportsListHeader = ({ onSelectDate }) => {
   const [value, setValue] = useState("Day");
@@ -72,57 +73,73 @@ const ReportsListHeader = ({ onSelectDate }) => {
     <div className="report-list__header">
       <div className="report-list__container">
         <div className="report-list__dropdown">
-        <FormControl className="calendar">
-          <Select value={value} onChange={handleChange} className="report-input">
-            <MenuItem value={"Day"}>Day</MenuItem>
-            <MenuItem value={"Custom"}>Custom</MenuItem>
-
-            {/* <MenuItem value={"Week"}>Week</MenuItem> */}
-            {/* <MenuItem value={"Month"}>Month</MenuItem> */}
-          </Select>
-        </FormControl>
-      </div>
-
-      <div className="report-list__calendar">
-        <div className="report-list__check-in">
-          <LocalizationProvider dateAdapter={AdapterDateFns} >
-            <DatePicker
-              label={value == "Day" ? "Day" : "Check-in"}
-              value={firstDate}
-              onChange={selectFirstDate}
-              renderInput={(params) => <TextField {...params} className="report-input"/>}
-              inputFormat="dd MMM yyyy"
-            />
-          </LocalizationProvider>
+          <FormControl className="report-list__filter-type">
+            <Select value={value} onChange={handleChange}>
+              <MenuItem value={"Day"}>Day</MenuItem>
+              <MenuItem value={"Custom"}>Custom</MenuItem>
+            </Select>
+          </FormControl>
         </div>
-        {value == "Day" ? (
-          <></>
-        ) : (
-          <div className="report-list__check-out">
+
+        <div className="report-list__calendar">
+          <div className="report-list__check-in">
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                label="Check-out"
-                value={lastDate}
-                onChange={selectSecondDate}
-                renderInput={(params) => <TextField {...params} className="report-input"/>}
+                label={value == "Day" ? "Day" : "Check-in"}
+                value={firstDate}
+                onChange={selectFirstDate}
+                inputFormat="dd MMM yyyy"
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    className="report-list__report-input"
+                  />
+                )}
               />
             </LocalizationProvider>
           </div>
-        )}
-      </div>
-      {value == "Custom" ? (
-        <></>
-      ) : (
-        <div className="report-list__button">
-          <IconButton size="medium" onClick={selectYesterdayDay}>
-            <ArrowBackIosNewIcon />
-          </IconButton>
-
-          <IconButton size="medium" onClick={selectTomorrowDay}>
-            <ArrowForwardIosIcon />
-          </IconButton>
+          {value == "Day" ? (
+            <></>
+          ) : (
+            <div className="report-list__check-out">
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label="Check-out"
+                  value={lastDate}
+                  onChange={selectSecondDate}
+                  inputFormat="dd MMM yyyy"
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      className="report-list__report-input"
+                    />
+                  )}
+                />
+              </LocalizationProvider>
+            </div>
+          )}
         </div>
-      )}
+        {value == "Custom" ? (
+          <></>
+        ) : (
+          <div className="report-list__buttons">
+            <IconButton
+              size="medium"
+              className="report-list__button"
+              onClick={selectYesterdayDay}
+            >
+              <ArrowBackIosNewIcon />
+            </IconButton>
+
+            <IconButton
+              size="medium"
+              className="report-list__button"
+              onClick={selectTomorrowDay}
+            >
+              <ArrowForwardIosIcon />
+            </IconButton>
+          </div>
+        )}
       </div>
     </div>
   );

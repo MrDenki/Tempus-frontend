@@ -15,7 +15,7 @@ const lastNameMaxLength = 15;
 export const colors = {
   light: {
     primary: "#07042E",
-    secondary: "rgba(#f52548, 85%)",
+    secondary: "#f52548",
     error: "#f52548",
     warning: "#07042E",
     success: "rgba(13, 201, 60, 0.87)",

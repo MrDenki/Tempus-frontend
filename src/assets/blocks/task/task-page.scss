@@ -1,13 +1,15 @@
 .task-page {
+  &__task-list {
+    margin-top: 15px;
+  }
+}
+
+.page {
   margin-top: 15px;
 
   &__title {
     margin: 0;
     font-size: 25px;
     font-weight: 500;
-  }
-
-  &__task-list {
-    margin-top: 15px;
   }
 }

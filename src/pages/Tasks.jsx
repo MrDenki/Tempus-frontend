@@ -19,8 +19,8 @@ const Tasks = () => {
   }, [error]);
 
   return (
-    <div className="task-page">
-      <h3 className="task-page__title">My Task</h3>
+    <div className="page">
+      <h3 className="page__title">My Task</h3>
 
       <TaskList className="task-page__task-list" />
 

@@ -1,7 +1,10 @@
 import Card from "@mui/material/Card";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const Report = ({ task }) => {
-  
   const formatTime = (dateString) => {
     const date = new Date(dateString);
     let hourStr = date.getHours();
@@ -31,29 +34,42 @@ const Report = ({ task }) => {
   };
 
   return (
-    <Card variant="outlined" className="task-report">
-      <div className="task-report__container container1">
-        <div className="task-report__task-title">{task.title}</div>
-        <div className="task-report__timelines">
+    <Accordion className="test" variant="outlined">
+      <AccordionSummary
+        className="task-report"
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        <div className="task-report__container container1">
+          <div className="task-report__task-title">{task.title}</div>
+        </div>
+
+        <div className="task-report__container task-report__work-time">
+          <h4>{formatWorkTime(task.workTime)}</h4>
+        </div>
+      </AccordionSummary>
+
+      <AccordionDetails>
+        {/* <div className="task-report__timelines"> */}
+        <div>
           <ul>
             {task.timeLines.map((timeline) => (
-              <li className="task-report__timeline" key={timeline.id}>
-                <span>{formatTime(timeline.startTime)}</span>
-                <span> - </span>
-                <span>{formatTime(timeline.endTime)}</span>
-                <span className="task-report__timeline-work-time">
-                  {formatWorkTime(timeline.workTime)}
-                </span>
-              </li>
+              <Card variant="outlined" className="test2">
+                <li className="task-report__timeline" key={timeline.id}>
+                  <span>{formatTime(timeline.startTime)}</span>
+                  <span> - </span>
+                  <span>{formatTime(timeline.endTime)}</span>
+                  <span className="task-report__timeline-work-time">
+                    {formatWorkTime(timeline.workTime)}
+                  </span>
+                </li>
+              </Card>
             ))}
           </ul>
         </div>
-      </div>
-
-      <div className="task-report__container task-report__work-time">
-        <h4>{formatWorkTime(task.workTime)}</h4>
-      </div>
-    </Card>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
