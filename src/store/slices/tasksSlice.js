@@ -68,7 +68,6 @@ export const deleteTask = createAsyncThunk(
 export const getSearchedTask = createAsyncThunk(
   "tasks/getSearchedTask",
   async ([userId, title], { rejectWithValue }) => {
-    console.log(userId, title);
     try {
       const { data } = await tasksService.searchTask(userId, title);
       return data;
@@ -113,7 +112,6 @@ export const startTask = createAsyncThunk(
     try {
       const { data } = await tasksService.startTask(taskId, userId);
       return data;
-      // dispatch(getTasks(userId));
     } catch (error) {
       const message = error.response.data.message;
       return rejectWithValue(message);
@@ -126,10 +124,8 @@ export const completeTask = createAsyncThunk(
   async ({ taskId, userId }, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await tasksService.completeTask(taskId, userId);
-      // dispatch(getTasks(userId));
       return data;
     } catch (error) {
-      const message = error.response.data.message;
       return rejectWithValue(error.response.data);
     }
   }
@@ -140,11 +136,9 @@ export const finishTask = createAsyncThunk(
   async ({ taskId }, { rejectWithValue, dispatch }) => {
     try {
       const { data } = await tasksService.finishTask(taskId);
-      // dispatch(getTasks(userId));
       return data;
     } catch (error) {
-      const message = error.response.data.message;
-      return rejectWithValue(message);
+      return rejectWithValue(error.response.data);
     }
   }
 );
@@ -248,10 +242,20 @@ export const tasksSlice = createSlice({
         return task;
       });
     },
+
     [finishTask.fulfilled]: (state, { payload }) => {
       state.tasks = state.tasks.map((task) => {
         if (task.id === payload.id) {
           task = { ...task, ...payload };
+        }
+        return task;
+      });
+    },
+    [finishTask.rejected]: (state, { payload }) => {
+      state.error = payload.message;
+      state.tasks = state.tasks.map((task) => {
+        if (task.id === payload.task.id) {
+          task = { ...task, ...payload.task };
         }
         return task;
       });

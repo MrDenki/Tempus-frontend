@@ -47,7 +47,10 @@
 }
 
 .navigation ul a.active li {
-  background: #F6F9FE;
+  background: #f6f9fe;
+  .icon ion-icon {
+    color: $secondary-color;
+  }
 }
 
 .toggle-container {
@@ -69,11 +72,16 @@
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     color: #fff !important;
+
+    .icon ion-icon {
+      color: #fff !important;
+    }
   }
 }
 
 .navigation ul a.active li {
-  color: #333;
+  color: $secondary-color;
+  font-weight: 500;
 }
 
 .navigation ul a li .icon {

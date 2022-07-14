@@ -11,7 +11,6 @@ export const getReports = createAsyncThunk(
   "tasks/getReports",
   async ({ startTime, endTime, workerId }, { rejectWithValue }) => {
     try {
-      console.log(startTime, endTime, workerId);
       const { data } = await tasksService.getReport(
         startTime,
         endTime,

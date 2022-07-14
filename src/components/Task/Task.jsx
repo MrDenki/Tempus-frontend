@@ -109,12 +109,10 @@ const Task = ({ task, selected, onChange, onClick }) => {
         completeTask({ taskId: activeTask.id, userId: currentUser.id })
       );
     dispatch(startTask({ taskId: task.id, userId: currentUser.id }));
-    startTimer();
   };
 
   const pauseTask = () => {
     dispatch(completeTask({ taskId: task.id, userId: currentUser.id }));
-    stopTimer();
   };
 
   return (

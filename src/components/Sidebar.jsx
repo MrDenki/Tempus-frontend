@@ -61,7 +61,7 @@ const Sidebar = () => {
             <ul>
               <NavLink
                 to="/tasks"
-                className={({ isActive }) => (isActive ? "active" : "inactive")}
+                className={({ isActive }) => (isActive ? "active" : null)}
               >
                 <li className="navigation-list ">
                   <span className="icon">
@@ -71,7 +71,10 @@ const Sidebar = () => {
                 </li>
               </NavLink>
 
-              <NavLink to="/reports" activeClassName="active">
+              <NavLink
+                to="/reports"
+                className={({ isActive }) => (isActive ? "active" : null)}
+              >
                 <li className="navigation-list">
                   <span className="icon">
                     <ion-icon name="id-card-outline"></ion-icon>
@@ -80,7 +83,10 @@ const Sidebar = () => {
                 </li>
               </NavLink>
 
-              <NavLink to="/team" activeClassName="active">
+              <NavLink
+                to="/team"
+                className={({ isActive }) => (isActive ? "active" : null)}
+              >
                 <li className="navigation-list">
                   <span className="icon">
                     <ion-icon name="people-outline"></ion-icon>
@@ -93,7 +99,10 @@ const Sidebar = () => {
 
           <div className="navigation-footer">
             <ul>
-              <NavLink to="/account" activeClassName="active">
+              <NavLink
+                to="/account"
+                className={({ isActive }) => (isActive ? "active" : null)}
+              >
                 <li className="navigation-list">
                   <span className="icon">
                     <ion-icon name="person-outline"></ion-icon>
@@ -102,7 +111,10 @@ const Sidebar = () => {
                 </li>
               </NavLink>
 
-              <NavLink to="/settings" activeClassName="active">
+              <NavLink
+                to="/settings"
+                className={({ isActive }) => (isActive ? "active" : null)}
+              >
                 <li className="navigation-list">
                   <span className="icon">
                     <ion-icon name="settings-outline"></ion-icon>
