@@ -1,0 +1,135 @@
+.test {
+  margin-bottom: 10px !important;
+  border-color: $primary-color !important;
+  border-radius: 8px !important;
+  border: none !important;
+  box-shadow: 0px 0px 30px 2px rgba(34, 60, 80, 0.048);
+}
+
+.test2 {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-color: $primary-color !important;
+  border-radius: 8px !important;
+  border: none !important;
+  box-shadow: 0px 0px 30px 2px rgba(34, 60, 80, 0.048);
+}
+
+.report-list {
+  min-height: calc(100vh - 160px);
+  padding: 10px 0;
+  box-shadow: 0px 0px 30px 2px rgba(34, 60, 80, 0.048);
+  border-radius: 6px;
+
+  &__header {
+    display: flex;
+    margin-top: 15px;
+    font-family: $font-family;
+    font-size: $font-size;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 0;
+    box-shadow: 0px 0px 30px 2px rgba(34, 60, 80, 0.048);
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    border-bottom: 1px solid $primary-color;
+  }
+
+  &__container {
+    padding: 5px 0px;
+    display: flex;
+    width: 80%;
+    align-items: center;
+  }
+
+  &__dropdown {
+    min-width: 150px;
+  }
+
+  &__calendar {
+    width: 100%;
+    display: flex;
+
+    > .report-list__check-in {
+      margin-right: 30px;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    width: 30%;
+    justify-content: space-evenly;
+    align-items: right;
+  }
+
+  &__button {
+    color: $secondary-color !important;
+  }
+
+  &__report-input > div > input {
+    padding: 10px 5px !important;
+  }
+
+  &__filter-type {
+    flex: 10% !important;
+    width: 80% !important;
+    & > div > div {
+      padding: 10px 32px 10px 14px !important;
+    }
+  }
+
+  &__list-holder {
+    padding: 15px 25px;
+    flex-grow: 1;
+    max-height: calc(100vh - 150px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    min-width: 55%;
+  }
+
+  &__date {
+    padding: 0;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+
+.task-report {
+  padding: 10px 25px 10px 25px !important;
+  display: flex;
+
+  &__task-title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  &__timelines {
+    padding: 20px 25px 10px 25px;
+  }
+
+  &__timeline {
+    margin-bottom: 10px;
+  }
+
+  &__timeline-work-time {
+    margin-left: 25px;
+  }
+
+  &__work-time {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__container {
+    flex: 50%;
+  }
+
+  &__no-reports {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

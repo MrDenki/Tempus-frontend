@@ -15,7 +15,6 @@ export const signIn = createAsyncThunk(
   "auth/signIn",
   async (credentials, { rejectWithValue, dispatch }) => {
     try {
-      // dispatch(setAuth(true))
       const {
         data: { user },
       } = await authService.signIn(credentials);
@@ -44,13 +43,11 @@ export const signUp = createAsyncThunk(
 
 export const signOut = createAsyncThunk(
   "auth/signOut",
-  async (_, { rejectWithValue, dispatch }) => {
+  async (_, { rejectWithValue }) => {
     try {
       await authService.signOut();
       localStorage.removeItem("isAuth");
-      // await dispatch(clearTaskState())
     } catch (error) {
-      console.log(error);
       const message = error.response.data.message;
       return rejectWithValue(message);
     }

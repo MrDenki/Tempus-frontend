@@ -1,14 +1,11 @@
 import { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BsPauseFill as PauseIcon } from "react-icons/bs";
+import { BsPlayFill as StartIcon } from "react-icons/bs";
 import { TextField } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
-import PauseIcon from "@mui/icons-material/Pause";
-import StartIcon from "../icons/StartIcon";
 import { useTrim, useDebounce } from "@/hooks";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  startTask,
-  completeTask,
-} from "../../store/slices/tasksSlice";
+import { startTask, completeTask } from "../../store/slices/tasksSlice";
 
 const Task = ({ task, selected, onChange, onClick }) => {
   const classes = ["task"];
@@ -29,6 +26,8 @@ const Task = ({ task, selected, onChange, onClick }) => {
   }, [task]);
 
   useEffect(() => {
+    if (!currentUser) return;
+
     if (task.workerId === currentUser.id) {
       if (task.isComplete) {
         clearInterval(timer.current);
@@ -87,42 +86,6 @@ const Task = ({ task, selected, onChange, onClick }) => {
     };
   }, [task]);
 
-  const startTimer = () => {
-    if (!workTime) return;
-    const time = workTime.split(":");
-    let hours = Number(time[0]);
-    let minutes = Number(time[1]);
-    let seconds = Number(time[2]);
-
-    timer.current = setInterval(() => {
-      if (seconds < 59) seconds += 1;
-      else {
-        seconds = 0;
-        minutes += 1;
-      }
-
-      if (minutes >= 59) {
-        minutes = 0;
-        hours += 1;
-      }
-
-      let hourStr = hours;
-      let minStr = minutes;
-      let secStr = seconds;
-
-      if (hours < 10) hourStr = `0${hours}`;
-      if (minutes < 10) minStr = `0${minutes}`;
-      if (seconds < 10) secStr = `0${seconds}`;
-      let dateStr = `${hourStr}:${minStr}:${secStr}`;
-
-      setWorkTime(dateStr);
-    }, 1000);
-  };
-
-  const stopTimer = () => {
-    clearInterval(timer.current);
-  };
-
   const changeTitle = (e) => {
     if (e.target.value.length === 0) return;
 
@@ -134,7 +97,7 @@ const Task = ({ task, selected, onChange, onClick }) => {
   };
 
   const taskIsAssignedToCurrentUser = () => {
-    if (!task) return;
+    if (!task || !currentUser) return;
     if (task.workerId === currentUser.id) return true;
     return false;
   };
@@ -146,12 +109,10 @@ const Task = ({ task, selected, onChange, onClick }) => {
         completeTask({ taskId: activeTask.id, userId: currentUser.id })
       );
     dispatch(startTask({ taskId: task.id, userId: currentUser.id }));
-    startTimer();
   };
 
   const pauseTask = () => {
     dispatch(completeTask({ taskId: task.id, userId: currentUser.id }));
-    stopTimer();
   };
 
   return (

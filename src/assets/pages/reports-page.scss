@@ -1,15 +1,14 @@
-.task-page {
-  &__task-list {
-    margin-top: 15px;
-  }
-}
-
-.page {
+.reports-page {
   margin-top: 15px;
 
   &__title {
     margin: 0;
     font-size: 25px;
     font-weight: 500;
+    margin-bottom: 50px;
+  }
+
+  &__reports-list {
+    margin-top: 150px;
   }
 }

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useRoutes } from "react-router-dom";
 import routes from "@/router";
 import { getCurrentUser } from "@/store/slices/authSlice";
+import "react-datepicker/dist/react-datepicker.css";
 
 const App = () => {
   const dispatch = useDispatch();

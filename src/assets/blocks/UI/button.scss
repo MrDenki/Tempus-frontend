@@ -15,11 +15,11 @@
   // border-width: 2px !important;
   &__contained {
     background: $gradient !important;
-    background-color: $primary-color !important;
+    background-color: $secondary-color !important;
     transition: background 0.2s ease;
 
     &:hover {
-      background: darker($primary-color, 1) !important;
+      background: darker($secondary-color, 1) !important;
     }
   }
 

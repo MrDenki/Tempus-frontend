@@ -1,6 +1,7 @@
 @import "./variables.scss";
 @import "./blocks/UI/index.scss";
 @import "./blocks/task/index.scss";
+@import "./blocks/report/index.scss";
 @import "./blocks/spiner.scss";
 @import "./blocks/form/form.scss";
 @import "./blocks/user/index.scss";
@@ -16,6 +17,7 @@ html,
 body {
   height: 100%;
   font-family: $font-family;
+  background-color: #f6f9fe !important;
 }
 
 #root {
@@ -51,12 +53,15 @@ a:hover {
 }
 
 .MuiFormHelperText-root {
-  margin: 0 !important;
-  // height: 50px;
+  margin-top: 2px !important;
 }
 
 .MuiOutlinedInput-root {
   border-radius: 20px !important;
+}
+
+.Mui-disabled:before {
+  border-bottom-style: none !important;
 }
 
 // .MuiOutlinedInput-root fieldset  {
@@ -64,5 +69,19 @@ a:hover {
 // }
 
 // .MuiOutlinedInput-root.Mui-focused fieldset  {
-//   border-color: $darken-secondary-color !important;
+//   border-color: $secondary-color !important;
 // }
+
+.MuiInputBase-inputAdornedEnd {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.coming-soon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  font-size: $font-size * 2;
+  font-family: $font-family;
+}

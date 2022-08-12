@@ -25,6 +25,10 @@ export default class tasksService {
   static finishTask = (taskId, userId) =>
     instance.post(`tasks/${taskId}/completeTask`, { userId });
 
+  static getReport = (startTime, endTime, workerId) =>
+    instance.get("tasks/getReport", {
+      params: { workerId, startTime, endTime },
+    });
 
   // static startPause = (taskId, userId) =>
   //   instance.post(`tasks/${taskId}/startpause`, { userId });

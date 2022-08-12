@@ -1,7 +1,8 @@
 .task {
   padding: 0px 18px;
   display: flex;
-  border-bottom: 1px solid $border-color;
+  // border-bottom: 1px solid $border-color;
+  border-bottom: 1px solid #555c7572;
 
   &__body {
     width: 90%;
@@ -23,7 +24,8 @@
   }
 
   &__comleted {
-    color: rgb(100, 243, 75);
+    color: #555C75;
+    margin-left: 5px;
   }
 
   &__description {
@@ -45,7 +47,7 @@
   }
 
   &__button-icon {
-    fill: $primary-color !important;
+    fill: $secondary-color !important;
     height: 35px !important;
     width: 35px !important;
   }
